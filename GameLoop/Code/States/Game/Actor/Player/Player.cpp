@@ -132,6 +132,10 @@ void Player::Draw(sf::RenderTarget* _render)
 
 }
 
+Player::PlayerState Player::UpdateState(void)
+{
+}
+
 void Player::UpdateIdle(float _dt)
 {
 
