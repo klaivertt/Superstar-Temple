@@ -25,10 +25,10 @@ void Load(GameData* _game)
 
 	CreateInputs(_game);
 
-	//_game->manager->LoadScene("Game");
-	_game->manager->LoadScene("LevelEditor");
+	_game->manager->LoadScene("Game");
+	//_game->manager->LoadScene("LevelEditor");
 
-	_game->log->Success("Everything loaded successfully !");
+	Logger::Success("Everything loaded successfully !");
 }
 
 void CreateInputs(GameData* _game)

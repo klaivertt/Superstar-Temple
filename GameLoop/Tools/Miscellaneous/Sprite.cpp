@@ -130,7 +130,7 @@ void Sprite::SetShader(std::string _path)
 	}
 	else
 	{
-		data->log->Error("Failed to Load shader at " + _path);
+		Logger::Error("Failed to Load shader at " + _path);
 	}
 }
 

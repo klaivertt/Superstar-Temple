@@ -68,7 +68,7 @@ LevelDoor::LevelDoor(GameData* _data, Vec2 _pos) : Interactable(_data)
 	// Initialisation
 	currentFrame = 0;
 
-	data->log->Info("Created Door at position " + position.ToString());
+	Logger::Info("Created Door at position " + position.ToString());
 }
 
 LevelDoor::~LevelDoor()
@@ -102,7 +102,7 @@ void LevelDoor::Open(void)
 			ResetBox();
 		}
 
-		data->log->Info("Door opening");
+		Logger::Info("Door opening");
 	}
 }
 
@@ -111,7 +111,7 @@ void LevelDoor::Close(void)
 	if (isOpen)
 	{
 		isOpen = false;
-		data->log->Info("Door closing");
+		Logger::Info("Door closing");
 	}
 }
 

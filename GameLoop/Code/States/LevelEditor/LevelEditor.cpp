@@ -313,9 +313,9 @@ void LevelEditor::Load(void)
 
     if (!editorCamera || !grid || !selectionManager)
     {
-        if (data && data->log)
+        if (data)
         {
-            data->log->Error("Failed to initialize editor components");
+            Logger::Error("Failed to initialize editor components");
         }
         return;
     }

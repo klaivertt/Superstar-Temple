@@ -99,7 +99,7 @@ void Scene::AddActor(Actor* _actor)
 	ordered = false;
 	
 		_actor->name = _actor->GetClassName() + "_" + std::to_string(actorsCount);
-		data->log->Success(_actor->name + " Created");
+		Logger::Success(_actor->name + " Created");
 		actorsCount++;
 	
 
