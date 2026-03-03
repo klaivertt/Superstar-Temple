@@ -241,4 +241,5 @@ inline sf::Vector2f ToSFML(const Vec2& _vec)
 // Scalar product
 float GetVectorDistance(Vec2 _a, Vec2 _b);
 
+
 #endif

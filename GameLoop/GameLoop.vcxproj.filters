@@ -33,7 +33,6 @@
     <ClCompile Include="Tools\Miscellaneous\Actor.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Animation.cpp" />
     <ClCompile Include="Tools\Debug\DebugViewer.cpp" />
-    <ClCompile Include="Tools\Movement\Walk.cpp" />
     <ClCompile Include="Tools\Debug\ImGuiManager.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Inputs.cpp" />
     <ClCompile Include="Tools\Debug\Logger.cpp" />
@@ -197,7 +196,6 @@
     <ClInclude Include="Tools\Miscellaneous\Array.hpp" />
     <ClInclude Include="Tools\Debug\DebugViewer.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Delegate.hpp" />
-    <ClInclude Include="Tools\Movement\Walk.hpp" />
     <ClInclude Include="Tools\Debug\ImGuiManager.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Inputs.hpp" />
     <ClInclude Include="Tools\Debug\Logger.hpp" />

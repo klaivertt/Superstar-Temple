@@ -43,9 +43,10 @@ void Physics::Destroy(b2WorldId _id)
 	b2DestroyWorld(_id);
 }
 
-b2BodyId Physics::CreateBody(b2WorldId _world, BodyType _type, Transform _transform, Actor* _parent)
+b2BodyId Physics::CreateBody(b2WorldId _world, BodyType _type, Transform _transform, Actor* _parent, bool _fixedRotation)
 {
 	b2BodyDef def = b2DefaultBodyDef();
+	def.fixedRotation = _fixedRotation;
 
 	switch (_type)
 	{
@@ -117,6 +118,7 @@ b2ShapeId Physics::CreateBoxCollider(b2BodyId _body, Transform _transform)
 {
 	b2ShapeDef def = b2DefaultShapeDef();
 	def.density = 1.f;
+
 
 	b2Hull hull = { 0 };
 
@@ -437,4 +439,10 @@ Vec2 Physics::GetBodyPosition(b2BodyId _body)
 {
 	b2Vec2 pos = b2Body_GetPosition(_body);
 	return ToVec2(pos) * METERS_TO_PIXELS;
+}
+
+void Physics::SetBodyPosition(b2BodyId _body, Vec2 _position)
+{
+	b2Vec2 pos = { _position.x / METERS_TO_PIXELS, -_position.y / METERS_TO_PIXELS };
+	b2Body_SetTransform(_body, pos, b2Body_GetRotation(_body));
 }
