@@ -19,3 +19,8 @@ void Interactable::OnCollisionEnter(ColEvent _col)
 void Interactable::OnCollisionExit(ColEvent _col)
 {
 }
+
+float Interactable::GetInteractRange(void)
+{
+    return interactRange;
+}
