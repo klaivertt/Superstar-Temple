@@ -1,26 +1,41 @@
-#include "Layer.hpp"
+#include "Tools/Map/Layer.hpp"
+
+#include "Tools/Debug/Logger.hpp"
+#include "Tools/Miscellaneous/Text.hpp"
 
 namespace Layer
 {
 	Layer::Layer()
 	{
 		m_visibility = true;
-		m_position = sf::Vector2f();
 	}
 
 	Layer::Layer(sf::Vector2f _coord, bool _visibility)
 	{
 		m_visibility = _visibility;
-		m_position = _coord;
+		m_bakeSprite.setPosition(_coord);
 	}
 
 	Layer::~Layer()
 	{
 	}
 
+	void Layer::Position(sf::Vector2f _position)
+	{
+		m_bakeSprite.setPosition(_position);
+	}
+
+	sf::Vector2f Layer::Position()
+	{
+		return m_bakeSprite.getPosition();
+	}
+
 	void Layer::Draw(sf::RenderTarget& _target)
 	{
-		_target.draw(m_bakeSprite);
+		if(m_visibility)
+		{
+			_target.draw(m_bakeSprite);
+		}
 	}
 
 	TileLayer::TileLayer()
@@ -67,7 +82,7 @@ namespace Layer
 #ifdef _DEBUG
 		else
 		{
-			std::cout << "[ERROR]Invalid coordinates" << "\033[0;93m" << std::endl;
+			Logger::Error("Invalid coordinates");
 		}
 #endif // !_DEBUG
 	}
@@ -92,6 +107,7 @@ namespace Layer
 			m_bakeRender.draw(*m_tileSprite);
 		}
 		m_bakeRender.display();
+		m_bakeSprite.setTexture(m_bakeRender.getTexture());
 	}
 
 	unsigned TileLayer::CoordToId(sf::Vector2u _coord)
@@ -121,12 +137,64 @@ namespace Layer
 	{
 	}
 
+	void Object::Draw(sf::RenderTarget& _target)
+	{
+		sf::Text name;
+		name.setFont(*GetFont(FontType::NORMAL));
+		name.setString(m_name);
+		sf::FloatRect rect = name.getGlobalBounds();
+		name.setOrigin(rect.width / 2.f, rect.height / 2.f);
+		name.setPosition(m_position);
+	}
+
 	ObjectLayer::ObjectLayer()
 	{
 	}
 
 	ObjectLayer::~ObjectLayer()
 	{
+		ClearObjects();
+	}
+
+	void ObjectLayer::AddObject(Object* _obj)
+	{
+		m_objects.push_back(_obj);
+	}
+
+	void ObjectLayer::RemoveObject(int _id)
+	{
+		if (_id < m_objects.size())
+		{
+			delete m_objects[_id];
+			m_objects[_id] = m_objects.back();
+			m_objects.pop_back();
+		}
+#ifdef _DEBUG
+		else
+		{
+			Logger::Error("Id " + std::to_string(_id) + " not allowed in layer " + m_name);
+		}
+#endif
+	}
+
+	void ObjectLayer::ClearObjects()
+	{
+		for (int i = 0; i < m_objects.size(); i++)
+		{
+			delete m_objects[i];
+		}
+		m_objects.clear();
+	}
+
+	void ObjectLayer::Bake()
+	{
+		m_bakeRender.create(m_size.x , m_size.y);
+		m_bakeRender.clear(sf::Color::Black);
+		for (int i = 0; i < m_objects.size(); i++)
+		{
+			m_objects[i]->Draw(m_bakeRender);
+		}
+		m_bakeRender.display();
 	}
 
 }

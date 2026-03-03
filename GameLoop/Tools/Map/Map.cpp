@@ -1,6 +1,8 @@
-#include "Map.hpp"
+#include "Tools/Map/Map.hpp"
+
 #include "JSON/json.h"
 #include "JSON/json-forwards.h"
+#include "Tools/Debug/Logger.hpp"
 
 Map::Map()
 {
@@ -44,14 +46,14 @@ void Map::LoadMap(std::string _path)
 #ifdef _DEBUG
 		else
 		{
-			std::cout << "json empty!" << "\033[0;93m" << std::endl;
+			Logger::Error("json empty!");
 		}
 #endif
 	}
 #ifdef _DEBUG
 	else
 	{
-		std::cout << "file " << _path << "doesn't exist!" << "\033[0;93m" << std::endl;
+		Logger::Error("file " + _path + "doesn't exist!");
 	}
 #endif
 }

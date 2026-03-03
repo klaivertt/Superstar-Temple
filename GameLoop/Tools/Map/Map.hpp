@@ -3,7 +3,7 @@
 
 #include "Common.hpp"
 
-//Map creaator Masked-Bxy
+//Map creator Masked-Bxy
 
 class Map
 {

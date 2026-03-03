@@ -17,6 +17,7 @@ namespace Layer
 	public:
 		Object(std::string _name, sf::Vector2f _position, sf::Vector2f _size, bool _visibility, CollidType _type, b2WorldId _world);
 		~Object();
+		void Draw(sf::RenderTarget& _target);
 	private:
 		std::string m_name;
 		sf::Vector2f m_size;
@@ -30,13 +31,16 @@ namespace Layer
 		Layer();
 		Layer(sf::Vector2f _coord, bool _visibility);
 		~Layer();
-		sf::Vector2f m_position;
+		void Position(sf::Vector2f _position);
+		sf::Vector2f Position();
 		bool m_visibility;
 		virtual void Bake();
 		virtual void Draw(sf::RenderTarget& _target);
+		std::string m_name;
 	protected:
 		sf::RenderTexture m_bakeRender;
 		sf::Sprite m_bakeSprite;
+		sf::Vector2u m_size;
 	};
 
 	class TileLayer : public Layer
@@ -58,7 +62,6 @@ namespace Layer
 		sf::Vector2u IdToCoord(unsigned _id);
 		unsigned* m_grid;
 		unsigned m_gridLength;
-		sf::Vector2u m_size;
 	};
 
 	class ObjectLayer : public Layer
@@ -66,10 +69,12 @@ namespace Layer
 	public:
 		ObjectLayer();
 		~ObjectLayer();
-		std::vector<Object*> m_objects;
+		void AddObject(Object* _obj);
+		void RemoveObject(int _id);
+		void ClearObjects();
 		virtual void Bake() override;
-		virtual void Draw(sf::RenderTarget& _target) override;
-
+	private:
+		std::vector<Object*> m_objects;
 	};
 }
 
