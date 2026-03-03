@@ -235,7 +235,7 @@ inline Vec2 ToVec2(const sf::Vector2f& _vec)
 
 inline sf::Vector2f ToSFML(const Vec2& _vec)
 {
-	return sf::Vector2f(_vec.x, _vec.y);
+	return sf::Vector2f(_vec.x, -_vec.y);
 }
 
 // Scalar product

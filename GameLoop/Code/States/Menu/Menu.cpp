@@ -10,7 +10,7 @@ Menu::Menu(GameData* _scene) : Scene(_scene)
 
 void Menu::Load(void)
 {
-	#pragma region Buttons
+	/*#pragma region Buttons
 	const std::string path = "Assets/Sprites/Menu/UI/";
 	for (int i = 0; i < int(MenuButtonsType::COUNT); i++)
 	{
@@ -56,7 +56,7 @@ void Menu::Load(void)
 			break;
 		}
 	}
-	#pragma endregion
+	#pragma endregion*/
 
 	Scene::Load();
 }
@@ -64,28 +64,28 @@ void Menu::Load(void)
 void Menu::Update(float _dt)
 {
 	Scene::Update(_dt);
-	sf::Vector2f mousePosition = (sf::Vector2f)sf::Mouse::getPosition(*this->data->render);
+	//sf::Vector2f mousePosition = (sf::Vector2f)sf::Mouse::getPosition(*this->data->render);
 
-	parralaxOffset = -(mousePosition - SCREEN_SIZE / 2.f) * 0.03f;
-	parralaxOffset.y = 0;
+	//parralaxOffset = -(mousePosition - SCREEN_SIZE / 2.f) * 0.03f;
+	//parralaxOffset.y = 0;
 
-	//Buttons
-	for (int i = 0; i < int(MenuButtonsType::COUNT); i++)
-	{
-		this->button[i].positionOffset = parralaxOffset;
-		this->button[i].Update();
-	}
+	////Buttons
+	//for (int i = 0; i < int(MenuButtonsType::COUNT); i++)
+	//{
+	//	this->button[i].positionOffset = parralaxOffset;
+	//	this->button[i].Update();
+	//}
 }
 
 void Menu::Draw(sf::RenderTarget* _render)
 {
 	Scene::Draw(_render);
 
-	// Buttons
-	for (int i = 0; i < int(MenuButtonsType::COUNT); i++)
-	{
-		this->button[i].Draw(*_render);
-	}
+	//// Buttons
+	//for (int i = 0; i < int(MenuButtonsType::COUNT); i++)
+	//{
+	//	this->button[i].Draw(*_render);
+	//}
 }
 
 void Menu::Destroy(void)
