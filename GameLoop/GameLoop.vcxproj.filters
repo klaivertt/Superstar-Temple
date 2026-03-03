@@ -44,6 +44,9 @@
     <ClCompile Include="Code\States\LevelEditor\EditorCamera.cpp" />
     <ClCompile Include="Code\States\LevelEditor\EditorGrid.cpp" />
     <ClCompile Include="Code\States\LevelEditor\SelectionManager.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Box.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Button.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Key.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Core\Draw.hpp" />
@@ -211,6 +214,10 @@
     <ClInclude Include="Code\States\LevelEditor\EditorCamera.hpp" />
     <ClInclude Include="Code\States\LevelEditor\EditorGrid.hpp" />
     <ClInclude Include="Code\States\LevelEditor\SelectionManager.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Box.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Button.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Interactable.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Key.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\lib\Debug\freeglut.lib" />
