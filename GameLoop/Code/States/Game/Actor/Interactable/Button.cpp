@@ -1,11 +1,6 @@
 #include "Button.hpp"
 
-Button::Button(GameData* _data) : Actor(_data)
-{
-
-}
-
-Button::Button(GameData* _data, std::string _name) : Actor(_data, _name)
+Button::Button(GameData* _data) : Interactable(_data)
 {
 
 }

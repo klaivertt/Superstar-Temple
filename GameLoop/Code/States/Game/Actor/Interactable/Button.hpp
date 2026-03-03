@@ -4,14 +4,14 @@
 
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
+#include "Interactable.hpp"
 
-struct Button : public Actor
+struct Button : public Interactable
 {
 private:
 	// Variables here
 public:
 	Button(GameData* _data);
-	Button(GameData* _data, std::string _name);
 
 	std::string GetClassName(void) override { return "Button"; }
 

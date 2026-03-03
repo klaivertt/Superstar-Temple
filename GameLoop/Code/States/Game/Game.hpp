@@ -6,18 +6,18 @@
 #include "../../GameLoop/GameData.hpp"
 
 #include "../../GameLoop/Tools/Miscellaneous/Inputs.hpp"
-
-#include "Code/States/Game/Actor/Player/Player.hpp"
 #include "Tools/Physics/Physics.hpp"
 
 class Animation;
 class Player;
+class Key;
 
 struct Game : public Scene
 {
 protected:
 
 	Player* player = nullptr;
+	Key* key = nullptr;
 
 	//temp ground
 	b2BodyId groundBody = b2BodyId();

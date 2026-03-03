@@ -1,11 +1,6 @@
 #include "Box.hpp"
 
-Box::Box(GameData* _data) : Actor(_data)
-{
-
-}
-
-Box::Box(GameData* _data, std::string _name) : Actor(_data, _name)
+Box::Box(GameData* _data) : Interactable(_data)
 {
 
 }

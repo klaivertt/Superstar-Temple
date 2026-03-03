@@ -12,7 +12,6 @@ private:
 
 public:
 	Interactable(GameData* _data);
-	Interactable(GameData* _data, std::string _name);
 
 	virtual std::string GetClassName(void) override { return "Interactable"; }
 

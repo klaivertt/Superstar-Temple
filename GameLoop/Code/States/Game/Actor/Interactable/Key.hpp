@@ -4,14 +4,19 @@
 
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
+#include "Interactable.hpp"
 
-struct Key : public Actor
+struct Key : public Interactable
 {
 private:
-	// Variables here
+	sf::Texture texture;
+	sf::Sprite sprite;
+
+	sf::Vector2f pos;
+
 public:
 	Key(GameData* _data);
-	Key(GameData* _data, std::string _name);
+
 	std::string GetClassName(void) override { return "Key"; }
 
 	virtual void Update(float _dt) override;

@@ -34,7 +34,7 @@ void Player::Update(float _dt)
 	}
 
 	sf::Vector2f position = ToSFML(Physics::GetBodyPosition(body));
-	Logger::Debug(Logger::Vec2(position, "Player position : "), false);
+	//Logger::Debug(Logger::Vec2(position, "Player position : "), false);
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
