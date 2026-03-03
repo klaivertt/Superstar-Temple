@@ -470,14 +470,14 @@ void LevelEditor::Draw(sf::RenderTarget* _render)
         grid->Draw(_render, *editorCamera->GetView());
     }
 
-    Scene::Draw(_render);
-
     if (selectionManager)
     {
         selectionManager->DrawSelection(_render);
         selectionManager->DrawSelectionRect(_render);
     }
 
+
+    Scene::Draw(_render);
     _render->setView(_render->getDefaultView());
 }
 

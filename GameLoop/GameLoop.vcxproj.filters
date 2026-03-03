@@ -8,7 +8,6 @@
     <ClCompile Include="Code\States\Gameover\Gameover.cpp" />
     <ClCompile Include="Code\States\Game\Actor\BasicCube.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
-    <ClCompile Include="Code\States\Menu\Background\MenuBackground.cpp" />
     <ClCompile Include="Code\States\LevelEditor\Actors\Inspector.cpp" />
     <ClCompile Include="Code\States\LevelEditor\Actors\LevelBoxCollider.cpp" />
     <ClCompile Include="Code\States\LevelEditor\LevelEditor.cpp" />
@@ -54,7 +53,6 @@
     <ClInclude Include="Code\Core\Load.hpp" />
     <ClInclude Include="Code\Core\PollEvents.hpp" />
     <ClInclude Include="Code\Core\Update.hpp" />
-    <ClInclude Include="Code\States\Menu\Background\MenuBackground.hpp" />
     <ClInclude Include="Code\States\LevelEditor\Actors\Inspector.hpp" />
     <ClInclude Include="Code\States\LevelEditor\Actors\LevelActor.hpp" />
     <ClInclude Include="Code\States\LevelEditor\Actors\LevelBoxCollider.hpp" />

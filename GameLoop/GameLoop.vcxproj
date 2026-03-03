@@ -184,7 +184,6 @@
     <ClCompile Include="Code\States\LevelEditor\EditorCamera.cpp" />
     <ClCompile Include="Code\States\LevelEditor\EditorGrid.cpp" />
     <ClCompile Include="Code\States\LevelEditor\SelectionManager.cpp" />
-    <ClCompile Include="Code\States\Menu\Background\MenuBackground.cpp" />
     <ClCompile Include="Code\States\LevelEditor\Actors\Inspector.cpp" />
     <ClCompile Include="Code\States\LevelEditor\Actors\LevelBoxCollider.cpp" />
     <ClCompile Include="Code\States\LevelEditor\Actors\Interactable\LevelLever.cpp" />
@@ -233,7 +232,6 @@
     <ClInclude Include="Code\States\LevelEditor\EditorCamera.hpp" />
     <ClInclude Include="Code\States\LevelEditor\EditorGrid.hpp" />
     <ClInclude Include="Code\States\LevelEditor\SelectionManager.hpp" />
-    <ClInclude Include="Code\States\Menu\Background\MenuBackground.hpp" />
     <ClInclude Include="Code\States\LevelEditor\Actors\Inspector.hpp" />
     <ClInclude Include="Code\States\LevelEditor\Actors\LevelActor.hpp" />
     <ClInclude Include="Code\States\LevelEditor\Actors\LevelBoxCollider.hpp" />

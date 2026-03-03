@@ -3,7 +3,6 @@
 
 #include "Tools/Scene.hpp"
 #include "GameData.hpp"
-#include "Background/MenuBackground.hpp"
 #include "Tools/UI/Button.hpp"
 #include "Tools/UI/Slider.hpp"
 
@@ -21,7 +20,6 @@ enum class MenuButtonsType
 struct Menu : public Scene
 {
 protected:
-	MenuBackground background;
 	Button button[int(MenuButtonsType::COUNT)];
 	sf::Vector2f parralaxOffset;
 	

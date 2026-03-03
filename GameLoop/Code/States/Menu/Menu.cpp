@@ -10,8 +10,6 @@ Menu::Menu(GameData* _scene) : Scene(_scene)
 
 void Menu::Load(void)
 {
-	this->background.Load((sf::Vector2f)this->data->render->getSize(), [this](const std::string& _path) { return data->assets->GetTexture(_path); });
-
 	#pragma region Buttons
 	const std::string path = "Assets/Sprites/Menu/UI/";
 	for (int i = 0; i < int(MenuButtonsType::COUNT); i++)
@@ -68,8 +66,6 @@ void Menu::Update(float _dt)
 	Scene::Update(_dt);
 	sf::Vector2f mousePosition = (sf::Vector2f)sf::Mouse::getPosition(*this->data->render);
 
-	this->background.Update(_dt, mousePosition);
-
 	parralaxOffset = -(mousePosition - SCREEN_SIZE / 2.f) * 0.03f;
 	parralaxOffset.y = 0;
 
@@ -84,8 +80,6 @@ void Menu::Update(float _dt)
 void Menu::Draw(sf::RenderTarget* _render)
 {
 	Scene::Draw(_render);
-
-	this->background.Draw(*_render);
 
 	// Buttons
 	for (int i = 0; i < int(MenuButtonsType::COUNT); i++)

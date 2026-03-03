@@ -31,13 +31,11 @@ void Game::Load(void)
 void Game::Update(float _dt)
 {
 	Scene::Update(_dt);
-	player->Update(_dt);
 }
 
 void Game::Draw(sf::RenderTarget* _render)
 {
 	Scene::Draw(_render);
-	player->Draw(_render);
 }
 
 void Game::Destroy(void)
