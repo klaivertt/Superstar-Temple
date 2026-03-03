@@ -86,7 +86,7 @@ LevelLever::LevelLever(GameData* _data, Vec2 _pos) : Interactable(_data)
 	currentAngle = minAngle;
 	targetAngle = minAngle;
 
-	data->log->Info("Created Lever at position " + position.ToString());
+	Logger::Info("Created Lever at position " + position.ToString());
 }
 
 LevelLever::~LevelLever()

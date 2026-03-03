@@ -24,6 +24,8 @@
 #include <vector>
 #include <array>
 #include "Tools/Overload/OperatorOverloading.hpp"
+#include <chrono>
+
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -224,6 +226,16 @@ inline b2Vec2 ToB2Vec2(const Vec2& v)
 inline Vec2 ToVec2(const b2Vec2& v)
 {
 	return Vec2{ v.x, v.y };
+}
+
+inline Vec2 ToVec2(const sf::Vector2f& _vec)
+{
+	return Vec2(_vec.x, _vec.y);
+}
+
+inline sf::Vector2f ToSFML(const Vec2& _vec)
+{
+	return sf::Vector2f(_vec.x, _vec.y);
 }
 
 // Scalar product

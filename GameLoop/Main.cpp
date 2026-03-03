@@ -24,8 +24,7 @@ int main(void)
 	data->render = new sf::RenderWindow();
 	data->renderTexture = new sf::RenderTexture();
 	data->inputs = new Inputs(data);
-	data->log = new Logger();
-	data->log->SetLogLevel(LogLevel::DEBUG);
+	Logger::SetLogLevel(LogLevel::DEBUG);
 
 	if (FULLSCREEN)
 	{

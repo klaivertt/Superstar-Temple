@@ -16,7 +16,7 @@ b2WorldId Physics::CreateWorld(b2WorldDef* _def)
 	b2WorldId world = b2CreateWorld(_def);
 	b2World_EnableSleeping(world, false);
 
-	GameData::GetInstance()->log->Success("Physics World created");
+	Logger::Success("Physics World created");
 	return world;
 }
 
@@ -431,4 +431,10 @@ sf::Vector2f Physics::WorldToScreen(b2Vec2 _world)
 	_world.y *= METERS_TO_PIXELS;
 
 	return sf::Vector2f(_world.x, _world.y);
+}
+
+Vec2 Physics::GetBodyPosition(b2BodyId _body)
+{
+	b2Vec2 pos = b2Body_GetPosition(_body);
+	return ToVec2(pos) * METERS_TO_PIXELS;
 }

@@ -199,16 +199,6 @@ Vec2 GetRotationByPosition(Vec2 _position, float _parentRotation, Vec2 _parentSc
 	return position;
 }
 
-inline sf::Vector2f ToSFML(const Vec2& _vec)
-{
-	return sf::Vector2f(_vec.x, _vec.y);
-}
-
-inline Vec2 ToVec2(const sf::Vector2f& _vec)
-{
-	return Vec2(_vec.x, _vec.y);
-}
-
 size_t GetMemoryUsage(void)
 {
 	PROCESS_MEMORY_COUNTERS pmc;
