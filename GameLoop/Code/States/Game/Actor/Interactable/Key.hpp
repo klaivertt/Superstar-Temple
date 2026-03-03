@@ -9,10 +9,8 @@
 struct Key : public Interactable
 {
 private:
+	Sprite sprite;
 	sf::Texture texture;
-	sf::Sprite sprite;
-
-	sf::Vector2f pos;
 
 public:
 	Key(GameData* _data);

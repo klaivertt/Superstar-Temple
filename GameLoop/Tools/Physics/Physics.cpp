@@ -438,6 +438,7 @@ sf::Vector2f Physics::WorldToScreen(b2Vec2 _world)
 Vec2 Physics::GetBodyPosition(b2BodyId _body)
 {
 	b2Vec2 pos = b2Body_GetPosition(_body);
+	pos.y = -pos.y;
 	return ToVec2(pos) * METERS_TO_PIXELS;
 }
 
