@@ -19,7 +19,7 @@ void Game::Load(void)
 	// besoin de les gérer :)
 
 	Scene::Load();
-	player = new Player(data);
+	player = new Player(data, Scene::GetAllActorsOfClass<Interactable>());
 	key = new Key(data);
 
 	// desactivate gravity 
@@ -29,9 +29,9 @@ void Game::Load(void)
 	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(900, 500), 0.f, Vec2(1800, 50) }, nullptr);
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(1800, 50) });
 
-	//temp wall
-	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
-	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
+	////temp wall
+	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
+	//groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
 }
 
 void Game::Update(float _dt)

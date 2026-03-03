@@ -4,8 +4,8 @@
 
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
-#include "Tools/Physics/Physics.hpp"
 
+class Interactable;
 struct Player : public Actor
 {
 
@@ -15,8 +15,7 @@ public:
 		IDLE,
 		WALK
 	};
-	Player(GameData* _data);
-	Player(GameData* _data, std::string _name);
+	Player(GameData* _data, Array<Interactable*>& _interactable);
 	virtual std::string GetClassName(void) override { return "Player"; }
 
 	virtual void Update(float _dt) override;
@@ -31,14 +30,23 @@ public:
 	//virtual void OnTriggerExit(ColEvent _col) override;
 
 private:
+	Array<Interactable*>& interactable;
 	b2ShapeId collider = b2ShapeId();
 	State state = State::IDLE;
-
-	float speed = 7.f;
+	Vec2 dir = { 0.f, 0.f };
+	float speed = 15.f;
 
 	//functions 
+	void InitInputs();
+
 	void UpdateIdle(float _dt);
 	void UpdateRunning(float _dt);
+
+	void OnWalkForward(Input _input);
+	void OnWalkBackward(Input _input);
+	void OnWalkLeft(Input _input);
+	void OnWalkRight(Input _input);
+	void OnInteract(Input _input);
 
 	void CollisionPress(b2ContactEvents& events, b2Vec2& vec);
 	void CollisionRelease(b2ContactEvents& events, b2Vec2& vec);

@@ -1,9 +1,19 @@
 #include "Player.hpp"
 #include "Tools/Debug/ImGuiManager.hpp"
 #include "Tools/Debug/Logger.hpp"
+#include "Tools/Physics/Physics.hpp"
 
+void Player::InitInputs()
+{
+	data->inputs->GetAxisDelegate("WalkForward")->Add(this, &Player::OnWalkForward);
+	data->inputs->GetAxisDelegate("WalkBackward")->Add(this, &Player::OnWalkBackward);
+	data->inputs->GetAxisDelegate("WalkLeft")->Add(this, &Player::OnWalkLeft);
+	data->inputs->GetAxisDelegate("WalkRight")->Add(this, &Player::OnWalkRight);
 
-Player::Player(GameData* _data) : Actor(_data)
+	data->inputs->GetPressedDelegate("Interact")->Add(this, &Player::OnInteract);
+}
+
+Player::Player(GameData* _data, Array<Interactable*>& _interactable) : Actor(_data), interactable(_interactable)
 {
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, nullptr, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(50, 50) });
@@ -11,12 +21,10 @@ Player::Player(GameData* _data) : Actor(_data)
 
 #if _DEBUG
 	_data->guiManager->RegisterWindow("Player", true, ImGuiWindowFlags_AlwaysAutoResize);
-	_data->guiManager->AddSliderFloat("Player", "speed", "translation", &speed, 0.f, 20);
+	_data->guiManager->AddSliderFloat("Player", "speed", "translation", &speed, 0.f, 35.f);
 #endif
-}
 
-Player::Player(GameData* _data, std::string _name) : Actor(_data, _name)
-{
+	InitInputs();
 }
 
 void Player::Update(float _dt)
@@ -31,27 +39,7 @@ void Player::Update(float _dt)
 		break;
 	}
 
-	
-	Vec2 dir = { 0.f, 0.f };
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		dir.x += 1.f;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	{
-		dir.x -= 1.f;
-	}
-	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-	{
-		dir.y += 1.f;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		dir.y -= 1.f;
-	}
 	dir.Normalize();
-	
 	Physics::ApplyForce(body, dir * speed);
 
 	//Contact
@@ -59,6 +47,7 @@ void Player::Update(float _dt)
 	b2Vec2 impulseVec = { 0.f, 0.f };
 	CollisionPress(contactEvents, impulseVec);
 	CollisionRelease(contactEvents, impulseVec);
+	dir = Vec2( 0.f, 0.f );
 
 }
 
@@ -74,6 +63,32 @@ void Player::UpdateIdle(float _dt)
 
 void Player::UpdateRunning(float _dt)
 {
+
+}
+
+void Player::OnWalkForward(Input _input)
+{
+	dir.y -= _input.axisValue;
+}
+
+void Player::OnWalkBackward(Input _input)
+{
+	dir.y -= _input.axisValue;
+}
+
+void Player::OnWalkLeft(Input _input)
+{
+	dir.x += _input.axisValue;
+}
+
+void Player::OnWalkRight(Input _input)
+{
+	dir.x += _input.axisValue;
+}
+
+void Player::OnInteract(Input _input)
+{
+	Logger::Log("Interact !");
 
 }
 
