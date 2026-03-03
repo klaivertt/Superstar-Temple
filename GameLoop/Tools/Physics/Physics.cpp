@@ -16,7 +16,7 @@ b2WorldId Physics::CreateWorld(b2WorldDef* _def)
 	b2WorldId world = b2CreateWorld(_def);
 	b2World_EnableSleeping(world, false);
 
-	GameData::GetInstance()->log->Success("Physics World created");
+	Logger::Success("Physics World created");
 	return world;
 }
 

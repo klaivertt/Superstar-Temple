@@ -5,7 +5,7 @@
 
 Player::Player(GameData* _data) : Actor(_data)
 {
-	b2BodyId body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, nullptr);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, nullptr);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(50, 50) });
 
 	movement = Movement(translationSpeed, body);
@@ -33,8 +33,8 @@ void Player::Update(float _dt)
 		break;
 	}
 
-	//sf::Vector2f position = ToSFML(Physics::GetBodyPosition(body));
-	//data->log->Debug(data->log->Vec2(position, "Player position : "), false);
+	sf::Vector2f position = ToSFML(Physics::GetBodyPosition(body));
+	Logger::Debug(Logger::Vec2(position, "Player position : "), false);
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{

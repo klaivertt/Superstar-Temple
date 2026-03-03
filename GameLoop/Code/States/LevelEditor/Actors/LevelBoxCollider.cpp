@@ -20,7 +20,7 @@ LevelBoxCollider::LevelBoxCollider(GameData* _data, Vec2 _pos) : Actor(_data)
 	prop.value = &rotation;
 	prop.callback.Add(this, &LevelBoxCollider::ResetBox);
 	properties.Add(prop);
-	data->log->Info("Created Box Collider at position " + position.ToString());
+	Logger::Info("Created Box Collider at position " + position.ToString());
 }
 
 LevelBoxCollider::LevelBoxCollider(GameData* _data, std::string _name) : Actor(_data, _name)
