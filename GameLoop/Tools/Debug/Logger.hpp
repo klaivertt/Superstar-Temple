@@ -22,6 +22,12 @@ enum class ConsoleColor
 	DEFAULT
 };
 
+// Log levels for filtering logs
+// DEBUG: Detailed information for debugging purposes
+// INFO: General information about the application's operation
+// WARNING: Indications of potential issues or important events that are not errors
+// C_ERROR: Critical errors that may cause the application to malfunction
+// NONE: No logs will be printed, but they can still be saved to files if inFiles is true
 enum class LogLevel
 {
 	DEBUG,
@@ -37,8 +43,8 @@ class Logger
 public:
 	static Logger& Instance();
 
-	static void Log(const std::string& text, bool inFiles = false);                 // INFO by default
-	static void Log(LogLevel level, const std::string& text, bool inFiles = false); // explicit level
+	static void Log(const std::string& text, bool inFiles = false);                 
+	static void Log(LogLevel level, const std::string& text, bool inFiles = false); 
 
 	static void Debug(const std::string& text, bool inFiles = false);
 	static void Info(const std::string& text, bool inFiles = false);
@@ -69,7 +75,6 @@ private:
 	Logger(const Logger&) = delete;
 	Logger& operator=(const Logger&) = delete;
 
-	// instance implementation
 	void PrintColoredImpl(const std::string& text, ConsoleColor color, bool inFiles, bool havePrefix);
 	void LogImpl(LogLevel level, const std::string& text, bool inFiles);
 

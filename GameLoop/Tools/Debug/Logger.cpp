@@ -16,15 +16,12 @@ Logger::Logger()
 	logFile.open(logFileName, std::ios::app);
 	if (!logFile.is_open())
 	{
-		// Avoid recursion into Logger::Error (which would call Instance() again)
 		std::cerr << "Failed to open log file: " << logFileName << std::endl;
 	}
 }
 
-// ----------------- Preferred auto-level API -----------------
 void Logger::Log(const std::string& text, bool inFiles)
 {
-	// Auto-level: INFO by default
 	Info(text, inFiles);
 }
 
@@ -33,7 +30,6 @@ void Logger::Log(LogLevel level, const std::string& text, bool inFiles)
 	Instance().LogImpl(level, text, inFiles);
 }
 
-// ----------------- Explicit level helpers -----------------
 void Logger::Debug(const std::string& text, bool inFiles)
 {
 	Instance().LogImpl(LogLevel::DEBUG, text, inFiles);
@@ -56,7 +52,6 @@ void Logger::Error(const std::string& text, bool inFiles)
 
 void Logger::Success(const std::string& text, bool inFiles)
 {
-	// "SUCCESS" is not a LogLevel in your enum, so we print it directly with SUCCESS color.
 	Instance().PrintColoredImpl(text, ConsoleColor::SUCCESS, inFiles, false);
 }
 
@@ -96,22 +91,52 @@ void Logger::PrintColoredImpl(const std::string& _text, ConsoleColor _color, boo
 	const char* code = "\033[0m";
 	switch (_color)
 	{
-	case ConsoleColor::SUCCESS:    code = "\033[1;32m"; break;
-	case ConsoleColor::INFO:       code = "\033[1;36m"; break;
-	case ConsoleColor::WARNING:    code = "\033[1;33m"; break;
-	case ConsoleColor::C_ERROR:    code = "\033[1;31m"; break;
-	case ConsoleColor::DEBUG:      code = "\033[1;35m"; break;
-	case ConsoleColor::ORANGE:     code = "\033[0;33m"; break;
-	case ConsoleColor::YELLOW:     code = "\033[0;93m"; break;
-	case ConsoleColor::LIGHT_RED:  code = "\033[0;91m"; break;
-	case ConsoleColor::GRAY:       code = "\033[0;90m"; break;
-	case ConsoleColor::LIGHT_BLUE: code = "\033[0;94m"; break;
-	case ConsoleColor::DARK_GRAY:  code = "\033[1;90m"; break;
-	case ConsoleColor::DARK_BLUE:  code = "\033[0;34m"; break;
-	case ConsoleColor::DARK_GREEN: code = "\033[0;32m"; break;
-	case ConsoleColor::DARK_CYAN:  code = "\033[0;36m"; break;
+	case ConsoleColor::SUCCESS:  
+		code = "\033[1;32m";
+		break;
+	case ConsoleColor::INFO:     
+		code = "\033[1;36m";
+		break;
+	case ConsoleColor::WARNING: 
+		code = "\033[1;33m"; 
+		break;
+	case ConsoleColor::C_ERROR: 
+		code = "\033[1;31m";
+		break;
+	case ConsoleColor::DEBUG:    
+		code = "\033[1;35m";
+		break;
+	case ConsoleColor::ORANGE:    
+		code = "\033[0;33m";
+		break;
+	case ConsoleColor::YELLOW:    
+		code = "\033[0;93m"; 
+		break;
+	case ConsoleColor::LIGHT_RED:
+		code = "\033[0;91m";
+		break;
+	case ConsoleColor::GRAY:     
+		code = "\033[0;90m";
+		break;
+	case ConsoleColor::LIGHT_BLUE:
+		code = "\033[0;94m"; 
+		break;
+	case ConsoleColor::DARK_GRAY: 
+		code = "\033[1;90m";
+		break;
+	case ConsoleColor::DARK_BLUE: 
+		code = "\033[0;34m";
+		break;
+	case ConsoleColor::DARK_GREEN: 
+		code = "\033[0;32m";
+		break;
+	case ConsoleColor::DARK_CYAN: 
+		code = "\033[0;36m";
+		break;
 	case ConsoleColor::DEFAULT:
-	default:                      code = "\033[0m"; break;
+	default:                     
+		code = "\033[0m";
+		break;
 	}
 
 	std::cout << code << prefix << _text << "\033[0m" << std::endl;
@@ -125,11 +150,21 @@ void Logger::LogImpl(LogLevel _level, const std::string& _text, bool _inFiles)
 	ConsoleColor color = ConsoleColor::DEFAULT;
 	switch (_level)
 	{
-	case LogLevel::DEBUG:   color = ConsoleColor::DEBUG; break;
-	case LogLevel::INFO:    color = ConsoleColor::INFO; break;
-	case LogLevel::WARNING: color = ConsoleColor::WARNING; break;
-	case LogLevel::C_ERROR: color = ConsoleColor::C_ERROR; break;
-	default:                color = ConsoleColor::DEFAULT; break;
+	case LogLevel::DEBUG:  
+		color = ConsoleColor::DEBUG;
+		break;
+	case LogLevel::INFO:   
+		color = ConsoleColor::INFO;
+		break;
+	case LogLevel::WARNING:
+		color = ConsoleColor::WARNING;
+		break;
+	case LogLevel::C_ERROR:
+		color = ConsoleColor::C_ERROR; 
+		break;
+	default:              
+		color = ConsoleColor::DEFAULT; 
+		break;
 	}
 
 	PrintColoredImpl(_text, color, _inFiles, false);
@@ -138,7 +173,9 @@ void Logger::LogImpl(LogLevel _level, const std::string& _text, bool _inFiles)
 void Logger::ClearConsoleImpl()
 {
 	if (!doClearConsole)
+	{
 		return;
+	}
 #ifdef _WIN32
 	system("cls");
 #else
@@ -146,23 +183,36 @@ void Logger::ClearConsoleImpl()
 #endif
 }
 
-void Logger::SetLogLevelImpl(LogLevel level) { currentLogLevel = level; }
-LogLevel Logger::GetLogLevelImpl() { return currentLogLevel; }
+void Logger::SetLogLevelImpl(LogLevel level)
+{ 
+	currentLogLevel = level;
+}
+
+LogLevel Logger::GetLogLevelImpl() 
+{
+	return currentLogLevel;
+}
 
 std::string Logger::LevelPrefix(ConsoleColor _color)
 {
 	switch (_color)
 	{
-	case ConsoleColor::SUCCESS: return " [SUCCESS] ";
-	case ConsoleColor::INFO:    return " [INFO] ";
-	case ConsoleColor::WARNING: return " [WARNING] ";
-	case ConsoleColor::C_ERROR: return " [ERROR] ";
-	case ConsoleColor::DEBUG:   return " [DEBUG] ";
-	default:                    return " [LOG] ";
+	case ConsoleColor::SUCCESS: 
+		return " [SUCCESS] ";
+	case ConsoleColor::INFO:   
+		return " [INFO] ";
+	case ConsoleColor::WARNING: 
+		return " [WARNING] ";
+	case ConsoleColor::C_ERROR: 
+		return " [ERROR] ";
+	case ConsoleColor::DEBUG:  
+		return " [DEBUG] ";
+	default:                   
+		return " [LOG] ";
 	}
 }
 
-// ----------------- Helpers (static) -----------------
+
 std::string Logger::PrintVec2(const sf::Vector2f& v, const std::string& label)
 {
 	return label + ": (" + std::to_string(v.x) + ", " + std::to_string(v.y) + ")";
@@ -173,23 +223,38 @@ std::string Logger::PrintVec2(const sf::Vector2i& v, const std::string& label)
 	return label + ": (" + std::to_string(v.x) + ", " + std::to_string(v.y) + ")";
 }
 
-std::string Logger::Vec2(const sf::Vector2i& v, const std::string& label) { return PrintVec2(v, label); }
-std::string Logger::Vec2(const sf::Vector2f& v, const std::string& label) { return PrintVec2(v, label); }
+std::string Logger::Vec2(const sf::Vector2i& v, const std::string& label) 
+{
+	return PrintVec2(v, label);
+}
+
+std::string Logger::Vec2(const sf::Vector2f& v, const std::string& label) 
+{ 
+	return PrintVec2(v, label);
+}
 
 std::string Logger::PrintBool(const std::string& label, bool value)
 {
 	return label + ": " + (value ? "true" : "false");
 }
-std::string Logger::Bool(const std::string& label, bool value) { return PrintBool(label, value); }
+
+std::string Logger::Bool(const std::string& label, bool value) 
+{ 
+	return PrintBool(label, value);
+}
 
 std::string Logger::PrintRect(const sf::FloatRect& r, const std::string& label)
 {
 	return label + " [RECT]: (left: " + std::to_string(r.left) + ", top: " + std::to_string(r.top)
 		+ ", width: " + std::to_string(r.width) + ", height: " + std::to_string(r.height) + ")";
 }
-std::string Logger::Rect(const sf::FloatRect& r, const std::string& label) { return PrintRect(r, label); }
 
-// ----------------- Date / Time -----------------
+std::string Logger::Rect(const sf::FloatRect& r, const std::string& label) 
+{ 
+	return PrintRect(r, label);
+}
+
+
 void Logger::LoadDateAndTime()
 {
 	auto now = std::chrono::system_clock::now();
