@@ -226,6 +226,16 @@ inline Vec2 ToVec2(const b2Vec2& v)
 	return Vec2{ v.x, v.y };
 }
 
+inline Vec2 ToVec2(const sf::Vector2f& _vec)
+{
+	return Vec2(_vec.x, _vec.y);
+}
+
+inline sf::Vector2f ToSFML(const Vec2& _vec)
+{
+	return sf::Vector2f(_vec.x, _vec.y);
+}
+
 // Scalar product
 float GetVectorDistance(Vec2 _a, Vec2 _b);
 

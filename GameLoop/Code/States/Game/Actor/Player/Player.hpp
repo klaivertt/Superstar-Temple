@@ -1,15 +1,17 @@
 #pragma once
 
 #include "GameData.hpp"
+
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Tools/Physics/Physics.hpp"
+#include "Tools/Movement/Walk.hpp"
 
 struct Player : public Actor
 {
 
 public:
-	enum PlayerState
+	enum State
 	{
 		IDLE,
 		WALK
@@ -26,31 +28,20 @@ public:
 	// virtual void OnCollisionEnter(ColEvent _col) override;
 	// virtual void OnCollisionExit(ColEvent _col) override;
 	// virtual void OnCollisionHit(ColEvent _col) override;
-	virtual void OnTriggerEnter(ColEvent _col) override;
-	virtual void OnTriggerExit(ColEvent _col) override;
-	int groundContacts = 0;
+	//virtual void OnTriggerEnter(ColEvent _col) override;
+	//virtual void OnTriggerExit(ColEvent _col) override;
 
-	bool OnGround(void);
 private:
 	b2ShapeId collider = b2ShapeId();
-	PlayerState state = PlayerState::IDLE;
-	sf::Vector2f velocity = { 0.f, 0.f };
-	sf::Vector2f pos = { 0.f, 0.f };
+	State state = State::IDLE;
+	Movement movement;
 
 	float translationSpeed = 7.f;
-	float jumpForce = 50.f;
 
 	//functions 
-	PlayerState UpdateState(float _dt);
 	void UpdateIdle(float _dt);
 	void UpdateRunning(float _dt);
-	void UpdateJumping(float _dt);
-	void UpdateFalling(float _dt);
 
 	void CollisionPress(b2ContactEvents& events, b2Vec2& vec);
 	void CollisionRelease(b2ContactEvents& events, b2Vec2& vec);
-
-	bool m_touchedGround = false;
-	bool m_touchedLeftWall = false;
-	bool m_touchedRightWall = false;
 };
