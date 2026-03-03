@@ -8,9 +8,6 @@
     <ClCompile Include="Code\States\Gameover\Gameover.cpp" />
     <ClCompile Include="Code\States\Game\Actor\BasicCube.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Inspector.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\LevelBoxCollider.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\LevelEditor.cpp" />
     <ClCompile Include="Code\States\Menu\Menu.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Dependencies\include\ImGui\imgui-SFML.cpp" />
@@ -26,10 +23,6 @@
     <ClCompile Include="Tools\UI\Button.cpp" />
     <ClCompile Include="Tools\UI\Slider.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Interactable\Door.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Interactable\Elevator.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Interactable\Interactable.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Interactable\LevelLever.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Actor.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Animation.cpp" />
     <ClCompile Include="Tools\Debug\DebugViewer.cpp" />
@@ -40,9 +33,6 @@
     <ClCompile Include="Tools\Physics\Physics.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Sprite.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Text.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\EditorCamera.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\EditorGrid.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\SelectionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Core\Draw.hpp" />
@@ -52,10 +42,6 @@
     <ClInclude Include="Code\Core\Load.hpp" />
     <ClInclude Include="Code\Core\PollEvents.hpp" />
     <ClInclude Include="Code\Core\Update.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Inspector.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\LevelActor.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\LevelBoxCollider.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\LevelEditor.hpp" />
     <ClInclude Include="Code\States\Menu\Menu.hpp" />
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="Dependencies\include\GL\freeglut.h" />
@@ -184,10 +170,6 @@
     <ClInclude Include="Tools\UI\Slider.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\Player.hpp" />
     <ClInclude Include="Tools\Overload\OperatorOverloading.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Interactable\Door.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Interactable\Elevator.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Interactable\Interactable.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Interactable\LevelLever.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Actor.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Animation.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Array.hpp" />
@@ -206,9 +188,6 @@
     <ClInclude Include="Dependencies\include\box2d\id.h" />
     <ClInclude Include="Dependencies\include\box2d\math_functions.h" />
     <ClInclude Include="Dependencies\include\box2d\types.h" />
-    <ClInclude Include="Code\States\LevelEditor\EditorCamera.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\EditorGrid.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\SelectionManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\lib\Debug\freeglut.lib" />
