@@ -2,7 +2,7 @@
 
 #include "Actor/BasicCube.hpp"
 #include "../../GameLoop/Tools/Miscellaneous/Animation.hpp"
-
+#include "Tools/Map/Map.hpp"
 
 Game::Game(GameData* _data) : Scene(_data)
 {

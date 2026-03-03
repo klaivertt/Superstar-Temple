@@ -14,13 +14,13 @@ public:
 	void LoadMap(std::string _path);
 	void Update(float _dt);
 	void Draw(sf::RenderTarget& _target);
+	void DrawLayer(sf::RenderTarget& _target, unsigned LayerID);
+	unsigned GetNumOfLayers();
 	b2WorldId m_world;
 private:
-	unsigned* m_tab;
-	std::vector<sf::Texture> m_tileTexture;
-	sf::Sprite m_sprite;
-	sf::Vector2i m_mapSize;
-	unsigned m_tabSize;
+	std::vector<Layer::TileSet*> m_tileSets;
+	std::vector<Layer::Layer*> m_Layers;
+	sf::Vector2u m_mapSize;
 };
 
 #endif

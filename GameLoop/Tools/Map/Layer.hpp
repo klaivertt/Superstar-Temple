@@ -12,6 +12,14 @@ namespace Layer
 		Trigger,
 	};
 
+	struct TileSet
+	{
+		sf::Sprite sp;
+		sf::Vector2u size;
+		sf::Vector2u cellSize;
+		unsigned collumns;
+	};
+
 	class Object
 	{
 	public:
@@ -34,7 +42,7 @@ namespace Layer
 		void Position(sf::Vector2f _position);
 		sf::Vector2f Position();
 		bool m_visibility;
-		virtual void Bake();
+		virtual void Bake() {};
 		virtual void Draw(sf::RenderTarget& _target);
 		std::string m_name;
 	protected:
@@ -50,24 +58,25 @@ namespace Layer
 		TileLayer(sf::Vector2u _size);
 		~TileLayer();
 	
-		sf::Sprite* m_tileSprite;
+		void MakeGrid(TileSet* _tileSet, sf::Vector2u _size);
+		void AddTileSet(TileSet* _tileSet);
 	
-		sf::Vector2u m_tileSize;
-		void MakeGrid(sf::Vector2u _size);
 		void SetGridElem(sf::Vector2u _coord, unsigned _val);
+		void SetGridElem(unsigned _id, unsigned _val);
 		virtual void Bake() override;
-		virtual void Draw(sf::RenderTarget& _target) override;
 	private:
 		unsigned CoordToId(sf::Vector2u _coord);
 		sf::Vector2u IdToCoord(unsigned _id);
+		sf::Vector2u m_size;
 		unsigned* m_grid;
 		unsigned m_gridLength;
+		TileSet* m_tileSet;
 	};
 
 	class ObjectLayer : public Layer
 	{
 	public:
-		ObjectLayer();
+		ObjectLayer(sf::Vector2u _size);
 		~ObjectLayer();
 		void AddObject(Object* _obj);
 		void RemoveObject(int _id);

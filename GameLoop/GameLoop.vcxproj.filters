@@ -44,6 +44,9 @@
     <ClCompile Include="Code\States\LevelEditor\EditorCamera.cpp" />
     <ClCompile Include="Code\States\LevelEditor\EditorGrid.cpp" />
     <ClCompile Include="Code\States\LevelEditor\SelectionManager.cpp" />
+    <ClCompile Include="Tools\Map\Layer.cpp" />
+    <ClCompile Include="Tools\Map\Map.cpp" />
+    <ClCompile Include="Tools\Json\jsoncpp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Core\Draw.hpp" />
@@ -211,6 +214,12 @@
     <ClInclude Include="Code\States\LevelEditor\EditorCamera.hpp" />
     <ClInclude Include="Code\States\LevelEditor\EditorGrid.hpp" />
     <ClInclude Include="Code\States\LevelEditor\SelectionManager.hpp" />
+    <ClInclude Include="Tools\Map\Layer.hpp" />
+    <ClInclude Include="Tools\Map\Map.hpp" />
+    <ClInclude Include="..\Dependencies\include\JSON\json-forwards.h" />
+    <ClInclude Include="..\Dependencies\include\JSON\json.h" />
+    <ClInclude Include="Dependencies\JSON\json.h" />
+    <ClInclude Include="Dependencies\JSON\json-forwards.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\lib\Debug\freeglut.lib" />

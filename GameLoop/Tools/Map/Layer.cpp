@@ -40,7 +40,7 @@ namespace Layer
 
 	TileLayer::TileLayer()
 	{
-		m_tileSprite = nullptr;
+		m_tileSet = nullptr;
 		m_grid = nullptr;
 		m_gridLength = 0;
 	}
@@ -49,7 +49,7 @@ namespace Layer
 	{
 		m_size = _size;
 		m_gridLength = m_size.x * m_size.y;
-		m_tileSprite = nullptr;
+		m_tileSet = nullptr;
 		m_grid = new unsigned[m_gridLength];
 	}
 
@@ -62,8 +62,14 @@ namespace Layer
 		m_grid = nullptr;
 	}
 
-	void TileLayer::MakeGrid(sf::Vector2u _size)
+	void TileLayer::MakeGrid(TileSet* _tileSet, sf::Vector2u _size)
 	{
+		if (_tileSet == nullptr)
+		{
+			Logger::Error("Tilset == null");
+			return;
+		}
+		m_tileSet = _tileSet;
 		m_size = _size;
 		m_gridLength = m_size.x * m_size.y;
 		if (m_grid != nullptr)
@@ -71,6 +77,16 @@ namespace Layer
 			delete[] m_grid;
 		}
 		m_grid = new unsigned[m_gridLength];
+	}
+
+	void TileLayer::AddTileSet(TileSet* _tileSet)
+	{
+		if (_tileSet == nullptr)
+		{
+			Logger::Error("Tilset == null");
+			return;
+		}
+		m_tileSet = _tileSet;
 	}
 
 	void TileLayer::SetGridElem(sf::Vector2u _coord, unsigned _val)
@@ -86,25 +102,38 @@ namespace Layer
 		}
 #endif // !_DEBUG
 	}
+	void TileLayer::SetGridElem(unsigned _id, unsigned _val)
+	{
+		if (_id < m_gridLength)
+		{
+			m_grid[_id] = _val;
+		}
+#ifdef _DEBUG
+		else
+		{
+			Logger::Error("Invalid coordinates");
+		}
+#endif // !_DEBUG
+	}
 	void TileLayer::Bake()
 	{
-		m_bakeRender.create(m_size.x * m_tileSize.x, m_size.y * m_tileSize.y);
+		m_bakeRender.create(m_size.x * m_tileSet->cellSize.x, m_size.y * m_tileSet->cellSize.y);
 		m_bakeRender.clear(sf::Color::Black);
 		for (int i = 0; i < m_gridLength; i++)
 		{
 			m_grid[i];
 			sf::Vector2u position = IdToCoord(i);
-			m_tileSprite->setRotation(0);
-			m_tileSprite->setScale(1,1);
-			position *= m_tileSize;
+			m_tileSet->sp.setRotation(0);
+			m_tileSet->sp.setScale(1,1);
+			position *= m_tileSet->cellSize;
 			sf::IntRect rect;
 			rect.left = position.x;
 			rect.top = position.y;
-			rect.width = m_tileSize.x;
-			rect.height = m_tileSize.y;
-			m_tileSprite->setTextureRect(rect);
-			m_tileSprite->setPosition(sf::Vector2f(position));
-			m_bakeRender.draw(*m_tileSprite);
+			rect.width = m_tileSet->cellSize.x;
+			rect.height = m_tileSet->cellSize.y;
+			m_tileSet->sp.setTextureRect(rect);
+			m_tileSet->sp.setPosition(sf::Vector2f(position));
+			m_bakeRender.draw(m_tileSet->sp);
 		}
 		m_bakeRender.display();
 		m_bakeSprite.setTexture(m_bakeRender.getTexture());
@@ -147,8 +176,9 @@ namespace Layer
 		name.setPosition(m_position);
 	}
 
-	ObjectLayer::ObjectLayer()
+	ObjectLayer::ObjectLayer(sf::Vector2u _size)
 	{
+		m_size = _size;
 	}
 
 	ObjectLayer::~ObjectLayer()
