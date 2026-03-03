@@ -5,20 +5,18 @@
 
 Player::Player(GameData* _data) : Actor(_data)
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, nullptr);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, nullptr, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(50, 50) });
-
-	movement = Movement(translationSpeed, body);
+	b2Body_SetLinearDamping(body, 5.f);
 
 #if _DEBUG
 	_data->guiManager->RegisterWindow("Player", true, ImGuiWindowFlags_AlwaysAutoResize);
-	_data->guiManager->AddSliderFloat("Player", "speed", "translation", &translationSpeed, 0.f, 20);
+	_data->guiManager->AddSliderFloat("Player", "speed", "translation", &speed, 0.f, 20);
 #endif
 }
 
 Player::Player(GameData* _data, std::string _name) : Actor(_data, _name)
 {
-
 }
 
 void Player::Update(float _dt)
@@ -33,29 +31,28 @@ void Player::Update(float _dt)
 		break;
 	}
 
-	sf::Vector2f position = ToSFML(Physics::GetBodyPosition(body));
-	Logger::Debug(Logger::Vec2(position, "Player position : "), false);
 	
+	Vec2 dir = { 0.f, 0.f };
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		movement.WalkTo(WalkDirection::RIGHT, _dt);
+		dir.x += 1.f;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		movement.WalkTo(WalkDirection::LEFT, _dt);
+		dir.x -= 1.f;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
-		movement.WalkTo(WalkDirection::UP, _dt);
+		dir.y += 1.f;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		movement.WalkTo(WalkDirection::DOWN, _dt);
+		dir.y -= 1.f;
 	}
-	else
-	{
-		movement.WalkTo(WalkDirection::NONE, _dt);
-	}
+	dir.Normalize();
+	
+	Physics::ApplyForce(body, dir * speed);
 
 	//Contact
 	b2ContactEvents contactEvents = b2World_GetContactEvents(data->physicsWorld);

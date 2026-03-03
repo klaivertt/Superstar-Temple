@@ -5,7 +5,6 @@
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Tools/Physics/Physics.hpp"
-#include "Tools/Movement/Walk.hpp"
 
 struct Player : public Actor
 {
@@ -34,9 +33,8 @@ public:
 private:
 	b2ShapeId collider = b2ShapeId();
 	State state = State::IDLE;
-	Movement movement;
 
-	float translationSpeed = 7.f;
+	float speed = 7.f;
 
 	//functions 
 	void UpdateIdle(float _dt);
