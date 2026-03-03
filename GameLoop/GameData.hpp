@@ -82,7 +82,6 @@ public:
 	// Manager
 	SceneManager* manager;
 	Inputs* inputs;
-	Logger* log;
 	Debug::DebugViewer* debugViewer;
 	Debug::GuiManager* guiManager;
 };

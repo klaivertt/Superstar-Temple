@@ -18,7 +18,7 @@ Inspector::Inspector(GameData* _data, Actor* _actor)
 
     if (!actor)
     {
-        data->log->Error("Inspector: Cannot inspect null actor");
+        Logger::Error("Inspector: Cannot inspect null actor");
         return;
     }
 

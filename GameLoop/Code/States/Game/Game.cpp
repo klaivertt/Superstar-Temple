@@ -19,6 +19,9 @@ void Game::Load(void)
 	Scene::Load();
 	player = new Player(data);
 
+	// desactivate gravity 
+	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
+
 	//temp ground
 	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(900, 500), 0.f, Vec2(1800, 50) }, nullptr);
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(1800, 50) });

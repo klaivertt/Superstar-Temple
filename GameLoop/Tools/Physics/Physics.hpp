@@ -96,4 +96,5 @@ namespace Physics
 
 	sf::Vector2f WorldToScreen(b2Vec2 _world);
 
+	Vec2 GetBodyPosition(b2BodyId _body);
 }
