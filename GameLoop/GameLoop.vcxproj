@@ -178,6 +178,7 @@
     <ClCompile Include="Code\States\Game\Actor\BasicCube.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Box.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Button.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Interactable.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Key.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
