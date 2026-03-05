@@ -37,6 +37,7 @@ public:
 	virtual void Update(float _dt);
 	virtual void Draw(sf::RenderTarget* _render);
 
+
 	virtual void OnCollisionEnter(ColEvent _col);
 	virtual void OnCollisionExit(ColEvent _col);
 
@@ -45,6 +46,7 @@ public:
 	virtual void OnTriggerEnter(ColEvent _col);
 	virtual void OnTriggerExit(ColEvent _col);
 	virtual sf::FloatRect GetBounds() const;
+	virtual Physics::Transform GetTransform(void) const;
 	
 
 	Array<Property>* GetProperties(void);

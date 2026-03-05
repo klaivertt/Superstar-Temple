@@ -77,6 +77,16 @@ sf::FloatRect Actor::GetBounds() const
 	return sf::FloatRect(position.x, position.y, 32.f, 32.f);
 }
 
+Physics::Transform Actor::GetTransform(void) const
+{
+	Physics::Transform transform = { position, 0.f, Vec2(1.f, 1.f) };
+	if (b2Body_IsValid(body))
+	{
+		transform = Physics::GetBodyTransform(body);
+	}
+	return transform;
+}
+
 Array<Property>* Actor::GetProperties(void)
 {
 	return &properties;
