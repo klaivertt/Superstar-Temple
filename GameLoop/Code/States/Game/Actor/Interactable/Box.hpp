@@ -9,7 +9,9 @@
 struct Box : public Interactable
 {
 private:
-	// Variables here
+	sf::Texture texture;
+	Sprite sprite;
+
 public:
 	Box(GameData* _data);
 
@@ -20,6 +22,8 @@ public:
 
 	virtual void OnCollisionEnter(ColEvent _col) override;
 	virtual void OnCollisionExit(ColEvent _col) override;
+
+	virtual void OnInteract(Actor* _interactingActor) override;
 
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;

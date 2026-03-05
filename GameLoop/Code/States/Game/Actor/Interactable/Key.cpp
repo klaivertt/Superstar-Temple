@@ -18,6 +18,7 @@ Key::Key(GameData* _data) : Interactable(_data)
 void Key::Update(float _dt)
 {
 	sprite.SetPosition(Physics::GetBodyPosition(body));
+
 }
 
 void Key::Draw(sf::RenderTarget* _render)
@@ -27,12 +28,10 @@ void Key::Draw(sf::RenderTarget* _render)
 
 void Key::OnCollisionEnter(ColEvent _col)
 {
-
 }
 
 void Key::OnCollisionExit(ColEvent _col)
 {
-
 }
 
 void Key::OnInteract(Actor* _interactingActor)
