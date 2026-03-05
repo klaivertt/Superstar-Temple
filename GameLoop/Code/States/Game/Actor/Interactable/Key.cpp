@@ -1,6 +1,5 @@
 #include "Key.hpp"
 #include "Tools/Physics/Physics.hpp"
-#include "Tools/AssetsManager.hpp"
 
 Key::Key(GameData* _data) : Interactable(_data)
 {

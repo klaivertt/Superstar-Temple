@@ -3,8 +3,8 @@
 
 #include "Tools/Scene.hpp"
 #include "GameData.hpp"
-#include "Tools/UI/Button.hpp"
-#include "Tools/UI/Slider.hpp"
+//#include "Tools/UI/Button.hpp"
+//#include "Tools/UI/Slider.hpp"
 
 enum class MenuButtonsType
 {
@@ -20,7 +20,7 @@ enum class MenuButtonsType
 struct Menu : public Scene
 {
 protected:
-	Button button[int(MenuButtonsType::COUNT)];
+	//Button button[int(MenuButtonsType::COUNT)];
 	sf::Vector2f parralaxOffset;
 	
 public:
