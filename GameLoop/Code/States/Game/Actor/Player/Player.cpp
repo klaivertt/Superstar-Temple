@@ -50,15 +50,18 @@ void Player::Update(float _dt)
 	dir.Normalize();
 	Physics::ApplyForce(body, dir * speed);
 
+	if (dir.x != 0.f || dir.y != 0.f)
+	{
+		lastOrientation = dir;
+		SetPlayerDirection();
+	}
 
-	SetPlayerDirection();
 	Actor::Update(_dt);
 
-	// Update the position and rotation of the sprite to match the physics body	
 	sprite->SetPosition(Physics::GetBodyPosition(body));
 	sprite->SetRotation(Physics::GetBodyRotation(body));
-	//reset dir
-	dir = Vec2( 0.f, 0.f );
+
+	dir = Vec2(0.f, 0.f);
 }
 
 void Player::Draw(sf::RenderTarget* _render)
@@ -143,7 +146,7 @@ void Player::OnInteract(Input _input)
 void Player::SetPlayerDirection(void)
 {
 	// change the rotation of the player to look in the direction of the movement
-	Physics::SetBodyRotation(body, atan2f(dir.x, dir.y) * static_cast<float>(180.f / M_PI));
+	Physics::SetBodyRotation(body, atan2f(lastOrientation.x, lastOrientation.y) * static_cast<float>(180.f / M_PI));
 }
 
 void Player::SetHealthInPercent(float _health)

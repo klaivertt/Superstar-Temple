@@ -46,6 +46,7 @@ private:
 	float healthInPercent = 100.f;
 
 	Sprite* sprite;
+	Vec2 lastOrientation = { 0.f, 0.f };
 
 	//functions 
 	void InitInputs();
