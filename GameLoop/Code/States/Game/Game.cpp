@@ -5,6 +5,7 @@
 
 #include "Code/States/Game/Actor/Player/Player.hpp"
 #include "Code/States/Game/Actor/Interactable/Key.hpp"
+#include "Code/States/Game/Actor/Interactable/Box.hpp"
 
 Game::Game(GameData* _data) : Scene(_data)
 {
@@ -23,6 +24,7 @@ void Game::Load(void)
 	Scene::Load();
 	player = new Player(data);
 	key = new Key(data);
+	box = new Box(data);
 
 	// desactivate gravity 
 	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });

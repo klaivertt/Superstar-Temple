@@ -9,8 +9,8 @@
 struct Box : public Interactable
 {
 private:
-	sf::Texture texture;
 	Sprite sprite;
+	sf::Texture texture;
 
 public:
 	Box(GameData* _data);

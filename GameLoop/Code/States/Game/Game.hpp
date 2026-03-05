@@ -18,6 +18,7 @@ protected:
 
 	Player* player = nullptr;
 	Key* key = nullptr;
+	Box* box = nullptr;
 
 	//temp ground
 	b2BodyId groundBody = b2BodyId();
