@@ -19,13 +19,6 @@ void Key::Update(float _dt)
 {
 	sprite.SetPosition(Physics::GetBodyPosition(body));
 
-	if ()
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-		{
-
-		}
-	}
 }
 
 void Key::Draw(sf::RenderTarget* _render)
@@ -35,12 +28,10 @@ void Key::Draw(sf::RenderTarget* _render)
 
 void Key::OnCollisionEnter(ColEvent _col)
 {
-	isGrabed = true;
 }
 
 void Key::OnCollisionExit(ColEvent _col)
 {
-	isGrabed = false;
 }
 
 void Key::OnInteract(Actor* _interactingActor)
