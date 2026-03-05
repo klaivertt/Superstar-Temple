@@ -11,6 +11,7 @@
 class Animation;
 class Player;
 class Key;
+class Box;
 
 struct Game : public Scene
 {
