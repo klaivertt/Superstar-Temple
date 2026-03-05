@@ -10,7 +10,6 @@ class Key : public Interactable
 {
 private:
 	Sprite sprite;
-	sf::Texture texture;
 
 public:
 	Key(GameData* _data);

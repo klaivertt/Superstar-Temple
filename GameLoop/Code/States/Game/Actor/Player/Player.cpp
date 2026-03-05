@@ -16,7 +16,8 @@ void Player::InitInputs()
 Player::Player(GameData* _data): Actor(_data)
 {
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, this, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64.f) });
+	//Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64.f) });
+	Physics::CreateCircleCollider(body, { Vec2(0,0), 0.f, Vec2(0.f) }, 31.f);
 	b2Body_SetLinearDamping(body, 5.f);
 
 	sprite = new Sprite(data->assets->GetTexture("Assets/Sprites/Game/Player.png"));
@@ -52,6 +53,8 @@ void Player::Update(float _dt)
 
 	SetPlayerDirection();
 	Actor::Update(_dt);
+
+	// Update the position and rotation of the sprite to match the physics body	
 	sprite->SetPosition(Physics::GetBodyPosition(body));
 	sprite->SetRotation(Physics::GetBodyRotation(body));
 	//reset dir
@@ -133,7 +136,7 @@ void Player::OnInteract(Input _input)
 	if (currentInteractable)
 	{
 		currentInteractable->OnInteract(this);
-		currentInteractable = nullptr;
+		//currentInteractable = nullptr;
 	}
 }
 

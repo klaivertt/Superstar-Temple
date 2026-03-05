@@ -178,6 +178,7 @@
     <ClCompile Include="Code\States\Game\Actor\BasicCube.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Box.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Button.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Door.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\FireTrap.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Interactable.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Key.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="Code\States\Game\Actor\BasicCube.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Box.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Button.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Door.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\FireTrap.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Interactable.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Key.hpp" />

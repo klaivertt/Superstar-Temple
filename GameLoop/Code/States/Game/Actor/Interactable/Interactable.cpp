@@ -17,6 +17,16 @@ Interactable::Interactable(GameData* _data) : Actor(_data)
 
 Interactable::~Interactable(void)
 {
+	// clear the target of the owner if exist
+	if (owner != nullptr)
+	{
+		if (Interactable* interactOwner = dynamic_cast<Interactable*>(owner))
+		{
+			Interactable* targetInteractable = dynamic_cast<Interactable*>(owner);
+			targetInteractable->ClearTarget();
+		}
+	}
+
 	Actor::~Actor();
 }
 
@@ -34,6 +44,29 @@ void Interactable::OnCollisionEnter(ColEvent _col)
 
 void Interactable::OnCollisionExit(ColEvent _col)
 {
+}
+
+void Interactable::SetTarget(Actor* _target)
+{
+	target = _target;
+	if (target != nullptr)
+	{
+		if (Interactable* interactOwner = dynamic_cast<Interactable*>(target))
+		{
+			Interactable* targetInteractable = dynamic_cast<Interactable*>(target);
+			targetInteractable->SetOwner(this);
+		}
+	}
+}
+
+void Interactable::ClearTarget()
+{
+	target = nullptr;
+}
+
+void Interactable::SetOwner(Actor* _owner)
+{
+	owner = _owner;
 }
 
 void Interactable::OnInteract(Actor* _interactingActor)

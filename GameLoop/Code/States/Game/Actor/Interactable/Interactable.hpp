@@ -11,6 +11,8 @@ protected:
 	void SetTriggerRange(float _range, Vec2 _decal = Vec2(0.f));
 
 	float triggerRange = 0.f;
+	Actor* target = nullptr;
+	Actor* owner = nullptr;
 private:
 
 public:
@@ -24,6 +26,11 @@ public:
 
 	virtual void OnCollisionEnter(ColEvent _col) override;
 	virtual void OnCollisionExit(ColEvent _col) override;
+
+	virtual void SetTarget(Actor* _target);
+	virtual void ClearTarget();
+
+	virtual void SetOwner(Actor* _owner);
 
 	virtual void OnInteract(Actor* _interactingActor);
 

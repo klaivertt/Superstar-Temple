@@ -1,4 +1,5 @@
 #include "ImGuiManager.hpp"
+#include "Logger.hpp"
 
 Debug::GuiManager::GuiManager(sf::RenderWindow* _render)
 {
@@ -29,7 +30,8 @@ void Debug::GuiManager::Render(void)
 	{
 		lastUpdate -= frameRateTarget;
 
-		lastUpdate = lastUpdate < 0.f ? 0.f : lastUpdate;
+		lastUpdate = (lastUpdate < 0.f) ? 0.01f : lastUpdate;
+		//Logger::Log("Updating ImGui with dt: " + std::to_string(lastUpdate) + " seconds");
 		// IMPORTANT: Appeler Update AVANT toute utilisation d'ImGui
 		ImGui::SFML::Update(*render, sf::seconds(lastUpdate));
 

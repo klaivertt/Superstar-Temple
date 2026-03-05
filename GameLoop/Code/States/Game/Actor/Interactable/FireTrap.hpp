@@ -10,7 +10,6 @@ class FireTrap : public Interactable
 {
 private:
 	Sprite sprite;
-	sf::Texture texture;
 
 public:
 	FireTrap(GameData* _data);

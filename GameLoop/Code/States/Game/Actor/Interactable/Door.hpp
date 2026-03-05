@@ -6,13 +6,15 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
-class Box : public Interactable
+class Door : public Interactable
 {
 private:
 	Sprite sprite;
 
+	bool isOpen = false;
+
 public:
-	Box(GameData* _data);
+	Door(GameData* _data);
 
 	std::string GetClassName(void) override { return "Box"; }
 
@@ -23,6 +25,12 @@ public:
 	virtual void OnCollisionExit(ColEvent _col) override;
 
 	virtual void OnInteract(Actor* _interactingActor) override;
+
+	void ToggleDoor();
+	void OpenDoor();
+	void CloseDoor();
+
+	void CreateCollider();
 
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;

@@ -3,8 +3,7 @@
 
 Box::Box(GameData* _data) : Interactable(_data)
 {
-	texture.loadFromFile("Assets/Sprites/Game/Interactable/Box.png");
-	sprite.SetTexture(&texture);
+	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Interactable/Box.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(600, 100), 0.f, Vec2(64, 64) }, this, true);

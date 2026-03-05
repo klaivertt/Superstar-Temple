@@ -24,6 +24,8 @@ public:
 	virtual void OnCollisionEnter(ColEvent _col) override;
 	virtual void OnCollisionExit(ColEvent _col) override;
 
+	virtual void OnInteract(Actor* _interactingActor) override;
+
 	bool ReturnState(void);
 
 	// Uncomment the function if you want to use them

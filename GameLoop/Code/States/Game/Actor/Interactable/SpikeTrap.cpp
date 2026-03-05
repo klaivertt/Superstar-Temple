@@ -3,8 +3,7 @@
 
 SpikeTrap::SpikeTrap(GameData* _data) : Interactable(_data)
 {
-	texture.loadFromFile("Assets/Sprites/Game/Map/SpikeTrap.png");
-	sprite.SetTexture(&texture);
+	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/SpikeTrap.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(300, 200), 0.f, Vec2(64, 64) }, this, true);

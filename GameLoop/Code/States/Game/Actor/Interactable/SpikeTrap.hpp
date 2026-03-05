@@ -10,7 +10,6 @@ class SpikeTrap : public Interactable
 {
 private:
 	Sprite sprite;
-	sf::Texture texture;
 
 public:
 	SpikeTrap(GameData* _data);
