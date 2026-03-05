@@ -6,7 +6,7 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
-struct FireTrap : public Interactable
+class FireTrap : public Interactable
 {
 private:
 	Sprite sprite;

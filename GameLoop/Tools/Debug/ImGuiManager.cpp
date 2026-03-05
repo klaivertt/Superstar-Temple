@@ -29,6 +29,7 @@ void Debug::GuiManager::Render(void)
 	{
 		lastUpdate -= frameRateTarget;
 
+		lastUpdate = lastUpdate < 0.f ? 0.f : lastUpdate;
 		// IMPORTANT: Appeler Update AVANT toute utilisation d'ImGui
 		ImGui::SFML::Update(*render, sf::seconds(lastUpdate));
 
@@ -43,7 +44,9 @@ void Debug::GuiManager::Render(void)
 			{
 				// Si la fenêtre a été fermée via le flag 'open', on respecte ça
 				if (!win.open)
+				{
 					continue;
+				}
 
 				if (win.categories.size() > 0)
 				{
@@ -282,17 +285,25 @@ void Debug::GuiManager::PopID()
 void Debug::GuiManager::Indent(float indentWidth)
 {
 	if (indentWidth > 0.f)
+	{
 		ImGui::Indent(indentWidth);
+	}
 	else
+	{
 		ImGui::Indent();
+	}
 }
 
 void Debug::GuiManager::Unindent(float indentWidth)
 {
 	if (indentWidth > 0.f)
+	{
 		ImGui::Unindent(indentWidth);
+	}
 	else
+	{
 		ImGui::Unindent();
+	}
 }
 
 Debug::GuiManager::Category& Debug::GuiManager::GetOrCreateCategory(std::string _window, std::string _name)

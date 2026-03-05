@@ -16,9 +16,12 @@ void Player::InitInputs()
 Player::Player(GameData* _data): Actor(_data)
 {
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, this, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(50, 50) });
+	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64.f) });
 	b2Body_SetLinearDamping(body, 5.f);
 
+	sprite = new Sprite(data->assets->GetTexture("Assets/Sprites/Game/Player.png"));
+	sprite->SetColor(sf::Color(125, 200, 125));
+	sprite->SetOrigin(Vec2(0.5f));
 #if _DEBUG
 	_data->guiManager->RegisterWindow("Player", true, ImGuiWindowFlags_AlwaysAutoResize);
 	_data->guiManager->AddSliderFloat("Player", "speed", "value", &speed, 0.f, 35.f);
@@ -46,22 +49,26 @@ void Player::Update(float _dt)
 	dir.Normalize();
 	Physics::ApplyForce(body, dir * speed);
 
-	dir = Vec2( 0.f, 0.f );
 
+	SetPlayerDirection();
 	Actor::Update(_dt);
+	sprite->SetPosition(Physics::GetBodyPosition(body));
+	sprite->SetRotation(Physics::GetBodyRotation(body));
+	//reset dir
+	dir = Vec2( 0.f, 0.f );
 }
 
 void Player::Draw(sf::RenderTarget* _render)
 {
-
+	sprite->Draw(_render);
 }
 
 void Player::OnTriggerEnter(ColEvent _col)
 {
-	if (_col.other->GetClassName() == "Key")
+	// if the collision is with an interactable, set it as the current interactable
+	if (Interactable* interactable = dynamic_cast<Interactable*>(_col.other))
 	{
-		Logger::Log("Trigger Enter with key !");
-		currentInteractable = static_cast<Interactable*>(_col.other);
+		currentInteractable = interactable;
 	}
 
 	Logger::Debug("Trigger Enter with " + _col.other->GetClassName() + " !");
@@ -128,6 +135,12 @@ void Player::OnInteract(Input _input)
 		currentInteractable->OnInteract(this);
 		currentInteractable = nullptr;
 	}
+}
+
+void Player::SetPlayerDirection(void)
+{
+	// change the rotation of the player to look in the direction of the movement
+	Physics::SetBodyRotation(body, atan2f(dir.x, dir.y) * static_cast<float>(180.f / M_PI));
 }
 
 void Player::SetHealthInPercent(float _health)

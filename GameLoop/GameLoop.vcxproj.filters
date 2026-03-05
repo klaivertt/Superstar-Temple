@@ -36,6 +36,9 @@
     <ClCompile Include="Code\States\Game\Actor\Interactable\Interactable.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Key.cpp" />
     <ClCompile Include="Tools\UI\AutoUi.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\FireTrap.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\SpikeTrap.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Core\Draw.hpp" />
@@ -194,6 +197,9 @@
     <ClInclude Include="Code\States\Game\Actor\Interactable\Interactable.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Key.hpp" />
     <ClInclude Include="Tools\UI\AutoUi.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\FireTrap.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\SpikeTrap.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Player\PlayerUi.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\lib\Debug\freeglut.lib" />

@@ -8,7 +8,7 @@
 
 
 class Interactable;
-struct Player : public Actor
+class Player : public Actor
 {
 
 public:
@@ -45,6 +45,8 @@ private:
 	float maxHealth = 100.f;
 	float healthInPercent = 100.f;
 
+	Sprite* sprite;
+
 	//functions 
 	void InitInputs();
 
@@ -56,6 +58,8 @@ private:
 	void OnWalkLeft(Input _input);
 	void OnWalkRight(Input _input);
 	void OnInteract(Input _input);
+
+	void SetPlayerDirection(void);
 
 	void SetHealthInPercent(float _health);
 };

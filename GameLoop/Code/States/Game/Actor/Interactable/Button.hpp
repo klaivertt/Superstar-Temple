@@ -6,7 +6,7 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
-struct Button : public Interactable
+class Button : public Interactable
 {
 private:
 	Sprite sprite;

@@ -466,6 +466,22 @@ void Physics::SetBodyPosition(b2BodyId _body, Vec2 _position)
 	b2Body_SetTransform(_body, pos, b2Body_GetRotation(_body));
 }
 
+float Physics::GetBodyRotation(b2BodyId _body)
+{
+	if (b2Body_IsValid(_body))
+	{
+		b2Rot rot = b2Body_GetRotation(_body);
+		return -RadianToDegrees(b2Rot_GetAngle(rot));
+	}
+	return 0.f;
+}
+
+void Physics::SetBodyRotation(b2BodyId _body, float _rotation)
+{
+	b2Rot rot = b2MakeRot(DegreesToRadian(-_rotation));
+	b2Body_SetTransform(_body, b2Body_GetPosition(_body), rot);
+}
+
 sf::FloatRect Physics::GetBodyBound(b2BodyId _body)
 {
 	if (b2Body_IsValid(_body))
