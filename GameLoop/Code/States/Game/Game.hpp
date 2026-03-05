@@ -15,6 +15,7 @@ class Box;
 class Button;
 class FireTrap;
 class SpikeTrap;
+class PlayerUi;
 
 struct Game : public Scene
 {
@@ -26,6 +27,7 @@ protected:
 	Button* button = nullptr;
 	FireTrap* fireTrap = nullptr;
 	SpikeTrap* spikeTrap = nullptr;
+	PlayerUi* playerUi = nullptr;
 
 	//temp ground
 	b2BodyId groundBody = b2BodyId();

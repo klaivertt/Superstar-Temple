@@ -8,7 +8,7 @@
 class Interactable : public Actor
 {
 protected:
-	void SetTriggerRange(float _range, bool _centered = true);
+	void SetTriggerRange(float _range, Vec2 _decal = Vec2(0.f));
 
 	float triggerRange = 0.f;
 private:

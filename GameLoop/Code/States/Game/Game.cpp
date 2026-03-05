@@ -4,6 +4,8 @@
 #include "../../GameLoop/Tools/Miscellaneous/Animation.hpp"
 
 #include "Code/States/Game/Actor/Player/Player.hpp"
+#include "Code/States/Game/Actor/Player/PlayerUi.hpp"
+
 #include "Code/States/Game/Actor/Interactable/Key.hpp"
 #include "Code/States/Game/Actor/Interactable/Box.hpp"
 #include "Code/States/Game/Actor/Interactable/Button.hpp"
@@ -31,6 +33,8 @@ void Game::Load(void)
 	button = new Button(data);
 	fireTrap = new FireTrap(data);
 	spikeTrap = new SpikeTrap(data);
+
+	playerUi = new PlayerUi(data, player);
 
 	// desactivate gravity 
 	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });

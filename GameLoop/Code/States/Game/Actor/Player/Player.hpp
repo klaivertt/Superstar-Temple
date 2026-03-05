@@ -43,6 +43,7 @@ private:
 	Interactable* currentInteractable = nullptr;
 	float health = 100.f;
 	float maxHealth = 100.f;
+	float healthInPercent = 100.f;
 
 	//functions 
 	void InitInputs();

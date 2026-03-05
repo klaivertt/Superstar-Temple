@@ -149,11 +149,23 @@ void Scene::RemoveActor(Actor* _actor)
 
 void Scene::AddUi(AutoUi* _ui)
 {
-
+	uiElements->Add(_ui);
+	_ui->name = _ui->GetClassName() + "_" + std::to_string(uiElements->Size());
+	Logger::Success(_ui->name + " Created");
 }
 
 void Scene::RemoveUi(AutoUi* _ui)
 {
+	int i = 0;
+	for (int i = 0; i < uiElements->Size(); i++)
+	{
+		AutoUi* ui = uiElements->Get(i);
+		if (ui == _ui)
+		{
+			uiElements->Remove(i);
+			break;
+		}
+	}
 }
 
 void Scene::KeyPressed(sf::Keyboard::Key _key)

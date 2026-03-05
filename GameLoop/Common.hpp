@@ -99,6 +99,12 @@ public:
 		y = _vec.y;
 	}
 
+	Vec2(const float _float)
+	{
+		x = _float;
+		y = _float;
+	}
+
 	// Vec2 -> sf::Vector2f
 	operator sf::Vector2f() const
 	{

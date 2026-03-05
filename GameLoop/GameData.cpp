@@ -115,6 +115,17 @@ sf::Vector2f Lerp(sf::Vector2f _value, sf::Vector2f _desired, float _speed, floa
 	return _value;
 }
 
+sf::Color LerpColor(const sf::Color& _a, const sf::Color& _b, float _t)
+{
+	_t = std::max(0.f, std::min(1.f, _t));
+	return sf::Color(
+		sf::Uint8(_a.r + (_b.r - _a.r) * _t),
+		sf::Uint8(_a.g + (_b.g - _a.g) * _t),
+		sf::Uint8(_a.b + (_b.b - _a.b) * _t),
+		sf::Uint8(_a.a + (_b.a - _a.a) * _t)
+	);
+}
+
 float VectorLength(sf::Vector2f _vector)
 {
 	return sqrtf(_vector.x * _vector.x + _vector.y * _vector.y);

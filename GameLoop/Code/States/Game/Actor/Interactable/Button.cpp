@@ -10,9 +10,9 @@ Button::Button(GameData* _data) : Interactable(_data)
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(800, 100), 0.f, Vec2(64, 64) }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 
-	triggerRange = 100.f;
 
-	SetTriggerRange(50);
+	triggerRange = 35.f;
+	SetTriggerRange(triggerRange);
 }
 
 void Button::Update(float _dt)

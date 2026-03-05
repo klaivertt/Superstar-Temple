@@ -2,14 +2,11 @@
 #include "Tools/Physics/Physics.hpp"
 #include "Tools/Debug/Logger.hpp"
 
-void Interactable::SetTriggerRange(float _range, bool _centered)
+void Interactable::SetTriggerRange(float _range, Vec2 _decal)
 {
-	Physics::Transform transform = Physics::GetBodyTransform(body);
-	
-	if (_centered)
-	{
-		transform.position += Vec2(_range, -_range);
-	}
+	Physics::Transform transform = Physics::Transform();
+
+	transform.position += _decal;
 
 	Physics::CreateCircleTrigger(body, transform, _range);
 }

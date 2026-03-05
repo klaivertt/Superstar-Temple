@@ -33,6 +33,7 @@ int Clamp(int _value, int _min, int _max);
 // _speed : the speed is the desired value per second you want
 float Lerp(float _value, float _desired, float _speed, float _dt);
 sf::Vector2f Lerp(sf::Vector2f _value, sf::Vector2f _desired, float _speed, float _dt);
+sf::Color LerpColor(const sf::Color& _a, const sf::Color& _b, float _t);
 
 float VectorLength(sf::Vector2f _vector);
 

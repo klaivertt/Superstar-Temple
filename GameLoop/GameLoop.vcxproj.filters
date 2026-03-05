@@ -20,8 +20,6 @@
     <ClCompile Include="Tools\AssetsManager.cpp" />
     <ClCompile Include="Tools\Effects\Particle.cpp" />
     <ClCompile Include="Tools\Scene.cpp" />
-    <ClCompile Include="Tools\UI\Button.cpp" />
-    <ClCompile Include="Tools\UI\Slider.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Actor.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Animation.cpp" />
@@ -171,8 +169,6 @@
     <ClInclude Include="Tools\Effects\Particle.hpp" />
     <ClInclude Include="Tools\Scene.hpp" />
     <ClInclude Include="Tools\SceneManager.hpp" />
-    <ClInclude Include="Tools\UI\Button.hpp" />
-    <ClInclude Include="Tools\UI\Slider.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\Player.hpp" />
     <ClInclude Include="Tools\Overload\OperatorOverloading.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Actor.hpp" />

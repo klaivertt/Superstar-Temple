@@ -201,7 +201,7 @@ b2ShapeId Physics::CreateCircleCollider(b2BodyId _body, Transform _transform, fl
 
 	b2Circle circle = { 0 };
 	circle.center = (b2Vec2)(_transform.position.x / METERS_TO_PIXELS, -_transform.position.y / METERS_TO_PIXELS);
-	//circle.center = (b2Vec2)(0.f,0.f);
+	//circle.center = (b2Vec2)(0.f, 0.f);
 	circle.radius = _radius / METERS_TO_PIXELS;
 
 	b2ShapeId shape = b2CreateCircleShape(_body, &def, &circle);
@@ -258,6 +258,7 @@ b2ShapeId Physics::CreateCircleTrigger(b2BodyId _body, Transform _transform, flo
 
 	b2Circle circle = { 0 };
 	circle.center = (b2Vec2)(_transform.position.x / METERS_TO_PIXELS, -_transform.position.y / METERS_TO_PIXELS);
+	//circle.center = (b2Vec2)(0.f, 0.f);
 	circle.radius = _radius / METERS_TO_PIXELS;
 
 	b2ShapeId shape = b2CreateCircleShape(_body, &def, &circle);
@@ -281,7 +282,7 @@ Physics::Transform Physics::GetBodyTransform(b2BodyId _body)
 	b2Vec2 pos = b2Body_GetPosition(_body);
 	b2Rot rot = b2Body_GetRotation(_body);
 
-	trans.position = Vec2( pos.x * METERS_TO_PIXELS, -pos.y * METERS_TO_PIXELS );
+	trans.position = Vec2(pos.x * METERS_TO_PIXELS, -pos.y * METERS_TO_PIXELS);
 	trans.rotation = -RadianToDegrees(b2Rot_GetAngle(rot));
 
 	return trans;
@@ -451,9 +452,9 @@ Vec2 Physics::GetBodyPosition(b2BodyId _body)
 {
 	if (b2Body_IsValid(_body))
 	{
-	b2Vec2 pos = b2Body_GetPosition(_body);
-	pos.y = -pos.y;
-	return pos * METERS_TO_PIXELS;
+		b2Vec2 pos = b2Body_GetPosition(_body);
+		pos.y = -pos.y;
+		return pos * METERS_TO_PIXELS;
 	}
 
 	return Vec2(0, 0);
@@ -471,9 +472,9 @@ sf::FloatRect Physics::GetBodyBound(b2BodyId _body)
 	{
 		b2AABB aabb = b2Body_ComputeAABB(_body);
 
-		float left   = aabb.lowerBound.x * METERS_TO_PIXELS;
-		float top    = -aabb.upperBound.y * METERS_TO_PIXELS;
-		float width  = (aabb.upperBound.x - aabb.lowerBound.x) * METERS_TO_PIXELS;
+		float left = aabb.lowerBound.x * METERS_TO_PIXELS;
+		float top = -aabb.upperBound.y * METERS_TO_PIXELS;
+		float width = (aabb.upperBound.x - aabb.lowerBound.x) * METERS_TO_PIXELS;
 		float height = (aabb.upperBound.y - aabb.lowerBound.y) * METERS_TO_PIXELS;
 
 		return sf::FloatRect(left, top, width, height);

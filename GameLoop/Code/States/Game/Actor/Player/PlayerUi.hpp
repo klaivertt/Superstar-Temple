@@ -2,6 +2,7 @@
 #define PLAYER_UI_HPP
 
 #include "Tools/UI/AutoUi.hpp"
+#include "Tools/Miscellaneous/Sprite.hpp"
 class Player;
 
 
@@ -9,8 +10,12 @@ class PlayerUi : public AutoUi
 {
 private:
 	//UI elements
-	Sprite healthBar;
-	Sprite healthBarBackground;
+	Sprite* healthBar;
+	Sprite* healthBarBackground;
+	Player& player;
+	sf::Color cLow;
+	sf::Color cMid;
+	sf::Color cHigh;
 public:
 	PlayerUi(GameData* _data, Player* _player);
 	~PlayerUi(void);

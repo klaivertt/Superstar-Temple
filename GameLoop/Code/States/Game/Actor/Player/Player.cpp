@@ -24,7 +24,7 @@ Player::Player(GameData* _data): Actor(_data)
 	_data->guiManager->AddSliderFloat("Player", "speed", "value", &speed, 0.f, 35.f);
 	_data->guiManager->AddSliderFloat("Player", "maxHealth", "Max Value", &maxHealth, 0.f, 200.f);
 	// Add a slider to change the health in percentage
-	_data->guiManager->AddSliderFloat("Player", "health", "Health in %", &health, 0.f, 100.f);
+	_data->guiManager->AddSliderFloat("Player", "health", "Health in %", &healthInPercent, 0.f, 100.f, [this](float _health , std::string _n) { SetHealthInPercent(_health); });
 
 #endif
 
@@ -132,5 +132,6 @@ void Player::OnInteract(Input _input)
 
 void Player::SetHealthInPercent(float _health)
 {
-	health = (maxHealth * _health) / 100.f;
+	health = maxHealth * (_health / 100);
+	Logger::Log("Health set to " + std::to_string(health) + " / " + std::to_string(maxHealth) + " (" + std::to_string(_health) + "%)");
 }
