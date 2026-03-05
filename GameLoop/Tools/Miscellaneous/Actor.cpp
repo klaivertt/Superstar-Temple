@@ -30,8 +30,16 @@ Actor::~Actor(void)
 {
 	if (this)
 	{
+		// Note : Important :
+		// Quand l'acteur est détruite, on notifie tous les acteurs qui sont en train de le suivre que cet acteur est détruit, pour éviter les pointeurs invalides
+		onDestroyed.Broadcast(this);
+
 		data->manager->currentScene->RemoveActor(this);
-		b2DestroyBody(body);
+
+		if (b2Body_IsValid(body))
+		{
+			b2DestroyBody(body);
+		}
 	}
 }
 

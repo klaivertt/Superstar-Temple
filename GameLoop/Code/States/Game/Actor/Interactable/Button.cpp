@@ -45,6 +45,9 @@ void Button::OnInteract(Actor* _interactingActor)
 			interacte->OnInteract(nullptr);
 		}
 	}
+
+	// Test code : zero crash quand le bouton est détruit alors que le player interagit avec, et l'interactable ciblé ne pose pas de problème
+	//Interactable::~Interactable();
 }
 
 bool Button::ReturnState(void)

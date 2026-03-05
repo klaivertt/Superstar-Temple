@@ -105,6 +105,12 @@ public:
 		y = _float;
 	}
 
+	Vec2(const int _int)
+	{
+		x = static_cast<float>(_int);
+		y = static_cast<float>(_int);
+	}
+
 	// Vec2 -> sf::Vector2f
 	operator sf::Vector2f() const
 	{

@@ -15,7 +15,7 @@ void Player::InitInputs()
 
 Player::Player(GameData* _data): Actor(_data)
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, this, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(0) }, this, true);
 	//Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64.f) });
 	Physics::CreateCircleCollider(body, { Vec2(0,0), 0.f, Vec2(0.f) }, 31.f);
 	b2Body_SetLinearDamping(body, 5.f);
@@ -71,10 +71,13 @@ void Player::Draw(sf::RenderTarget* _render)
 
 void Player::OnTriggerEnter(ColEvent _col)
 {
-	// if the collision is with an interactable, set it as the current interactable
 	if (Interactable* interactable = dynamic_cast<Interactable*>(_col.other))
 	{
 		currentInteractable = interactable;
+
+		// ce delegate permet au player de savoir quand l'interactable qu'il a en pointeur est détruit, pour éviter les pointeurs invalides
+		// ce que cette fonction fait réelement, c'est de dire que quand l'interactable est détruit, le player met donc ensuite son pointeur currentInteractable à nullptr
+		interactable->onDestroyed.Add([this](Actor*) { currentInteractable = nullptr; });
 	}
 
 	Logger::Debug("Trigger Enter with " + _col.other->GetClassName() + " !");
@@ -82,9 +85,8 @@ void Player::OnTriggerEnter(ColEvent _col)
 
 void Player::OnTriggerExit(ColEvent _col)
 {
-	// if collision exit with the current interactable, set it to nullptr
 	if (currentInteractable == _col.other)
-	{
+	{	
 		currentInteractable = nullptr;
 	}
 }

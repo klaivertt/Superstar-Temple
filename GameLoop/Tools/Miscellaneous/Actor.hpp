@@ -2,12 +2,16 @@
 
 #include "../../Common.hpp"
 #include "../Physics/Physics.hpp"
+#include "Delegate.hpp"
 
 class GameData;
 class Vec2;
-
+class Actor;
 
 struct ColEvent;
+
+// Declare once here so every Actor subclass can use it
+DECLARE_DELEGATE_OneParam(OnActorDestroyedDelegate, Actor*)
 
 class Actor
 {
@@ -34,6 +38,9 @@ public:
 	Actor(GameData* _data, std::string _name);
 	~Actor(void);
 	virtual std::string GetClassName(void) { return "Actor"; }
+
+	// Ce delegate permet de notifier les autres acteurs que cet acteur est détruit, pour éviter les pointeurs invalides
+	OnActorDestroyedDelegate onDestroyed;
 
 	virtual void Update(float _dt);
 	virtual void Draw(sf::RenderTarget* _render);

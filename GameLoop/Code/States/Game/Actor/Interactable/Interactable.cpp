@@ -17,6 +17,9 @@ Interactable::Interactable(GameData* _data) : Actor(_data)
 
 Interactable::~Interactable(void)
 {
+	// onDestroyed is broadcast automatically by Actor::~Actor().
+	// No need to call it here.
+
 	// clear the target of the owner if exist
 	if (owner != nullptr)
 	{

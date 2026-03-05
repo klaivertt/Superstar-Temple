@@ -34,6 +34,9 @@ public:
 
 	virtual void OnInteract(Actor* _interactingActor);
 
+	// Note: to be notified when this interactable is destroyed, use
+	// the inherited  onDestroyed  delegate (defined on Actor).
+
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;
 	// virtual void OnTriggerEnter(ColEvent _col) override;
