@@ -86,20 +86,26 @@ bool Animation::LoadAnimationData(const std::string& _filePath, const std::strin
 	{
 		// Skip empty lines and comments
 		if (line.empty() || line[0] == '#')
+		{
 			continue;
+		}
 
 		// Check for animation section
 		if (line.find("[ANIMATION]") != std::string::npos)
 		{
 			// If we already found our animation, we're done
 			if (foundAnimation)
+			{
 				break;
+			}
 
 			// Read the next lines to find NAME
 			while (std::getline(file, line))
 			{
 				if (line.empty())
+				{
 					continue;
+				}
 
 				std::istringstream iss(line);
 				std::string keyword;
@@ -125,7 +131,9 @@ bool Animation::LoadAnimationData(const std::string& _filePath, const std::strin
 			}
 
 			if (!foundAnimation)
+			{
 				continue;
+			}
 		}
 
 		if (foundAnimation)
@@ -176,7 +184,9 @@ bool Animation::LoadAnimationData(const std::string& _filePath, int _animationIn
 	{
 		// Skip empty lines and comments
 		if (line.empty() || line[0] == '#')
+		{
 			continue;
+		}
 
 		// Check for animation section
 		if (line.find("[ANIMATION]") != std::string::npos)
@@ -234,10 +244,14 @@ bool Animation::LoadAnimationData(const std::string& _filePath, int _animationIn
 void Animation::Update(float _dt)
 {
 	if (frames.size() == 0)
+	{
 		return;
+	}
 
 	if (isFinished)
+	{
 		return;
+	}
 
 	timer += _dt;
 	int oldFrame = currentFrame;

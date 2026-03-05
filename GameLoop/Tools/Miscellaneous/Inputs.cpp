@@ -42,7 +42,7 @@ void Inputs::UpdateInputs(float _dt)
 					{
 						// Appelle toutes les fonctions attaché au Delegate
 						input.isPressed = false;
-						input.mousePos = Vec2(sf::Mouse::getPosition(*data->render).x, sf::Mouse::getPosition(*data->render).y);
+						input.mousePos = Vec2(static_cast<float>(sf::Mouse::getPosition(*data->render).x), static_cast<float>(sf::Mouse::getPosition(*data->render).y));
 						input.delegateReleased->Broadcast(input);
 					}
 				}
@@ -52,7 +52,7 @@ void Inputs::UpdateInputs(float _dt)
 					{
 						// Appelle toutes les fonctions attaché au Delegate
 						input.isPressed = true;
-						input.mousePos = Vec2(sf::Mouse::getPosition(*data->render).x, sf::Mouse::getPosition(*data->render).y);
+						input.mousePos = Vec2(static_cast<float>(sf::Mouse::getPosition(*data->render).x), static_cast<float>(sf::Mouse::getPosition(*data->render).y));
 						input.delegatePressed->Broadcast(input);
 					}
 				}

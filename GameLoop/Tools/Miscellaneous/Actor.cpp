@@ -64,7 +64,7 @@ void Actor::OnTriggerExit(ColEvent _col)
 {
 }
 
-sf::FloatRect Actor::GetBounds()
+sf::FloatRect Actor::GetBounds() const
 {
 	//return base bounds, you can override this function to return the correct bounds of your actor
 	sf::FloatRect bound = Physics::GetBodyBound(body);

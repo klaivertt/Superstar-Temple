@@ -97,7 +97,7 @@ namespace Debug
 			avgFpsValue = static_cast<int>(totalFps / frameCount);
 			avgFps->SetString("Avg Fps : " + std::to_string(avgFpsValue));
 
-			int memory = GetMemoryUsage();
+			int memory = static_cast<int>(GetMemoryUsage());
 			memoryUsage->SetString("Mem use : " + std::to_string(memory) + "MB");
 		}
 	}

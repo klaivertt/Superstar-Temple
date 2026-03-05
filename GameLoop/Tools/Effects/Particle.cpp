@@ -203,8 +203,8 @@ void ParticleSystem::addParticle(
 
 	// Initial velocity
 	sf::Vector2f velocity;
-	velocity.x = cosf(startAngle * M_PI / 180.f) * startIntensity;
-	velocity.y = sinf(startAngle * M_PI / 180.f) * startIntensity;
+	velocity.x = cosf(startAngle * static_cast<float>(M_PI) / 180.f) * startIntensity;
+	velocity.y = sinf(startAngle * static_cast<float>(M_PI) / 180.f) * startIntensity;
 	particle.instanteVelocity += velocity;
 
 	m_particles.push_back(particle);

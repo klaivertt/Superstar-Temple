@@ -152,8 +152,7 @@ void Debug::GuiManager::AddComboBox(std::string _win, std::string _cat, std::str
 {
 	Window& win = GetOrCreateWindow(_win);
 
-	auto combo = std::make_unique<
-	GuiComboBox>();
+	auto combo = std::make_unique<GuiComboBox>();
 	combo->label = _label;
 	combo->count = new int(_size);
 	combo->current = new int(0);
