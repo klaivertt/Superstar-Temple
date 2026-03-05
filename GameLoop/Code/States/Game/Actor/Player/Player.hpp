@@ -4,6 +4,7 @@
 
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
+#include "Tools/AssetsManager.hpp"
 
 class Interactable;
 struct Player : public Actor
