@@ -21,7 +21,11 @@ Player::Player(GameData* _data): Actor(_data)
 
 #if _DEBUG
 	_data->guiManager->RegisterWindow("Player", true, ImGuiWindowFlags_AlwaysAutoResize);
-	_data->guiManager->AddSliderFloat("Player", "speed", "translation", &speed, 0.f, 35.f);
+	_data->guiManager->AddSliderFloat("Player", "speed", "value", &speed, 0.f, 35.f);
+	_data->guiManager->AddSliderFloat("Player", "maxHealth", "Max Value", &maxHealth, 0.f, 200.f);
+	// Add a slider to change the health in percentage
+	_data->guiManager->AddSliderFloat("Player", "health", "Health in %", &health, 0.f, 100.f);
+
 #endif
 
 	InitInputs();
@@ -72,6 +76,21 @@ void Player::OnTriggerExit(ColEvent _col)
 	}
 }
 
+float Player::GetHealth() const
+{
+	// return the health in percentage
+	return (health / maxHealth) * 100.f;
+}
+
+void Player::SetHealth(float _health)
+{
+}
+
+float Player::GetMaxHealth() const
+{
+	return 0.0f;
+}
+
 void Player::UpdateIdle(float _dt)
 {
 
@@ -109,4 +128,9 @@ void Player::OnInteract(Input _input)
 		currentInteractable->OnInteract(this);
 		currentInteractable = nullptr;
 	}
+}
+
+void Player::SetHealthInPercent(float _health)
+{
+	health = (maxHealth * _health) / 100.f;
 }

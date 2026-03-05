@@ -8,6 +8,7 @@
 #include "Tools/Debug/DebugViewer.hpp"
 #include "Tools/Debug/Logger.hpp"
 #include "Tools/Debug/ImGuiManager.hpp"
+#include "Tools/UI/AutoUi.hpp"
 
 
 class SceneManager;

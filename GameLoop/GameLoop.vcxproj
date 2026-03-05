@@ -207,6 +207,7 @@
     <ClCompile Include="Tools\Scene.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Sprite.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Text.cpp" />
+    <ClCompile Include="Tools\UI\AutoUi.cpp" />
     <ClCompile Include="Tools\UI\Button.cpp" />
     <ClCompile Include="Tools\UI\Slider.cpp" />
   </ItemGroup>
@@ -366,6 +367,7 @@
     <ClInclude Include="Tools\SceneManager.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Sprite.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Text.hpp" />
+    <ClInclude Include="Tools\UI\AutoUi.hpp" />
     <ClInclude Include="Tools\UI\Button.hpp" />
     <ClInclude Include="Tools\UI\Slider.hpp" />
   </ItemGroup>

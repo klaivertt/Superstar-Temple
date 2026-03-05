@@ -6,7 +6,6 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Tools/AssetsManager.hpp"
 
-#define PLAYER_HEALTH 100.f
 
 class Interactable;
 struct Player : public Actor
@@ -32,13 +31,18 @@ public:
 	virtual void OnTriggerEnter(ColEvent _col) override;
 	virtual void OnTriggerExit(ColEvent _col) override;
 
+	float GetHealth() const;
+	void SetHealth(float _health);
+	float GetMaxHealth() const;
+
 private:
 	b2ShapeId collider = b2ShapeId();
 	State state = State::IDLE;
 	Vec2 dir = { 0.f, 0.f };
 	float speed = 15.f;
 	Interactable* currentInteractable = nullptr;
-	float health = PLAYER_HEALTH;
+	float health = 100.f;
+	float maxHealth = 100.f;
 
 	//functions 
 	void InitInputs();
@@ -51,4 +55,6 @@ private:
 	void OnWalkLeft(Input _input);
 	void OnWalkRight(Input _input);
 	void OnInteract(Input _input);
+
+	void SetHealthInPercent(float _health);
 };

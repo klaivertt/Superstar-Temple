@@ -10,6 +10,7 @@ Scene::Scene(GameData* _data)
 
 	actors = new Array<Actor*>();
 	//data->manager->CreateWorld();
+	uiElements = new Array<AutoUi*>();
 }
 
 Scene::~Scene(void)
@@ -32,6 +33,12 @@ void Scene::Update(float _dt)
 	{
 		Actor* actor = actors->Get(i);
 		actor->Update(_dt);
+	}
+
+	for (int i = 0; i < uiElements->Size(); i++)
+	{
+		AutoUi* ui = uiElements->Get(i);
+		ui->Update(_dt);
 	}
 
 	UpdateCollisions(_dt);
@@ -78,6 +85,13 @@ void Scene::Draw(sf::RenderTarget* _render)
 
 	_render->setView(_render->getDefaultView());
 
+
+	for (int i = 0; i < uiElements->Size(); i++)
+	{
+		AutoUi* ui = uiElements->Get(i);
+		ui->Draw(_render);
+	}
+
 	//delete actorOrdred;
 }
 
@@ -89,6 +103,13 @@ void Scene::Destroy(void)
 	}
 	actors->Clear();
 	delete actors;
+
+	for (int i = 0; i < uiElements->Size(); i++)
+	{
+		delete (*uiElements)[i];
+	}
+	uiElements->Clear();
+	delete uiElements;
 
 	//data->guiManager->Clear();
 	actorTypeCounters.clear();
@@ -124,6 +145,15 @@ void Scene::RemoveActor(Actor* _actor)
 		}
 	}
 	ordered = false;
+}
+
+void Scene::AddUi(AutoUi* _ui)
+{
+
+}
+
+void Scene::RemoveUi(AutoUi* _ui)
+{
 }
 
 void Scene::KeyPressed(sf::Keyboard::Key _key)
