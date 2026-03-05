@@ -7,7 +7,7 @@ Key::Key(GameData* _data) : Interactable(_data)
 	sprite.SetTexture(&texture);
 	sprite.SetOrigin(Vec2(0.5f,0.5f));
 
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(400, 100), 0.f, Vec2(64, 64) }, nullptr, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(400, 100), 0.f, Vec2(64, 64) }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 
 	triggerRange = 100.f;
@@ -32,5 +32,12 @@ void Key::OnCollisionEnter(ColEvent _col)
 
 void Key::OnCollisionExit(ColEvent _col)
 {
+
+}
+
+void Key::OnInteract(Actor* _interactingActor)
+{
+	// Delete the key when interact with it
+	Actor::~Actor();
 
 }

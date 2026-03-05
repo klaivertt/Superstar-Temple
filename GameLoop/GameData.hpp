@@ -32,7 +32,6 @@ int Clamp(int _value, int _min, int _max);
 // _speed : the speed is the desired value per second you want
 float Lerp(float _value, float _desired, float _speed, float _dt);
 sf::Vector2f Lerp(sf::Vector2f _value, sf::Vector2f _desired, float _speed, float _dt);
-Vec2 Lerp(Vec2 _value, Vec2 _desired, float _speed, float _dt);
 
 float VectorLength(sf::Vector2f _vector);
 
@@ -45,10 +44,6 @@ Vec2 Random(Vec2 _min, Vec2 _max);
 
 // This function will return the rotation of an actor based on its position, parent rotation and parent scale
 Vec2 GetRotationByPosition(Vec2 _position, float _parentRotation, Vec2 _parentScale);
-
-// This function will convert a Vec2 to a sf::Vector2f and vice versa
-inline sf::Vector2f ToSFML(const Vec2& _vec);
-inline Vec2 ToVec2(const sf::Vector2f& _vec);
 
 // This function will return the current memory usage of the game in bytes
 size_t GetMemoryUsage(void);

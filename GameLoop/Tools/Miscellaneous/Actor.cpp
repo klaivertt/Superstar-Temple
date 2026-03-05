@@ -31,13 +31,13 @@ Actor::~Actor(void)
 	if (this)
 	{
 		data->manager->currentScene->RemoveActor(this);
-		body = b2BodyId();
-		//destroy colliders in the world
+		b2DestroyBody(body);
 	}
 }
 
 void Actor::Update(float _dt)
 {
+	position = Physics::GetBodyPosition(body);
 }
 
 void Actor::Draw(sf::RenderTarget* _render)
@@ -67,6 +67,13 @@ void Actor::OnTriggerExit(ColEvent _col)
 sf::FloatRect Actor::GetBounds()
 {
 	//return base bounds, you can override this function to return the correct bounds of your actor
+	sf::FloatRect bound = Physics::GetBodyBound(body);
+
+	if (bound != sf::FloatRect(0.f, 0.f, 0.f, 0.f))
+	{
+		return bound;
+	}
+
 	return sf::FloatRect(position.x, position.y, 32.f, 32.f);
 }
 

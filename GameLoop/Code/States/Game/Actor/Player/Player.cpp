@@ -2,6 +2,7 @@
 #include "Tools/Debug/ImGuiManager.hpp"
 #include "Tools/Debug/Logger.hpp"
 #include "Tools/Physics/Physics.hpp"
+#include "../Interactable/Interactable.hpp"
 
 void Player::InitInputs()
 {
@@ -15,7 +16,7 @@ void Player::InitInputs()
 
 Player::Player(GameData* _data): Actor(_data)
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, nullptr, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(50, 50) });
 	b2Body_SetLinearDamping(body, 5.f);
 
@@ -42,11 +43,6 @@ void Player::Update(float _dt)
 	dir.Normalize();
 	Physics::ApplyForce(body, dir * speed);
 
-	//Contact
-	b2ContactEvents contactEvents = b2World_GetContactEvents(data->physicsWorld);
-	b2Vec2 impulseVec = { 0.f, 0.f };
-	CollisionPress(contactEvents, impulseVec);
-	CollisionRelease(contactEvents, impulseVec);
 	dir = Vec2( 0.f, 0.f );
 
 }
@@ -54,6 +50,21 @@ void Player::Update(float _dt)
 void Player::Draw(sf::RenderTarget* _render)
 {
 
+}
+
+void Player::OnTriggerEnter(ColEvent _col)
+{
+	if (_col.other->GetClassName() == "Key")
+	{
+		Logger::Log("Trigger Enter with key !");
+		currentInteractable = static_cast<Interactable*>(_col.other);
+	}
+
+	Logger::Debug("Trigger Enter with " + _col.other->GetClassName() + " !");
+}
+
+void Player::OnTriggerExit(ColEvent _col)
+{
 }
 
 void Player::UpdateIdle(float _dt)
@@ -88,15 +99,9 @@ void Player::OnWalkRight(Input _input)
 
 void Player::OnInteract(Input _input)
 {
-	Logger::Log("Interact !");
-
-}
-
-
-void Player::CollisionPress(b2ContactEvents& events, b2Vec2& vec)
-{
-}
-
-void Player::CollisionRelease(b2ContactEvents& events, b2Vec2& vec)
-{
+	if (currentInteractable)
+	{
+		currentInteractable->OnInteract(this);
+		currentInteractable = nullptr;
+	}
 }

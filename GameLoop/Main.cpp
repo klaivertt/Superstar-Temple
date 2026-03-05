@@ -20,11 +20,11 @@ int main(void)
 
 	GameData* data = GameData::GetInstance();
 
+	Logger::SetLogLevel(LogLevel::DEBUG);
 	data->manager = new SceneManager(data);
 	data->render = new sf::RenderWindow();
 	data->renderTexture = new sf::RenderTexture();
 	data->inputs = new Inputs(data);
-	Logger::SetLogLevel(LogLevel::DEBUG);
 
 	if (FULLSCREEN)
 	{

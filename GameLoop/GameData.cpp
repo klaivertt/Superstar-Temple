@@ -115,30 +115,6 @@ sf::Vector2f Lerp(sf::Vector2f _value, sf::Vector2f _desired, float _speed, floa
 	return _value;
 }
 
-Vec2 Lerp(Vec2 _value, Vec2 _desired, float _speed, float _dt)
-{
-	if (_speed < 0.f)
-	{
-		_speed = -_speed;
-	}
-
-	float distX = (_value.x - _desired.x);
-	float distY = (_value.y - _desired.y);
-
-	float distance = sqrt(distX * distX + distY * distY);
-
-	Vec2 direction;
-	if (distance > 0.f)
-	{
-		direction.x = distX / distance;
-		direction.y = distY / distance;
-
-		_value += direction * _speed * _dt;
-	}
-
-	return _value;
-}
-
 float VectorLength(sf::Vector2f _vector)
 {
 	return sqrtf(_vector.x * _vector.x + _vector.y * _vector.y);

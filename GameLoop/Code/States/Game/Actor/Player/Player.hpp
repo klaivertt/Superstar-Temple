@@ -26,14 +26,15 @@ public:
 	// virtual void OnCollisionEnter(ColEvent _col) override;
 	// virtual void OnCollisionExit(ColEvent _col) override;
 	// virtual void OnCollisionHit(ColEvent _col) override;
-	//virtual void OnTriggerEnter(ColEvent _col) override;
-	//virtual void OnTriggerExit(ColEvent _col) override;
+	virtual void OnTriggerEnter(ColEvent _col) override;
+	virtual void OnTriggerExit(ColEvent _col) override;
 
 private:
 	b2ShapeId collider = b2ShapeId();
 	State state = State::IDLE;
 	Vec2 dir = { 0.f, 0.f };
 	float speed = 15.f;
+	Interactable* currentInteractable = nullptr;
 
 	//functions 
 	void InitInputs();
@@ -46,7 +47,4 @@ private:
 	void OnWalkLeft(Input _input);
 	void OnWalkRight(Input _input);
 	void OnInteract(Input _input);
-
-	void CollisionPress(b2ContactEvents& events, b2Vec2& vec);
-	void CollisionRelease(b2ContactEvents& events, b2Vec2& vec);
 };

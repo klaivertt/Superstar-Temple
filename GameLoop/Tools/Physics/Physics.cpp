@@ -449,13 +449,35 @@ sf::Vector2f Physics::WorldToScreen(b2Vec2 _world)
 
 Vec2 Physics::GetBodyPosition(b2BodyId _body)
 {
+	if (b2Body_IsValid(_body))
+	{
 	b2Vec2 pos = b2Body_GetPosition(_body);
 	pos.y = -pos.y;
-	return ToVec2(pos) * METERS_TO_PIXELS;
+	return pos * METERS_TO_PIXELS;
+	}
+
+	return Vec2(0, 0);
 }
 
 void Physics::SetBodyPosition(b2BodyId _body, Vec2 _position)
 {
 	b2Vec2 pos = { _position.x / METERS_TO_PIXELS, -_position.y / METERS_TO_PIXELS };
 	b2Body_SetTransform(_body, pos, b2Body_GetRotation(_body));
+}
+
+sf::FloatRect Physics::GetBodyBound(b2BodyId _body)
+{
+	if (b2Body_IsValid(_body))
+	{
+		b2AABB aabb = b2Body_ComputeAABB(_body);
+
+		float left   = aabb.lowerBound.x * METERS_TO_PIXELS;
+		float top    = -aabb.upperBound.y * METERS_TO_PIXELS;
+		float width  = (aabb.upperBound.x - aabb.lowerBound.x) * METERS_TO_PIXELS;
+		float height = (aabb.upperBound.y - aabb.lowerBound.y) * METERS_TO_PIXELS;
+
+		return sf::FloatRect(left, top, width, height);
+	}
+
+	return sf::FloatRect(0.f, 0.f, 0.f, 0.f);
 }

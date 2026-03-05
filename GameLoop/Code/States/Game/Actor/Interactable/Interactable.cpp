@@ -8,7 +8,7 @@ void Interactable::SetTriggerRange(float _range, bool _centered)
 	
 	if (_centered)
 	{
-		transform.position += Vec2((_range / 2 + transform.size.x / 2), -(_range / 2 + transform.size.y / 2));
+		transform.position += Vec2(_range, -_range);
 	}
 
 	Physics::CreateCircleTrigger(body, transform, _range);
@@ -36,5 +36,9 @@ void Interactable::OnCollisionEnter(ColEvent _col)
 }
 
 void Interactable::OnCollisionExit(ColEvent _col)
+{
+}
+
+void Interactable::OnInteract(Actor* _interactingActor)
 {
 }
