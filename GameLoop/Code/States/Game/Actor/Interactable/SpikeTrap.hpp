@@ -6,17 +6,16 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
-struct Button : public Interactable
+struct SpikeTrap : public Interactable
 {
 private:
 	Sprite sprite;
 	sf::Texture texture;
-	bool isPressed = false;
 
 public:
-	Button(GameData* _data);
+	SpikeTrap(GameData* _data);
 
-	std::string GetClassName(void) override { return "Button"; }
+	std::string GetClassName(void) override { return "SpikeTrap"; }
 
 	virtual void Update(float _dt) override;
 	virtual void Draw(sf::RenderTarget* _render) override;
@@ -24,7 +23,7 @@ public:
 	virtual void OnCollisionEnter(ColEvent _col) override;
 	virtual void OnCollisionExit(ColEvent _col) override;
 
-	bool ReturnState(void);
+	virtual void OnInteract(Actor* _interactingActor) override;
 
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;
