@@ -6,6 +6,8 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Tools/AssetsManager.hpp"
 
+#define PLAYER_HEALTH 100.f
+
 class Interactable;
 struct Player : public Actor
 {
@@ -36,6 +38,7 @@ private:
 	Vec2 dir = { 0.f, 0.f };
 	float speed = 15.f;
 	Interactable* currentInteractable = nullptr;
+	float health = PLAYER_HEALTH;
 
 	//functions 
 	void InitInputs();
