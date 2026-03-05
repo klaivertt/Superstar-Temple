@@ -1,7 +1,6 @@
 #include "Player.hpp"
 #include "Tools/Debug/ImGuiManager.hpp"
 #include "Tools/Debug/Logger.hpp"
-#include "Tools/Physics/Physics.hpp"
 #include "../Interactable/Interactable.hpp"
 
 void Player::InitInputs()

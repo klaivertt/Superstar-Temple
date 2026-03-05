@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../Common.hpp"
+#include "../Physics/Physics.hpp"
 
 class GameData;
 class Vec2;
@@ -46,7 +47,7 @@ public:
 	virtual void OnTriggerEnter(ColEvent _col);
 	virtual void OnTriggerExit(ColEvent _col);
 	virtual sf::FloatRect GetBounds() const;
-	virtual Physics::Transform GetTransform(void) const;
+	virtual Physics::Transform GetTransform();
 	
 
 	Array<Property>* GetProperties(void);

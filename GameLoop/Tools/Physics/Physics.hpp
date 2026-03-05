@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../../GameData.hpp"
-#include <cmath>
+#include "../../Common.hpp"
 
 #define METERS_TO_PIXELS 64.f
 
