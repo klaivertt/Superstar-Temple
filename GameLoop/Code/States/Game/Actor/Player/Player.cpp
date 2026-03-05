@@ -65,7 +65,11 @@ void Player::OnTriggerEnter(ColEvent _col)
 
 void Player::OnTriggerExit(ColEvent _col)
 {
-
+	// if collision exit with the current interactable, set it to nullptr
+	if (currentInteractable == _col.other)
+	{
+		currentInteractable = nullptr;
+	}
 }
 
 void Player::UpdateIdle(float _dt)

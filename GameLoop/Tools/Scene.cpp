@@ -298,6 +298,7 @@ void Scene::UpdateCollisions(float _dt)
 			}
 			if (actorB != nullptr)
 			{
+				col.other = actorA;
 				actorB->OnTriggerExit(col);
 			}
 		}
