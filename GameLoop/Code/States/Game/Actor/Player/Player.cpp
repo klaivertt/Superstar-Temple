@@ -45,6 +45,7 @@ void Player::Update(float _dt)
 
 	dir = Vec2( 0.f, 0.f );
 
+	Actor::Update(_dt);
 }
 
 void Player::Draw(sf::RenderTarget* _render)
@@ -65,6 +66,7 @@ void Player::OnTriggerEnter(ColEvent _col)
 
 void Player::OnTriggerExit(ColEvent _col)
 {
+
 }
 
 void Player::UpdateIdle(float _dt)
