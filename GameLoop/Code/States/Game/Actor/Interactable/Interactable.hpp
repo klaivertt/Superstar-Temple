@@ -7,11 +7,15 @@
 
 class Interactable : public Actor
 {
-private:
+protected:
+	void SetTriggerRange(float _range, bool _centered = true);
 
+	float triggerRange = 0.f;
+private:
 
 public:
 	Interactable(GameData* _data);
+	~Interactable(void);
 
 	virtual std::string GetClassName(void) override { return "Interactable"; }
 

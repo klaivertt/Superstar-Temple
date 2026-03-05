@@ -9,6 +9,7 @@ Scene::Scene(GameData* _data)
 	data = _data;
 
 	actors = new Array<Actor*>();
+	//data->manager->CreateWorld();
 }
 
 Scene::~Scene(void)
@@ -89,7 +90,7 @@ void Scene::Destroy(void)
 	actors->Clear();
 	delete actors;
 
-	data->guiManager->Clear();
+	//data->guiManager->Clear();
 	actorTypeCounters.clear();
 }
 
@@ -97,11 +98,11 @@ void Scene::AddActor(Actor* _actor)
 {
 	actors->Add(_actor);
 	ordered = false;
-	
-		_actor->name = _actor->GetClassName() + "_" + std::to_string(actorsCount);
-		Logger::Success(_actor->name + " Created");
-		actorsCount++;
-	
+
+	_actor->name = _actor->GetClassName() + "_" + std::to_string(actorsCount);
+	Logger::Success(_actor->name + " Created");
+	actorsCount++;
+
 
 	//data->guiManager->AddHierarchyButton("Actor list", _actor->name, _actor, [this](Actor* newAct)
 	//	{

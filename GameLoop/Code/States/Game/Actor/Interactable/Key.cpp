@@ -9,6 +9,10 @@ Key::Key(GameData* _data) : Interactable(_data)
 
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(400, 100), 0.f, Vec2(64, 64) }, nullptr, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
+
+	triggerRange = 100.f;
+
+	SetTriggerRange(triggerRange);
 }
 
 void Key::Update(float _dt)

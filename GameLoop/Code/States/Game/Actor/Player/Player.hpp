@@ -15,7 +15,7 @@ public:
 		IDLE,
 		WALK
 	};
-	Player(GameData* _data, Array<Interactable*>& _interactable);
+	Player(GameData* _data);
 	virtual std::string GetClassName(void) override { return "Player"; }
 
 	virtual void Update(float _dt) override;
@@ -30,7 +30,6 @@ public:
 	//virtual void OnTriggerExit(ColEvent _col) override;
 
 private:
-	Array<Interactable*>& interactable;
 	b2ShapeId collider = b2ShapeId();
 	State state = State::IDLE;
 	Vec2 dir = { 0.f, 0.f };

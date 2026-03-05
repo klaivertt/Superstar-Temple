@@ -98,4 +98,6 @@ namespace Physics
 
 	Vec2 GetBodyPosition(b2BodyId _body);
 	void SetBodyPosition(b2BodyId _body, Vec2 _position);
+
+	// Not destroy the world immediately, just clear it by destroying all the bodies and shapes in it, so you can reuse it later without having to create a new one
 }

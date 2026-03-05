@@ -31,6 +31,8 @@ Actor::~Actor(void)
 	if (this)
 	{
 		data->manager->currentScene->RemoveActor(this);
+		body = b2BodyId();
+		//destroy colliders in the world
 	}
 }
 

@@ -32,6 +32,11 @@ public:
 		debugDraw.drawMass = true; //Dessine les centres de gravité des bodies
 	}
 
+	void CreateWorld(void)
+	{
+		data->physicsWorld = Physics::CreateWorld(&data->defaultWorld);
+	}
+
 	GameData* data = nullptr;
 	Scene* currentScene = nullptr;
 	std::map<std::string, Scene*> scenes_list;

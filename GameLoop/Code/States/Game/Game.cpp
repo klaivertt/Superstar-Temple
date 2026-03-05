@@ -13,13 +13,15 @@ Game::Game(GameData* _data) : Scene(_data)
 
 void Game::Load(void)
 {
+	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n) { ResetScene(); });
 	data->inputs->GetPressedDelegate("DEBUG")->Add(this, &Game::OnPressedDebugKey);
+
 	// Créer les acteurs ici avec un new Actor() (ou de votre sous classe)
 	// Les acteurs sont ajoutés automatiquement à la scène donc pas
 	// besoin de les gérer :)
 
 	Scene::Load();
-	player = new Player(data, Scene::GetAllActorsOfClass<Interactable>());
+	player = new Player(data);
 	key = new Key(data);
 
 	// desactivate gravity 
@@ -47,10 +49,21 @@ void Game::Draw(sf::RenderTarget* _render)
 void Game::Destroy(void)
 {
 	// Les acteurs sont aussi auto détruit au changement de scène pas besoin de les gérer
+	// destroy colliders
+
+	groundBody = b2BodyId();
+	groundShape = b2ShapeId();
+
 	Scene::Destroy();
 }
 
 void Game::OnPressedDebugKey(Input _input)
 {
 	//data->guiManager->SetDebugMode(!data->guiManager->isDegbugMode);
+}
+
+void Game::ResetScene(void)
+{
+	this->Destroy();
+	this->Load();
 }

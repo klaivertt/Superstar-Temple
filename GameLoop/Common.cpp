@@ -1,4 +1,4 @@
-#include "Common.hpp"
+﻿#include "Common.hpp"
 
 #pragma region Vector2
 
@@ -44,20 +44,51 @@ float Vec2::GetDistance(Vec2 _other)
 	return GetVectorDistance(*this, _other);
 }
 
-std::string Vec2::ToString(void)
+std::string Vec2::ToString (void) const
 {
-	std::string string = "Vec : " + std::to_string(x) + ", " + std::to_string(y);
-	return string;
+	std::ostringstream oss;
+	oss << std::fixed << std::setprecision(3);
+	oss << "Vec : (" << x << ", " << y << ")";
+	return oss.str();
 }
 
-sf::Vector2f Vec2::ToSFML(void)
+void Vec2::Lerp(Vec2 _value, Vec2 _desired, float _speed, float _dt)
 {
-	return sf::Vector2f(x, y);
+	if (_speed < 0.f)
+	{
+		_speed = -_speed;
+	}
+
+	float distX = (_desired.x - this->x);
+	float distY = (_desired.y - this->y);
+
+	float distance = sqrt(distX * distX + distY * distY);
+
+	Vec2 direction;
+	if (distance > 0.f)
+	{
+		direction.x = distX / distance;
+		direction.y = distY / distance;
+		this->x += direction.x * _speed * _dt;
+		this->y += direction.y * _speed * _dt;
+	}
+}
+
+std::string operator + (const std::string& _str, const Vec2& _vec)
+{
+	return _str + _vec.ToString();
+}
+
+std::string operator + (const Vec2& _vec, const std::string& _str)
+{
+	return _vec.ToString() + _str;
 }
 
 #pragma endregion
 
 float GetVectorDistance(Vec2 _a, Vec2 _b)
 {
-	return sqrt(_a.x * _b.x + _a.y * _b.y);
+	float dx = _b.x - _a.x;
+	float dy = _b.y - _a.y;
+	return sqrt((dx * dx) + (dy * dy));
 }

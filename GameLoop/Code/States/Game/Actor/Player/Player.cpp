@@ -13,7 +13,7 @@ void Player::InitInputs()
 	data->inputs->GetPressedDelegate("Interact")->Add(this, &Player::OnInteract);
 }
 
-Player::Player(GameData* _data, Array<Interactable*>& _interactable) : Actor(_data), interactable(_interactable)
+Player::Player(GameData* _data): Actor(_data)
 {
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, nullptr, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(50, 50) });

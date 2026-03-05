@@ -252,7 +252,19 @@ b2ShapeId Physics::CreateConvexTrigger(b2BodyId _body, Transform _transform, b2H
 
 b2ShapeId Physics::CreateCircleTrigger(b2BodyId _body, Transform _transform, float _radius)
 {
-	return b2ShapeId();
+	b2ShapeDef def = b2DefaultShapeDef();
+	def.density = 1.f;
+	def.isSensor = true;
+
+	b2Circle circle = { 0 };
+	circle.center = (b2Vec2)(_transform.position.x / METERS_TO_PIXELS, -_transform.position.y / METERS_TO_PIXELS);
+	circle.radius = _radius / METERS_TO_PIXELS;
+
+	b2ShapeId shape = b2CreateCircleShape(_body, &def, &circle);
+	b2Shape_SetUserData(shape, b2Body_GetUserData(_body));
+	b2Shape_EnableSensorEvents(shape, true);
+
+	return shape;
 }
 
 void Physics::ModifyShape(b2ShapeId _shape, float _friction, float _restitution, float _density)
