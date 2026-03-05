@@ -172,43 +172,11 @@ namespace Debug
 
 			void Render(std::string _catName) override
 			{
-				if (!current || !count || !items || !itemsNames)
-				{
-					ImGui::Text("ComboBox: Invalid data");
-					return;
-				}
-
-				if (*count <= 0)
-				{
-					ImGui::Text("ComboBox: No items");
-					return;
-				}
-
-				if (*current < 0) *current = 0;
-				if (*current >= *count) *current = *count - 1;
-
-				if (!itemsNames[*current])
-				{
-					ImGui::Text("ComboBox: Invalid item name");
-					return;
-				}
-
-				int previousCurrent = *current;
-
 				if (ImGui::Combo(label.c_str(), current, itemsNames, *count))
 				{
-					if (*current >= 0 && *current < *count && items[*current])
+					if (callback)
 					{
-						selected_item = items[*current];
-
-						if (callback)
-						{
-							callback(items[*current], _catName);
-						}
-					}
-					else
-					{
-						*current = previousCurrent;
+						callback(items[*current], _catName);
 					}
 				}
 			}

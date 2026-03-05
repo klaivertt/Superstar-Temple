@@ -43,6 +43,7 @@ namespace Physics
 	void Destroy(b2WorldId _id);
 
 	// Actor needed to set the user data of the body, so we can easily get the actor from the body in the collision events
+	// @param Actor* _parent: Important, si vous voulez que les collisions de ce body soient associées à un acteur, mettez un pointeur vers cet acteur, sinon mettez nullptr
 	b2BodyId CreateBody(b2WorldId _world, BodyType _type, Transform _transform, Actor* _parent, bool _fixedRotation = false);
 	// Set the preset of the shape, so we can easily set the collision response of the shape in the collision events
 	void SetShapePreset(b2ShapeId _shape, CollisionPreset _preset);
@@ -98,4 +99,8 @@ namespace Physics
 
 	Vec2 GetBodyPosition(b2BodyId _body);
 	void SetBodyPosition(b2BodyId _body, Vec2 _position);
+
+	sf::FloatRect GetBodyBound(b2BodyId _body);
+
+	// Not destroy the world immediately, just clear it by destroying all the bodies and shapes in it, so you can reuse it later without having to create a new one
 }

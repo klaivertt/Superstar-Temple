@@ -9,6 +9,7 @@ Scene::Scene(GameData* _data)
 	data = _data;
 
 	actors = new Array<Actor*>();
+	//data->manager->CreateWorld();
 }
 
 Scene::~Scene(void)
@@ -89,7 +90,7 @@ void Scene::Destroy(void)
 	actors->Clear();
 	delete actors;
 
-	data->guiManager->Clear();
+	//data->guiManager->Clear();
 	actorTypeCounters.clear();
 }
 
@@ -97,11 +98,11 @@ void Scene::AddActor(Actor* _actor)
 {
 	actors->Add(_actor);
 	ordered = false;
-	
-		_actor->name = _actor->GetClassName() + "_" + std::to_string(actorsCount);
-		Logger::Success(_actor->name + " Created");
-		actorsCount++;
-	
+
+	_actor->name = _actor->GetClassName() + "_" + std::to_string(actorsCount);
+	Logger::Success(_actor->name + " Created");
+	actorsCount++;
+
 
 	//data->guiManager->AddHierarchyButton("Actor list", _actor->name, _actor, [this](Actor* newAct)
 	//	{
@@ -171,6 +172,7 @@ void Scene::UpdateCollisions(float _dt)
 {
 	Physics::Update(data->physicsWorld, _dt, data->physicsQuality);
 
+
 	b2ContactEvents events = b2World_GetContactEvents(data->physicsWorld);
 
 	// Start touch collisions
@@ -193,6 +195,7 @@ void Scene::UpdateCollisions(float _dt)
 			}
 			if (actorB != nullptr)
 			{
+				col.other = actorA;
 				actorB->OnCollisionEnter(col);
 			}
 		}
@@ -218,6 +221,7 @@ void Scene::UpdateCollisions(float _dt)
 			}
 			if (actorB != nullptr)
 			{
+				col.other = actorA;
 				actorB->OnCollisionExit(col);
 			}
 		}
@@ -243,6 +247,7 @@ void Scene::UpdateCollisions(float _dt)
 			}
 			if (actorB != nullptr)
 			{
+				col.other = actorA;
 				actorB->OnCollisionHit(col);
 			}
 		}
@@ -253,6 +258,7 @@ void Scene::UpdateCollisions(float _dt)
 	// Start trigger collisions
 	for (int i = 0; i < sensors.beginCount; i++)
 	{
+
 		b2SensorBeginTouchEvent* event = sensors.beginEvents + i;
 		if (b2Shape_IsValid(event->sensorShapeId) && b2Shape_IsValid(event->visitorShapeId))
 		{
@@ -261,12 +267,15 @@ void Scene::UpdateCollisions(float _dt)
 			ColEvent col = { 0 };
 			col.other = actorB;
 			col.normal = Vec2(0.f, 0.f);
+
+
 			if (actorA != nullptr)
 			{
 				actorA->OnTriggerEnter(col);
 			}
 			if (actorB != nullptr)
 			{
+				col.other = actorA;
 				actorB->OnTriggerEnter(col);
 			}
 		}

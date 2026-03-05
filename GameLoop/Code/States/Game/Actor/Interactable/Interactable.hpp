@@ -8,12 +8,14 @@
 class Interactable : public Actor
 {
 protected:
-	float interactRange = 156.f;
-	bool isGrabed = false;
+	void SetTriggerRange(float _range, bool _centered = true);
+
+	float triggerRange = 0.f;
+private:
 
 public:
-
 	Interactable(GameData* _data);
+	~Interactable(void);
 
 	virtual std::string GetClassName(void) override { return "Interactable"; }
 
@@ -23,7 +25,8 @@ public:
 	virtual void OnCollisionEnter(ColEvent _col) override;
 	virtual void OnCollisionExit(ColEvent _col) override;
 
-	float GetInteractRange(void);
+	virtual void OnInteract(Actor* _interactingActor);
+
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;
 	// virtual void OnTriggerEnter(ColEvent _col) override;

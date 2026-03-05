@@ -36,6 +36,8 @@ public:
 	void Destroy(void) override;
 
 	virtual void OnPressedDebugKey(Input _input);
+
+	void ResetScene(void);
 };
 
 #endif // !GAME_H

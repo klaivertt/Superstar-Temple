@@ -13,7 +13,9 @@ Game::Game(GameData* _data) : Scene(_data)
 
 void Game::Load(void)
 {
+	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n) { ResetScene(); });
 	data->inputs->GetPressedDelegate("DEBUG")->Add(this, &Game::OnPressedDebugKey);
+
 	// Créer les acteurs ici avec un new Actor() (ou de votre sous classe)
 	// Les acteurs sont ajoutés automatiquement à la scène donc pas
 	// besoin de les gérer :)
@@ -29,9 +31,9 @@ void Game::Load(void)
 	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(900, 500), 0.f, Vec2(1800, 50) }, nullptr);
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(1800, 50) });
 
-	//temp wall
-	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
-	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
+	////temp wall
+	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
+	//groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
 }
 
 void Game::Update(float _dt)
@@ -47,10 +49,21 @@ void Game::Draw(sf::RenderTarget* _render)
 void Game::Destroy(void)
 {
 	// Les acteurs sont aussi auto détruit au changement de scène pas besoin de les gérer
+	// destroy colliders
+
+	groundBody = b2BodyId();
+	groundShape = b2ShapeId();
+
 	Scene::Destroy();
 }
 
 void Game::OnPressedDebugKey(Input _input)
 {
 	//data->guiManager->SetDebugMode(!data->guiManager->isDegbugMode);
+}
+
+void Game::ResetScene(void)
+{
+	this->Destroy();
+	this->Load();
 }

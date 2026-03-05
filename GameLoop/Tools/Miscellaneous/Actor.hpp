@@ -44,7 +44,7 @@ public:
 
 	virtual void OnTriggerEnter(ColEvent _col);
 	virtual void OnTriggerExit(ColEvent _col);
-	virtual sf::FloatRect GetBounds();
+	virtual sf::FloatRect GetBounds() const;
 	
 
 	Array<Property>* GetProperties(void);
