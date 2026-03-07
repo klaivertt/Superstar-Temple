@@ -40,6 +40,7 @@
     <ClCompile Include="Code\States\Game\Actor\Interactable\SpikeTrap.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Door.cpp" />
+    <ClCompile Include="Tools\Miscellaneous\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Core\Draw.hpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Code\States\Game\Actor\Interactable\SpikeTrap.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\PlayerUi.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Door.hpp" />
+    <ClInclude Include="Tools\Miscellaneous\Vec2.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\lib\Debug\freeglut.lib" />

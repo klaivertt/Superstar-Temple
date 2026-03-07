@@ -206,6 +206,7 @@
     <ClCompile Include="Tools\Debug\ImGuiManager.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Inputs.cpp" />
     <ClCompile Include="Tools\Debug\Logger.cpp" />
+    <ClCompile Include="Tools\Miscellaneous\Vec2.cpp" />
     <ClCompile Include="Tools\Physics\Motion.cpp" />
     <ClCompile Include="Tools\Physics\Physics.cpp" />
     <ClCompile Include="Tools\Scene.cpp" />
@@ -363,6 +364,7 @@
     <ClInclude Include="Tools\Debug\DebugViewer.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Delegate.hpp" />
     <ClInclude Include="Tools\Effects\Particle.hpp" />
+    <ClInclude Include="Tools\Miscellaneous\Vec2.hpp" />
     <ClInclude Include="Tools\Overload\OperatorOverloading.hpp" />
     <ClInclude Include="Tools\Debug\ImGuiManager.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Inputs.hpp" />

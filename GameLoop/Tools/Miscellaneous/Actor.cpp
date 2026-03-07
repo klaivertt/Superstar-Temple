@@ -31,7 +31,7 @@ Actor::~Actor(void)
 	if (this)
 	{
 		// Note : Important :
-		// Quand l'acteur est détruite, on notifie tous les acteurs qui sont en train de le suivre que cet acteur est détruit, pour éviter les pointeurs invalides
+		// Quand l'acteur est dï¿½truite, on notifie tous les acteurs qui sont en train de le suivre que cet acteur est dï¿½truit, pour ï¿½viter les pointeurs invalides
 		onDestroyed.Broadcast(this);
 
 		data->manager->currentScene->RemoveActor(this);
@@ -93,6 +93,26 @@ Physics::Transform Actor::GetTransform()
 		transform = Physics::GetBodyTransform(body);
 	}
 	return transform;
+}
+
+const std::string& Actor::GetEditorObjectId() const
+{
+	return editorObjectId;
+}
+
+const std::string& Actor::GetEditorTypeId() const
+{
+	return editorTypeId;
+}
+
+void Actor::SetEditorObjectId(const std::string& _objectId)
+{
+	editorObjectId = _objectId;
+}
+
+void Actor::SetEditorTypeId(const std::string& _typeId)
+{
+	editorTypeId = _typeId;
 }
 
 Array<Property>* Actor::GetProperties(void)

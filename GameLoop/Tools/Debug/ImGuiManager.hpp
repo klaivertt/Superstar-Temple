@@ -25,7 +25,7 @@ namespace Debug
 		void Update(float _dt);
 		void Render(void);
 
-		// Fonctions pour ajouter des contrôles
+		// Fonctions pour ajouter des contrï¿½les
 		// Slider
 		void AddSliderFloat(std::string _win, std::string _cat, std::string _label, float* _value, float _min, float _max, std::function<void(float, std::string)> _call = nullptr, sf::Color _color = sf::Color::White);
 		void AddSliderInt(std::string _win, std::string _cat, std::string _label, int* _value, int _min, int _max, std::function<void(int, std::string)> _call = nullptr);
@@ -34,7 +34,7 @@ namespace Debug
 		void AddCheckbox(std::string _win, std::string _cat, std::string _label, bool* _value, std::function<void(bool, std::string)> _call = nullptr);
 
 		// ComboBox
-		void AddComboBox(std::string _win, std::string _cat, std::string _label, void** _objectArray, const char** _namesArray, int _size, std::function<void(void*, std::string)> _call = nullptr);
+		void AddComboBox(std::string _win, std::string _cat, std::string _label, void** _objectArray, const char** _namesArray, int _size, std::function<void(void*, std::string)> _call = nullptr, int _currentIndex = 0);
 
 		void AddButton(std::string _win, std::string _cat, std::string _label, std::function<void(std::string)> _call = nullptr);
 		void AddHierarchyButton(std::string _win, std::string _cat, std::string _label, Actor* _actor, std::function<void(Actor* _actor, std::string)> _call = nullptr);
@@ -44,8 +44,9 @@ namespace Debug
 		// Gestions des windows
 		void RegisterWindow(std::string _name, bool _open = true, ImGuiWindowFlags flags = 0);
 		void RemoveWindow(std::string _name);
+		void ClearWindow(std::string _name);
 
-		// Supprimer une catégorie
+		// Supprimer une catï¿½gorie
 		void RemoveCategory(std::string _winName, std::string _catName);
 
 		// Tout vider
@@ -124,11 +125,10 @@ namespace Debug
 			int* value;
 			int max;
 			int min;
-			std::function<void(bool, std::string)> callback;
+			std::function<void(int, std::string)> callback;
 
 			void Render(std::string _catName) override
 			{
-				bool oldValue = *value;
 				if (ImGui::SliderInt(label.c_str(), value, min, max))
 				{
 					if (callback)
@@ -161,22 +161,39 @@ namespace Debug
 		class GuiComboBox : public GuiControl
 		{
 		public:
-			bool* value = nullptr;
-			int* current = nullptr;
-			int* count = nullptr;
-			void** items = nullptr;
-			const char** itemsNames = nullptr;
-			void* selected_item = nullptr;
+			int currentIndex = 0;
+			std::vector<void*> items;
+			std::vector<std::string> itemNames;
+			std::vector<const char*> itemNamesRaw;
 
 			std::function<void(void*, std::string)> callback;
 
+			void SyncRawNames()
+			{
+				itemNamesRaw.clear();
+				for (std::string& name : itemNames)
+				{
+					itemNamesRaw.push_back(name.c_str());
+				}
+			}
+
 			void Render(std::string _catName) override
 			{
-				if (ImGui::Combo(label.c_str(), current, itemsNames, *count))
+				if (items.empty() || itemNamesRaw.empty())
+				{
+					return;
+				}
+
+				if (currentIndex < 0 || currentIndex >= static_cast<int>(items.size()))
+				{
+					currentIndex = 0;
+				}
+
+				if (ImGui::Combo(label.c_str(), &currentIndex, itemNamesRaw.data(), static_cast<int>(itemNamesRaw.size())))
 				{
 					if (callback)
 					{
-						callback(items[*current], _catName);
+						callback(items[currentIndex], _catName);
 					}
 				}
 			}
@@ -220,7 +237,7 @@ namespace Debug
 		{
 			std::string name;
 			std::vector<std::unique_ptr<GuiControl>> controls;
-			bool isOpen = true; // Pour l'état du collapsing header
+			bool isOpen = true; // Pour l'ï¿½tat du collapsing header
 		};
 
 		struct Window

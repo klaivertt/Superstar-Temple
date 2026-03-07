@@ -224,20 +224,44 @@ void Scene::UpdateCollisions(float _dt)
 
 		if (b2Shape_IsValid(event->shapeIdA) && b2Shape_IsValid(event->shapeIdB))
 		{
-			Actor* actorA = static_cast<Actor*>(b2Shape_GetUserData(event->shapeIdA));
-			Actor* actorB = static_cast<Actor*>(b2Shape_GetUserData(event->shapeIdB));
+			void* userDataA = b2Shape_GetUserData(event->shapeIdA);
+			void* userDataB = b2Shape_GetUserData(event->shapeIdB);
+
+			// Check if userData is ShapeData or just Actor pointer
+			Actor* actorA = nullptr;
+			Actor* actorB = nullptr;
+			std::string sensorIdA = "";
+			std::string sensorIdB = "";
+
+			// Try to get ShapeData, fallback to Actor pointer for backward compatibility
+			if (userDataA != nullptr)
+			{
+				ShapeData* shapeDataA = static_cast<ShapeData*>(userDataA);
+				actorA = shapeDataA->actor;
+				sensorIdA = shapeDataA->sensorId;
+			}
+
+			if (userDataB != nullptr)
+			{
+				ShapeData* shapeDataB = static_cast<ShapeData*>(userDataB);
+				actorB = shapeDataB->actor;
+				sensorIdB = shapeDataB->sensorId;
+			}
 
 			ColEvent col = { 0 };
 			col.other = actorB;
 			col.normal = Vec2(event->manifold.normal.x, event->manifold.normal.y);
+			col.sensorId = sensorIdA;
 
 			if (actorA != nullptr)
 			{
 				actorA->OnCollisionEnter(col);
 			}
+
 			if (actorB != nullptr)
 			{
 				col.other = actorA;
+				col.sensorId = sensorIdB;
 				actorB->OnCollisionEnter(col);
 			}
 		}
@@ -250,20 +274,42 @@ void Scene::UpdateCollisions(float _dt)
 
 		if (b2Shape_IsValid(event->shapeIdA) && b2Shape_IsValid(event->shapeIdB))
 		{
-			Actor* actorA = static_cast<Actor*>(b2Shape_GetUserData(event->shapeIdA));
-			Actor* actorB = static_cast<Actor*>(b2Shape_GetUserData(event->shapeIdB));
+			void* userDataA = b2Shape_GetUserData(event->shapeIdA);
+			void* userDataB = b2Shape_GetUserData(event->shapeIdB);
+
+			Actor* actorA = nullptr;
+			Actor* actorB = nullptr;
+			std::string sensorIdA = "";
+			std::string sensorIdB = "";
+
+			if (userDataA != nullptr)
+			{
+				ShapeData* shapeDataA = static_cast<ShapeData*>(userDataA);
+				actorA = shapeDataA->actor;
+				sensorIdA = shapeDataA->sensorId;
+			}
+
+			if (userDataB != nullptr)
+			{
+				ShapeData* shapeDataB = static_cast<ShapeData*>(userDataB);
+				actorB = shapeDataB->actor;
+				sensorIdB = shapeDataB->sensorId;
+			}
 
 			ColEvent col = { 0 };
 			col.other = actorB;
 			col.normal = Vec2(0.f, 0.f);
+			col.sensorId = sensorIdA;
 
 			if (actorA != nullptr)
 			{
 				actorA->OnCollisionExit(col);
 			}
+
 			if (actorB != nullptr)
 			{
 				col.other = actorA;
+				col.sensorId = sensorIdB;
 				actorB->OnCollisionExit(col);
 			}
 		}
@@ -276,20 +322,42 @@ void Scene::UpdateCollisions(float _dt)
 
 		if (b2Shape_IsValid(event->shapeIdA) && b2Shape_IsValid(event->shapeIdB))
 		{
-			Actor* actorA = static_cast<Actor*>(b2Shape_GetUserData(event->shapeIdA));
-			Actor* actorB = static_cast<Actor*>(b2Shape_GetUserData(event->shapeIdB));
+			void* userDataA = b2Shape_GetUserData(event->shapeIdA);
+			void* userDataB = b2Shape_GetUserData(event->shapeIdB);
+
+			Actor* actorA = nullptr;
+			Actor* actorB = nullptr;
+			std::string sensorIdA = "";
+			std::string sensorIdB = "";
+
+			if (userDataA != nullptr)
+			{
+				ShapeData* shapeDataA = static_cast<ShapeData*>(userDataA);
+				actorA = shapeDataA->actor;
+				sensorIdA = shapeDataA->sensorId;
+			}
+
+			if (userDataB != nullptr)
+			{
+				ShapeData* shapeDataB = static_cast<ShapeData*>(userDataB);
+				actorB = shapeDataB->actor;
+				sensorIdB = shapeDataB->sensorId;
+			}
 
 			ColEvent col = { 0 };
 			col.other = actorB;
 			col.normal = Vec2(event->normal.x, event->normal.y);
+			col.sensorId = sensorIdA;
 
 			if (actorA != nullptr)
 			{
 				actorA->OnCollisionHit(col);
 			}
+
 			if (actorB != nullptr)
 			{
 				col.other = actorA;
+				col.sensorId = sensorIdB;
 				actorB->OnCollisionHit(col);
 			}
 		}
@@ -304,20 +372,42 @@ void Scene::UpdateCollisions(float _dt)
 		b2SensorBeginTouchEvent* event = sensors.beginEvents + i;
 		if (b2Shape_IsValid(event->sensorShapeId) && b2Shape_IsValid(event->visitorShapeId))
 		{
-			Actor* actorA = static_cast<Actor*>(b2Shape_GetUserData(event->sensorShapeId));
-			Actor* actorB = static_cast<Actor*>(b2Shape_GetUserData(event->visitorShapeId));
+			void* userDataSensor = b2Shape_GetUserData(event->sensorShapeId);
+			void* userDataVisitor = b2Shape_GetUserData(event->visitorShapeId);
+
+			Actor* actorA = nullptr;
+			Actor* actorB = nullptr;
+			std::string sensorIdA = "";
+			std::string sensorIdB = "";
+
+			if (userDataSensor != nullptr)
+			{
+				ShapeData* shapeDataA = static_cast<ShapeData*>(userDataSensor);
+				actorA = shapeDataA->actor;
+				sensorIdA = shapeDataA->sensorId;
+			}
+
+			if (userDataVisitor != nullptr)
+			{
+				ShapeData* shapeDataB = static_cast<ShapeData*>(userDataVisitor);
+				actorB = shapeDataB->actor;
+				sensorIdB = shapeDataB->sensorId;
+			}
+
 			ColEvent col = { 0 };
 			col.other = actorB;
 			col.normal = Vec2(0.f, 0.f);
-
+			col.sensorId = sensorIdA;
 
 			if (actorA != nullptr)
 			{
 				actorA->OnTriggerEnter(col);
 			}
+
 			if (actorB != nullptr)
 			{
 				col.other = actorA;
+				col.sensorId = sensorIdB;
 				actorB->OnTriggerEnter(col);
 			}
 		}
@@ -329,18 +419,42 @@ void Scene::UpdateCollisions(float _dt)
 		b2SensorEndTouchEvent* event = sensors.endEvents + i;
 		if (b2Shape_IsValid(event->sensorShapeId) && b2Shape_IsValid(event->visitorShapeId))
 		{
-			Actor* actorA = static_cast<Actor*>(b2Shape_GetUserData(event->sensorShapeId));
-			Actor* actorB = static_cast<Actor*>(b2Shape_GetUserData(event->visitorShapeId));
+			void* userDataSensor = b2Shape_GetUserData(event->sensorShapeId);
+			void* userDataVisitor = b2Shape_GetUserData(event->visitorShapeId);
+
+			Actor* actorA = nullptr;
+			Actor* actorB = nullptr;
+			std::string sensorIdA = "";
+			std::string sensorIdB = "";
+
+			if (userDataSensor != nullptr)
+			{
+				ShapeData* shapeDataA = static_cast<ShapeData*>(userDataSensor);
+				actorA = shapeDataA->actor;
+				sensorIdA = shapeDataA->sensorId;
+			}
+
+			if (userDataVisitor != nullptr)
+			{
+				ShapeData* shapeDataB = static_cast<ShapeData*>(userDataVisitor);
+				actorB = shapeDataB->actor;
+				sensorIdB = shapeDataB->sensorId;
+			}
+
 			ColEvent col = { 0 };
 			col.other = actorB;
 			col.normal = Vec2(0.f, 0.f);
+			col.sensorId = sensorIdA;
+
 			if (actorA != nullptr)
 			{
 				actorA->OnTriggerExit(col);
 			}
+
 			if (actorB != nullptr)
 			{
 				col.other = actorA;
+				col.sensorId = sensorIdB;
 				actorB->OnTriggerExit(col);
 			}
 		}

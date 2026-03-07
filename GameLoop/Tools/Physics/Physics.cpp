@@ -2,6 +2,17 @@
 
 #include "../SceneManager.hpp"
 
+namespace
+{
+	ShapeData* CreateShapeDataForBody(b2BodyId _body, const std::string& _sensorId)
+	{
+		ShapeData* shapeData = new ShapeData();
+		shapeData->actor = static_cast<Actor*>(b2Body_GetUserData(_body));
+		shapeData->sensorId = _sensorId;
+		return shapeData;
+	}
+}
+
 #pragma region DebugDraw
 
 b2WorldDef Physics::CreateDefaultWorldDef(void)
@@ -122,14 +133,14 @@ b2ShapeId Physics::CreateBoxCollider(b2BodyId _body, Transform _transform)
 
 	b2Hull hull = { 0 };
 
-	// Points locaux du rectangle (en mètres)
+	// Points locaux du rectangle (en mï¿½tres)
 	hull.count = 4;
 	hull.points[0] = { -(_transform.size.x / 2) / METERS_TO_PIXELS, -(_transform.size.y / 2) / METERS_TO_PIXELS };
 	hull.points[1] = { (_transform.size.x / 2) / METERS_TO_PIXELS, -(_transform.size.y / 2) / METERS_TO_PIXELS };
 	hull.points[2] = { (_transform.size.x / 2) / METERS_TO_PIXELS, (_transform.size.y / 2) / METERS_TO_PIXELS };
 	hull.points[3] = { -(_transform.size.x / 2) / METERS_TO_PIXELS, (_transform.size.y / 2) / METERS_TO_PIXELS };
 
-	// Appliquer la rotation autour de l'origine (cohérente avec CreateBody qui utilise -rotation)
+	// Appliquer la rotation autour de l'origine (cohï¿½rente avec CreateBody qui utilise -rotation)
 	float angle = DegreesToRadian(-_transform.rotation);
 	float c = cosf(angle);
 	float s = sinf(angle);
@@ -144,7 +155,7 @@ b2ShapeId Physics::CreateBoxCollider(b2BodyId _body, Transform _transform)
 		hull.points[i].x = rx;
 		hull.points[i].y = ry;
 
-		// Translation en coordonnées monde (conversion mètres + inversion Y)
+		// Translation en coordonnï¿½es monde (conversion mï¿½tres + inversion Y)
 		hull.points[i].x += _transform.position.x / METERS_TO_PIXELS;
 		hull.points[i].y -= _transform.position.y / METERS_TO_PIXELS;
 	}
@@ -152,7 +163,7 @@ b2ShapeId Physics::CreateBoxCollider(b2BodyId _body, Transform _transform)
 	b2Polygon poly = b2MakePolygon(&hull, 0.f);
 
 	b2ShapeId shape = b2CreatePolygonShape(_body, &def, &poly);
-	b2Shape_SetUserData(shape, b2Body_GetUserData(_body));
+	b2Shape_SetUserData(shape, CreateShapeDataForBody(_body, ""));
 	b2Shape_EnableContactEvents(shape, true);
 	b2Shape_EnableSensorEvents(shape, true);
 
@@ -183,7 +194,7 @@ b2ShapeId Physics::CreateConvexCollider(b2BodyId _body, Transform _transform, b2
 	b2Polygon poly = b2MakePolygon(&_hull, 0.f);
 
 	b2ShapeId shape = b2CreatePolygonShape(_body, &def, &poly);
-	b2Shape_SetUserData(shape, b2Body_GetUserData(_body));
+	b2Shape_SetUserData(shape, CreateShapeDataForBody(_body, ""));
 	b2Shape_EnableContactEvents(shape, true);
 	b2Shape_EnableSensorEvents(shape, true);
 
@@ -205,7 +216,7 @@ b2ShapeId Physics::CreateCircleCollider(b2BodyId _body, Transform _transform, fl
 	circle.radius = _radius / METERS_TO_PIXELS;
 
 	b2ShapeId shape = b2CreateCircleShape(_body, &def, &circle);
-	b2Shape_SetUserData(shape, b2Body_GetUserData(_body));
+	b2Shape_SetUserData(shape, CreateShapeDataForBody(_body, ""));
 	b2Shape_EnableContactEvents(shape, true);
 	b2Shape_EnableSensorEvents(shape, true);
 
@@ -217,6 +228,11 @@ b2ShapeId Physics::CreateCircleCollider(b2BodyId _body, Transform _transform, fl
 }
 
 b2ShapeId Physics::CreateBoxTrigger(b2BodyId _body, Transform _transform)
+{
+	return Physics::CreateBoxTrigger(_body, _transform, "");
+}
+
+b2ShapeId Physics::CreateBoxTrigger(b2BodyId _body, Transform _transform, const std::string& _sensorId)
 {
 	b2ShapeDef def = b2DefaultShapeDef();
 	def.density = 1.f;
@@ -239,7 +255,7 @@ b2ShapeId Physics::CreateBoxTrigger(b2BodyId _body, Transform _transform)
 	b2Polygon poly = b2MakePolygon(&hull, 0.f);
 
 	b2ShapeId shape = b2CreatePolygonShape(_body, &def, &poly);
-	b2Shape_SetUserData(shape, b2Body_GetUserData(_body));
+	b2Shape_SetUserData(shape, CreateShapeDataForBody(_body, _sensorId));
 	b2Shape_EnableSensorEvents(shape, true);
 
 	return shape;
@@ -247,10 +263,42 @@ b2ShapeId Physics::CreateBoxTrigger(b2BodyId _body, Transform _transform)
 
 b2ShapeId Physics::CreateConvexTrigger(b2BodyId _body, Transform _transform, b2Hull _hull)
 {
-	return b2ShapeId();
+	return Physics::CreateConvexTrigger(_body, _transform, _hull, "");
+}
+
+b2ShapeId Physics::CreateConvexTrigger(b2BodyId _body, Transform _transform, b2Hull _hull, const std::string& _sensorId)
+{
+	b2ShapeDef def = b2DefaultShapeDef();
+	def.density = 1.f;
+	def.isSensor = true;
+
+	for (int i = 0; i < _hull.count; i++)
+	{
+		_hull.points[i].x *= (_transform.size.x / METERS_TO_PIXELS);
+		_hull.points[i].y *= -(_transform.size.y / METERS_TO_PIXELS);
+	}
+
+	for (int i = 0; i < _hull.count; i++)
+	{
+		_hull.points[i].x += _transform.position.x / METERS_TO_PIXELS;
+		_hull.points[i].y -= _transform.position.y / METERS_TO_PIXELS;
+	}
+
+	b2Polygon poly = b2MakePolygon(&_hull, 0.f);
+
+	b2ShapeId shape = b2CreatePolygonShape(_body, &def, &poly);
+	b2Shape_SetUserData(shape, CreateShapeDataForBody(_body, _sensorId));
+	b2Shape_EnableSensorEvents(shape, true);
+
+	return shape;
 }
 
 b2ShapeId Physics::CreateCircleTrigger(b2BodyId _body, Transform _transform, float _radius)
+{
+	return Physics::CreateCircleTrigger(_body, _transform, _radius, "");
+}
+
+b2ShapeId Physics::CreateCircleTrigger(b2BodyId _body, Transform _transform, float _radius, const std::string& _sensorId)
 {
 	b2ShapeDef def = b2DefaultShapeDef();
 	def.density = 1.f;
@@ -258,11 +306,10 @@ b2ShapeId Physics::CreateCircleTrigger(b2BodyId _body, Transform _transform, flo
 
 	b2Circle circle = { 0 };
 	circle.center = (b2Vec2)(_transform.position.x / METERS_TO_PIXELS, -_transform.position.y / METERS_TO_PIXELS);
-	//circle.center = (b2Vec2)(0.f, 0.f);
 	circle.radius = _radius / METERS_TO_PIXELS;
 
 	b2ShapeId shape = b2CreateCircleShape(_body, &def, &circle);
-	b2Shape_SetUserData(shape, b2Body_GetUserData(_body));
+	b2Shape_SetUserData(shape, CreateShapeDataForBody(_body, _sensorId));
 	b2Shape_EnableSensorEvents(shape, true);
 
 	return shape;

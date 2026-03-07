@@ -6,6 +6,13 @@
 
 class Actor;
 
+// Structure to store shape user data (Actor pointer + sensor identifier)
+struct ShapeData
+{
+	Actor* actor = nullptr;
+	std::string sensorId = "";  // Empty string = main collider, otherwise identifies the sensor
+};
+
 namespace Physics
 {
 	// The transform of a body, used to easily set the position, rotation and size of a body when creating it
@@ -42,7 +49,7 @@ namespace Physics
 	void Destroy(b2WorldId _id);
 
 	// Actor needed to set the user data of the body, so we can easily get the actor from the body in the collision events
-	// @param Actor* _parent: Important, si vous voulez que les collisions de ce body soient associées à un acteur, mettez un pointeur vers cet acteur, sinon mettez nullptr
+	// @param Actor* _parent: Important, si vous voulez que les collisions de ce body soient associï¿½es ï¿½ un acteur, mettez un pointeur vers cet acteur, sinon mettez nullptr
 	b2BodyId CreateBody(b2WorldId _world, BodyType _type, Transform _transform, Actor* _parent, bool _fixedRotation = false);
 	// Set the preset of the shape, so we can easily set the collision response of the shape in the collision events
 	void SetShapePreset(b2ShapeId _shape, CollisionPreset _preset);
@@ -63,8 +70,13 @@ namespace Physics
 	b2ShapeId CreateCircleCollider(b2BodyId _body, Transform _transform, float _radius);
 
 	b2ShapeId CreateBoxTrigger(b2BodyId _body, Transform _transform);
+	b2ShapeId CreateBoxTrigger(b2BodyId _body, Transform _transform, const std::string& _sensorId);
+	
 	b2ShapeId CreateConvexTrigger(b2BodyId _body, Transform _transform, b2Hull _hull);
+	b2ShapeId CreateConvexTrigger(b2BodyId _body, Transform _transform, b2Hull _hull, const std::string& _sensorId);
+	
 	b2ShapeId CreateCircleTrigger(b2BodyId _body, Transform _transform, float _radius);
+	b2ShapeId CreateCircleTrigger(b2BodyId _body, Transform _transform, float _radius, const std::string& _sensorId);
 
 	// Modify the shape with new values for friction, restitution and density
 	void ModifyShape(b2ShapeId _shape, float _friction, float _restitution, float _density);
