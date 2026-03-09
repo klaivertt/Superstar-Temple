@@ -7,7 +7,6 @@ Door::Door(GameData* _data) : Interactable(_data)
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 	position = Vec2(800, 400);
 
-
 	CreateCollider();
 }
 
