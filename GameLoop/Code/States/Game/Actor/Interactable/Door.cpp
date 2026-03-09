@@ -18,7 +18,10 @@ void Door::Update(float _dt)
 
 void Door::Draw(sf::RenderTarget* _render)
 {
-	sprite.Draw(_render);
+	if (b2Body_IsValid(body))
+	{
+		sprite.Draw(_render);
+	}
 }
 
 void Door::OnCollisionEnter(ColEvent _col)
