@@ -3,6 +3,8 @@
 
 #include "Common.hpp"
 
+class Map;
+
 namespace Layer
 {
 	enum CollidType
@@ -23,7 +25,7 @@ namespace Layer
 	class Object
 	{
 	public:
-		Object(std::string _name, sf::Vector2f _position, sf::Vector2f _size, bool _visibility, CollidType _type, b2WorldId* _world);
+		Object(std::string _name, sf::Vector2f _position, sf::Vector2f _size, bool _visibility, CollidType _type, b2WorldId* _world, Map* _ma);
 		~Object();
 		void Draw(sf::RenderTarget& _target);
 	private:

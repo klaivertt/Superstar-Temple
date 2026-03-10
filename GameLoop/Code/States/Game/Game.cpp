@@ -24,9 +24,11 @@ void Game::Load(void)
 	
 	// Les acteurs sont ajout�s automatiquement � la sc�ne donc pas
 	// besoin de les g�rer :)
+	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
+	mappy = new Map("Assets/Map/PlayMap", &data->physicsWorld);
 
 	Scene::Load();
-	player = new Player(data, Vec2(100.f, 100.f), "", sf::Color(125, 200, 125));
+	player = new Player(data, Vec2(mappy->m_playerSpawn[0]), "", sf::Color(125, 200, 125));
 	player2 = new Player(data, Vec2(220.f, 100.f), "P2", sf::Color(220, 170, 90));
 	key = new Key(data, Vec2(400, 100));
 	box = new Box(data, Vec2(500, 100));
@@ -46,7 +48,7 @@ void Game::Load(void)
 	player2Ui = new PlayerUi(data, player2, Vec2((SCREEN_W * 0.5f) + 20.f, 20.f));
 
 	// desactivate gravity 
-	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
+	
 
 	//temp ground
 	/*groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, {Vec2(900, 500), 0.f, Vec2(1800, 50)}, nullptr);
@@ -82,6 +84,7 @@ void Game::Update(float _dt)
 
 void Game::Draw(sf::RenderTarget* _render)
 {
+	mappy->Draw(*_render);
 	camera = &playerOneView;
 	//map->Draw(*_render);
 	DrawWorld(_render);

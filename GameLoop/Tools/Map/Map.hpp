@@ -22,7 +22,7 @@ public:
 	void Draw(sf::RenderTarget& _target);
 	void DrawLayer(sf::RenderTarget& _target, unsigned LayerID);
 	unsigned GetNumOfLayers();
-	
+	std::vector<sf::Vector2f> m_playerSpawn;
 private:
 	std::vector<Layer::TileSet*> m_tileSets;
 	std::vector<Layer::Layer*> m_Layers;

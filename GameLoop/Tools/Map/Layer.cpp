@@ -3,6 +3,8 @@
 #include "Tools/Debug/Logger.hpp"
 #include "Tools/Miscellaneous/Text.hpp"
 #include "Tools/Physics/Physics.hpp"
+#include "Tools/Parser/Parser.hpp"
+#include "Tools/Map/Map.hpp"
 
 namespace Layer
 {
@@ -170,7 +172,7 @@ namespace Layer
 		return coord;
 	}
 
-	Object::Object(std::string _name, sf::Vector2f _position, sf::Vector2f _size, bool _visibility, CollidType _type, b2WorldId* _world)
+	Object::Object(std::string _name, sf::Vector2f _position, sf::Vector2f _size, bool _visibility, CollidType _type, b2WorldId* _world, Map* _map)
 	{
 		m_name = _name;
 		m_size = _size;
@@ -179,6 +181,25 @@ namespace Layer
 
 		switch (_type)
 		{
+		case CollidType::None:
+			if (PRSR::ContentWord(m_name, "PlayerSpawn"))
+			{
+				_map->m_playerSpawn.push_back(m_position);
+			}
+			else if (PRSR::ContentWord(m_name, "KEY"))
+			{
+				Logger::Debug("Key " + m_name + " detected at : " + Logger::Vec2(m_position));
+			}
+			else if (PRSR::ContentWord(m_name, "DOOR"))
+			{
+
+			}
+			else if (PRSR::ContentWord(m_name, "STARE"))
+			{
+
+			}
+
+			break;
 		case CollidType::Collision:
 		case CollidType::Trigger:
 			b2ShapeId shape;
