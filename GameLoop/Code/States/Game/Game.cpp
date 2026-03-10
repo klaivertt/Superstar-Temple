@@ -59,7 +59,6 @@ void Game::Load(void)
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
 	*/
 
-	map = new Map("Assets/Map/PlayMap", &data->physicsWorld);
 	playerOneView.setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 1.f));
 	playerTwoView.setViewport(sf::FloatRect(0.5f, 0.f, 0.5f, 1.f));
 	playerOneView.setSize(SCREEN_W * 0.5f, SCREEN_H);
@@ -84,13 +83,20 @@ void Game::Update(float _dt)
 
 void Game::Draw(sf::RenderTarget* _render)
 {
-	mappy->Draw(*_render);
 	camera = &playerOneView;
-	//map->Draw(*_render);
+	_render->setView(*camera);
+	if (mappy)
+	{
+		mappy->Draw(*_render);
+	}
 	DrawWorld(_render);
 
 	camera = &playerTwoView;
-	//map->Draw(*_render);
+	_render->setView(*camera);
+	if (mappy)
+	{
+		mappy->Draw(*_render);
+	}
 	DrawWorld(_render);
 
 	camera = nullptr;
@@ -111,10 +117,10 @@ void Game::Destroy(void)
 	groundBody = b2BodyId();
 	groundShape = b2ShapeId();
 
-	if (map)
+	if (mappy)
 	{
-		delete map;
-		map = nullptr;
+		delete mappy;
+		mappy = nullptr;
 	}
 
 	Scene::Destroy();

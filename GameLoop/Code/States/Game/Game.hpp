@@ -35,7 +35,7 @@ protected:
 	PlayerUi* playerUi = nullptr;
 	PlayerUi* player2Ui = nullptr;
 	Door* door = nullptr;
-	Map* map = nullptr;
+	Map* mappy = nullptr;
 	sf::View playerOneView;
 	sf::View playerTwoView;
 	sf::RectangleShape separator;
