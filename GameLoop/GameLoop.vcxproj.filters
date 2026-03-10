@@ -7,6 +7,7 @@
     <ClCompile Include="Code\Core\Update.cpp" />
     <ClCompile Include="Code\States\Gameover\Gameover.cpp" />
     <ClCompile Include="Code\States\Game\Actor\BasicCube.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\DuelTrigger.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
     <ClCompile Include="Code\States\Menu\Menu.cpp" />
     <ClCompile Include="Common.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="Code\Core\Draw.hpp" />
     <ClInclude Include="Code\States\Gameover\Gameover.hpp" />
     <ClInclude Include="Code\States\Game\Actor\BasicCube.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\DuelTrigger.hpp" />
     <ClInclude Include="Code\States\Game\Game.hpp" />
     <ClInclude Include="Code\Core\Load.hpp" />
     <ClInclude Include="Code\Core\PollEvents.hpp" />

@@ -176,6 +176,7 @@
     <ClCompile Include="Code\Core\Update.cpp" />
     <ClCompile Include="Code\States\Gameover\Gameover.cpp" />
     <ClCompile Include="Code\States\Game\Actor\BasicCube.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\DuelTrigger.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Box.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Button.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Door.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Code\Core\Draw.hpp" />
     <ClInclude Include="Code\States\Gameover\Gameover.hpp" />
     <ClInclude Include="Code\States\Game\Actor\BasicCube.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\DuelTrigger.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Box.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Button.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Door.hpp" />

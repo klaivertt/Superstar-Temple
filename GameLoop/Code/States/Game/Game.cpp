@@ -12,7 +12,52 @@
 #include "Code/States/Game/Actor/Interactable/SpikeTrap.hpp"
 #include "Code/States/Game/Actor/Interactable/Door.hpp"
 #include "Code/States/Game/Actor/Interactable/Stair.hpp"
+#include "Code/States/Game/Actor/DuelTrigger.hpp"
 #include "Code/States/Game/Actor/Teleporter.hpp"
+#include "Code/States/Game/Duel.hpp"
+
+Vec2 GetLastDoorProgressionDirection(const std::vector<Map::InteractableSpawn>& _doorSpawns)
+{
+	if (_doorSpawns.size() < 2)
+	{
+		return Vec2(0.f, -1.f);
+	}
+
+	const Map::InteractableSpawn& lastDoor = _doorSpawns.back();
+	Vec2 bestDirection(0.f, -1.f);
+	float bestDistanceSquared = 0.f;
+	bool foundAlignedDoor = false;
+
+	for (int index = static_cast<int>(_doorSpawns.size()) - 2; index >= 0; --index)
+	{
+		Vec2 delta = Vec2(lastDoor.position) - Vec2(_doorSpawns[index].position);
+		if (std::abs(delta.x) > 16.f || delta.GetLenghtSquared() <= 1.f)
+		{
+			continue;
+		}
+
+		const float distanceSquared = delta.GetLenghtSquared();
+		if (!foundAlignedDoor || distanceSquared < bestDistanceSquared)
+		{
+			bestDistanceSquared = distanceSquared;
+			bestDirection = delta;
+			foundAlignedDoor = true;
+		}
+	}
+
+	if (!foundAlignedDoor)
+	{
+		bestDirection = Vec2(lastDoor.position) - Vec2(_doorSpawns[_doorSpawns.size() - 2].position);
+	}
+
+	if (bestDirection.GetLenghtSquared() <= 1.f)
+	{
+		return Vec2(0.f, -1.f);
+	}
+
+	bestDirection.Normalize();
+	return bestDirection;
+}
 
 sf::Color GetLinkedInteractableColor(int _linkId)
 {
@@ -32,8 +77,7 @@ sf::Color GetLinkedInteractableColor(int _linkId)
 		sf::Color(142, 68, 173),
 		sf::Color(39, 174, 96),
 		sf::Color(41, 128, 185),
-		sf::Color(192, 57, 43)
-	};
+		sf::Color(192, 57, 43) };
 
 	if (_linkId <= 0)
 	{
@@ -70,7 +114,11 @@ Game::Game(GameData* _data) : Scene(_data)
 
 void Game::Load(void)
 {
-	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n) { ResetScene(); });
+	duel = nullptr;
+	duelTrigger = nullptr;
+
+	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n)
+		{ ResetScene(); });
 	data->inputs->GetPressedDelegate("DEBUG")->Add(this, &Game::OnPressedDebugKey);
 
 	// Les acteurs sont ajout�s automatiquement � la sc�ne donc pas
@@ -98,6 +146,15 @@ void Game::Load(void)
 			doorsById[doorSpawn.linkId] = spawnedDoor;
 		}
 	}
+
+	if (!mappy->m_doorSpawns.empty())
+	{
+		const Map::InteractableSpawn& lastDoorSpawn = mappy->m_doorSpawns.back();
+		const Vec2 triggerDirection = GetLastDoorProgressionDirection(mappy->m_doorSpawns);
+		const Vec2 triggerOffset = Vec2(triggerDirection.x * 160.f, triggerDirection.y * 160.f);
+		const Vec2 triggerPosition = Vec2(lastDoorSpawn.position) + triggerOffset;
+	}
+	duelTrigger = new DuelTrigger(data, Vec2(1600, 505), Vec2(2000, 200), this);
 
 	for (const Map::InteractableSpawn& keySpawn : mappy->m_keySpawns)
 	{
@@ -199,14 +256,12 @@ void Game::Load(void)
 		}
 	}
 
-
 	playerUi = new PlayerUi(data, player, Vec2(20.f, 20.f));
 	player2Ui = new PlayerUi(data, player2, Vec2((SCREEN_W * 0.5f) + 20.f, 20.f));
 
-	// desactivate gravity 
+	// desactivate gravity
 
-
-	//temp ground
+	// temp ground
 	/*groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, {Vec2(900, 500), 0.f, Vec2(1800, 50)}, nullptr);
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(1800, 50) });
 
@@ -224,45 +279,58 @@ void Game::Load(void)
 	separator.setPosition((SCREEN_W * 0.5f) - 1.f, 0.f);
 
 	////temp wall
-	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
-	//groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
+	// groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
+	// groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
 }
 
 void Game::Update(float _dt)
 {
-	Scene::Update(_dt);
-	b2Vec2 p1Pose = b2Body_GetPosition(player->body);
-	b2Vec2 p2Pose = b2Body_GetPosition(player2->body);
-	playerOneView.setCenter(sf::Vector2f(p1Pose.x * 64.f, -p1Pose.y * 64.f));
-	playerTwoView.setCenter(sf::Vector2f(p2Pose.x * 64.f, -p2Pose.y * 64.f));
+	if (duel != nullptr)
+	{
+		duel->Update(_dt);
+	}
+	else
+	{
+		Scene::Update(_dt);
+
+		b2Vec2 p1Pose = b2Body_GetPosition(player->body);
+		b2Vec2 p2Pose = b2Body_GetPosition(player2->body);
+		playerOneView.setCenter(sf::Vector2f(p1Pose.x * 64.f, -p1Pose.y * 64.f));
+		playerTwoView.setCenter(sf::Vector2f(p2Pose.x * 64.f, -p2Pose.y * 64.f));
+	}
 }
 
 void Game::Draw(sf::RenderTarget* _render)
 {
-	camera = &playerOneView;
-	_render->setView(*camera);
-	if (mappy)
+	if (duel != nullptr)
 	{
-		mappy->Draw(*_render);
+		duel->Draw(_render);
 	}
-	DrawWorld(_render);
-
-	camera = &playerTwoView;
-	_render->setView(*camera);
-	if (mappy)
+	else
 	{
-		mappy->Draw(*_render);
+		camera = &playerOneView;
+		_render->setView(*camera);
+		if (mappy)
+		{
+			mappy->Draw(*_render);
+		}
+		DrawWorld(_render);
+
+		camera = &playerTwoView;
+		_render->setView(*camera);
+		if (mappy)
+		{
+			mappy->Draw(*_render);
+		}
+		DrawWorld(_render);
+
+		camera = nullptr;
+		_render->setView(_render->getDefaultView());
+
+		_render->draw(separator);
+
+		DrawUi(_render);
 	}
-	DrawWorld(_render);
-
-	camera = nullptr;
-	_render->setView(_render->getDefaultView());
-
-
-	_render->draw(separator);
-
-	DrawUi(_render);
-
 }
 
 void Game::Destroy(void)
@@ -279,12 +347,25 @@ void Game::Destroy(void)
 		mappy = nullptr;
 	}
 
+	duel = nullptr;
+	duelTrigger = nullptr;
+
 	Scene::Destroy();
+}
+
+void Game::StartDuel(void)
+{
+	if (duel != nullptr)
+	{
+		return;
+	}
+
+	duel = new Duel(data);
 }
 
 void Game::OnPressedDebugKey(Input _input)
 {
-	//data->guiManager->SetDebugMode(!data->guiManager->isDegbugMode);
+	// data->guiManager->SetDebugMode(!data->guiManager->isDegbugMode);
 }
 
 void Game::ResetScene(void)

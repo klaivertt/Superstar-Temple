@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="101" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="526">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="101" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="536">
  <editorsettings>
   <export target="Map.json" format="json"/>
  </editorsettings>
@@ -148,7 +148,7 @@
   <object id="156" name="DOOR /11" x="2368" y="5376">
    <point/>
   </object>
-  <object id="19" name="DOOR /02" x="832" y="4200">
+  <object id="19" name="DOOR /02" x="832" y="4160">
    <point/>
   </object>
   <object id="20" name="DOOR /03" x="832" y="2944">
@@ -160,7 +160,7 @@
   <object id="22" name="DOOR /05" x="832" y="576">
    <point/>
   </object>
-  <object id="23" name="DOOR /12" x="2376" y="4188">
+  <object id="23" name="DOOR /12" x="2368" y="4160">
    <point/>
   </object>
   <object id="24" name="DOOR /13" x="2368" y="2944">
@@ -619,52 +619,49 @@
   <object id="364" name="FIRETRAP" x="1728" y="2112">
    <point/>
   </object>
-  <object id="365" name="FIRETRAP" x="2112" y="2157">
+  <object id="365" name="FIRETRAP" x="2112" y="2176">
    <point/>
   </object>
-  <object id="366" name="FIRETRAP" x="2176" y="2157">
+  <object id="366" name="FIRETRAP" x="2176" y="2176">
    <point/>
   </object>
-  <object id="367" name="FIRETRAP" x="2240" y="2157">
+  <object id="367" name="FIRETRAP" x="2240" y="2176">
    <point/>
   </object>
-  <object id="368" name="FIRETRAP" x="2304" y="2157">
+  <object id="368" name="FIRETRAP" x="2304" y="2176">
    <point/>
   </object>
-  <object id="369" name="FIRETRAP" x="2304" y="2285">
+  <object id="369" name="FIRETRAP" x="2304" y="2304">
    <point/>
   </object>
-  <object id="370" name="FIRETRAP" x="2240" y="2349">
+  <object id="370" name="FIRETRAP" x="2176" y="2304">
    <point/>
   </object>
-  <object id="371" name="FIRETRAP" x="2176" y="2349">
+  <object id="371" name="FIRETRAP" x="2112" y="2304">
    <point/>
   </object>
-  <object id="372" name="FIRETRAP" x="2119.67" y="2352">
+  <object id="373" name="FIRETRAP" x="2048" y="2304">
    <point/>
   </object>
-  <object id="373" name="FIRETRAP" x="2048" y="2285">
+  <object id="374" name="FIRETRAP" x="2048" y="2240">
    <point/>
   </object>
-  <object id="374" name="FIRETRAP" x="2048" y="2221">
-   <point/>
-  </object>
-  <object id="375" name="FIRETRAP" x="2432" y="2304">
+  <object id="375" name="FIRETRAP" x="2449" y="2304">
    <point/>
   </object>
   <object id="376" name="FIRETRAP" x="2560" y="2304">
    <point/>
   </object>
-  <object id="377" name="FIRETRAP" x="2432" y="2368">
+  <object id="377" name="FIRETRAP" x="2449" y="2368">
    <point/>
   </object>
-  <object id="378" name="FIRETRAP" x="2432" y="2432">
+  <object id="378" name="FIRETRAP" x="2449" y="2432">
    <point/>
   </object>
-  <object id="379" name="FIRETRAP" x="2432" y="2496">
+  <object id="379" name="FIRETRAP" x="2449" y="2496">
    <point/>
   </object>
-  <object id="380" name="FIRETRAP" x="2432" y="2560">
+  <object id="380" name="FIRETRAP" x="2449" y="2560">
    <point/>
   </object>
   <object id="381" name="FIRETRAP" x="2624" y="2304">
@@ -691,13 +688,13 @@
   <object id="389" name="FIRETRAP" x="2688" y="2752">
    <point/>
   </object>
-  <object id="390" name="FIRETRAP" x="2432" y="2752">
+  <object id="390" name="FIRETRAP" x="2449" y="2752">
    <point/>
   </object>
-  <object id="391" name="FIRETRAP" x="2432" y="2688">
+  <object id="391" name="FIRETRAP" x="2449" y="2688">
    <point/>
   </object>
-  <object id="392" name="FIRETRAP" x="2432" y="2624">
+  <object id="392" name="FIRETRAP" x="2449" y="2624">
    <point/>
   </object>
   <object id="393" name="FIRETRAP" x="2240" y="2688">
@@ -793,9 +790,6 @@
   <object id="428" name="SPIKETRAP" x="3968" y="896">
    <point/>
   </object>
-  <object id="429" name="SPIKETRAP" x="3968" y="960">
-   <point/>
-  </object>
   <object id="430" name="SPIKETRAP" x="4352" y="640">
    <point/>
   </object>
@@ -805,16 +799,13 @@
   <object id="432" name="SPIKETRAP" x="4352" y="768">
    <point/>
   </object>
-  <object id="433" name="SPIKETRAP" x="4480" y="896">
+  <object id="433" name="SPIKETRAP" x="4544" y="896">
    <point/>
   </object>
-  <object id="434" name="SPIKETRAP" x="4480" y="960">
+  <object id="434" name="SPIKETRAP" x="4544" y="960">
    <point/>
   </object>
-  <object id="435" name="SPIKETRAP" x="4480" y="1024">
-   <point/>
-  </object>
-  <object id="436" name="FIRETRAP" x="4160" y="704">
+  <object id="435" name="SPIKETRAP" x="4544" y="1024">
    <point/>
   </object>
   <object id="437" name="FIRETRAP" x="4160" y="768">
@@ -832,22 +823,16 @@
   <object id="441" name="FIRETRAP" x="4160" y="1024">
    <point/>
   </object>
-  <object id="442" name="FIRETRAP" x="4352" y="960">
-   <point/>
-  </object>
   <object id="443" name="FIRETRAP" x="4352" y="896">
    <point/>
   </object>
   <object id="444" name="FIRETRAP" x="4352" y="832">
    <point/>
   </object>
-  <object id="445" name="FIRETRAP" x="4480" y="832">
+  <object id="445" name="FIRETRAP" x="4544" y="832">
    <point/>
   </object>
-  <object id="446" name="FIRETRAP" x="4480" y="768">
-   <point/>
-  </object>
-  <object id="447" name="FIRETRAP" x="4480" y="704">
+  <object id="446" name="FIRETRAP" x="4544" y="768">
    <point/>
   </object>
   <object id="448" name="BOX" x="6206.06" y="1351.52">
@@ -866,9 +851,6 @@
    <point/>
   </object>
   <object id="453" name="FIRETRAP" x="5824" y="1408">
-   <point/>
-  </object>
-  <object id="454" name="FIRETRAP" x="5824" y="1472">
    <point/>
   </object>
   <object id="467" name="SPIKE/05" x="2240" y="768">
@@ -904,7 +886,7 @@
   <object id="477" name="SPIKE/05" x="1280" y="832">
    <point/>
   </object>
-  <object id="478" name="BUTTON/05" x="4608" y="768">
+  <object id="478" name="BUTTON/05" x="4672" y="768">
    <point/>
   </object>
   <object id="479" name="TP/02" x="1472" y="4672">
@@ -997,16 +979,13 @@
   <object id="512" name="FIRETRAP" x="576" y="1984">
    <point/>
   </object>
-  <object id="513" name="FIRETRAP" x="2048" y="2157">
+  <object id="513" name="FIRETRAP" x="2048" y="2176">
    <point/>
   </object>
-  <object id="514" name="FIRETRAP" x="2048" y="2349">
+  <object id="515" name="FIRETRAP" x="2240" y="2304">
    <point/>
   </object>
-  <object id="515" name="FIRETRAP" x="2304" y="2349">
-   <point/>
-  </object>
-  <object id="516" name="FIRETRAP" x="2304" y="2221">
+  <object id="516" name="FIRETRAP" x="2304" y="2240">
    <point/>
   </object>
   <object id="517" name="SPIKE/05" x="704" y="768">
@@ -1034,6 +1013,21 @@
    <point/>
   </object>
   <object id="525" name="SPIKE/04" x="1344" y="2112">
+   <point/>
+  </object>
+  <object id="527" name="SPIKETRAP" x="5568" y="1344">
+   <point/>
+  </object>
+  <object id="528" name="SPIKETRAP" x="5568" y="1408">
+   <point/>
+  </object>
+  <object id="529" name="SPIKETRAP" x="5568" y="1472">
+   <point/>
+  </object>
+  <object id="530" name="SPIKETRAP" x="5568" y="1536">
+   <point/>
+  </object>
+  <object id="531" name="SPIKETRAP" x="5568" y="1600">
    <point/>
   </object>
  </objectgroup>
@@ -1145,24 +1139,6 @@
   <object id="165" x="0" y="5184" width="768" height="64"/>
   <object id="166" x="896" y="5184" width="1408" height="64"/>
   <object id="167" x="2432" y="5184" width="704" height="64"/>
-  <object id="461" name="SPIKETRAP" x="5632" y="1280">
-   <point/>
-  </object>
-  <object id="462" name="SPIKETRAP" x="5632" y="1344">
-   <point/>
-  </object>
-  <object id="463" name="SPIKETRAP" x="5632" y="1408">
-   <point/>
-  </object>
-  <object id="464" name="SPIKETRAP" x="5632" y="1472">
-   <point/>
-  </object>
-  <object id="465" name="SPIKETRAP" x="5632" y="1536">
-   <point/>
-  </object>
-  <object id="466" name="SPIKETRAP" x="5632" y="1600">
-   <point/>
-  </object>
   <object id="481" x="896" y="4160" width="1407.3" height="64"/>
   <object id="482" x="2432" y="4160" width="3965.3" height="64"/>
  </objectgroup>
