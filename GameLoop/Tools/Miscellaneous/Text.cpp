@@ -35,9 +35,11 @@ void Text::Create(FontType _fontType, sf::Vector2f _origin, sf::Color _color, un
 {
 	text.setFont(fonts[(int)_fontType]);
 	text.setFillColor(_color);
+	text.setCharacterSize(_size);
 
 	shadow.setFont(fonts[(int)_fontType]);
 	shadow.setFillColor(shadowColor);
+	shadow.setCharacterSize(_size);
 
 	origin = _origin;
 }

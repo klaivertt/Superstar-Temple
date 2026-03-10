@@ -4,23 +4,31 @@
 
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
+#include "../../../Tools/Miscellaneous/Text.hpp"
 
 struct PlayerData
 {
-	sf::Sprite spriteBullet;
+	Sprite spriteBullet;
 	bool isShooting = false;
+	float timerShoot = 0.f;
 };
 
 class Duel : Actor
 {
 protected:
-	sf::Sprite spriteP1;
-	sf::Sprite spriteP2;
+	Sprite spriteP1;
+	Sprite spriteP2;
 	sf::RectangleShape rect[2];
 
 	PlayerData player[2];
+	Text* text;
+
+	int winner = -1;
 	float timer = 0.f;
-	bool isDuelStarted = false;
+	float timerTransition = 2.f;
+
+	bool isFinished = false;
+	bool isWinScreen = false;
 
 public:
 	Duel(GameData* _data);
@@ -28,6 +36,9 @@ public:
 
 	virtual void Update(float _dt) override;
 	virtual void Draw(sf::RenderTarget* _render) override;
+
+	void StartDuel(float _dt);
+	void EndDuel(float _dt, int _player);
 
 	// Note: to be notified when this interactable is destroyed, use
 	// the inherited  onDestroyed  delegate (defined on Actor).

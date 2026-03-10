@@ -3,15 +3,16 @@
 #include "Actor/BasicCube.hpp"
 #include "../../GameLoop/Tools/Miscellaneous/Animation.hpp"
 
+#include "Code/States/Game/Duel.hpp"
 #include "Code/States/Game/Actor/Player/Player.hpp"
 #include "Code/States/Game/Actor/Player/PlayerUi.hpp"
 
 #include "Code/States/Game/Actor/Interactable/Key.hpp"
 #include "Code/States/Game/Actor/Interactable/Box.hpp"
+#include "Code/States/Game/Actor/Interactable/Door.hpp"
 #include "Code/States/Game/Actor/Interactable/Button.hpp"
 #include "Code/States/Game/Actor/Interactable/FireTrap.hpp"
 #include "Code/States/Game/Actor/Interactable/SpikeTrap.hpp"
-#include "Code/States/Game/Actor/Interactable/Door.hpp"
 
 Game::Game(GameData* _data) : Scene(_data)
 {
@@ -35,24 +36,25 @@ void Game::Load(void)
 	fireTrap = new FireTrap(data);
 	spikeTrap = new SpikeTrap(data);
 	door = new Door(data);
+	duel = new Duel(data);
+
 	button->SetTarget(door);
 	key->SetTarget(door);
 	
-
 	playerUi = new PlayerUi(data, player);
 
 	// desactivate gravity 
-	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
+	//b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
 
 	//temp ground
 	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(900, 500), 0.f, Vec2(1800, 50) }, nullptr);
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(1800, 50) });
 
 
-	//Logger::Warning(Logger::Rect(player->GetBounds(), "Player :"));
-	////temp wall
-	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
-	//groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
+	Logger::Warning(Logger::Rect(player->GetBounds(), "Player :"));
+	//temp wall
+	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
+	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
 }
 
 void Game::Update(float _dt)
