@@ -47,6 +47,7 @@
     <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Door.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Vec2.cpp" />
+    <ClCompile Include="Code\States\Game\HUD.cpp" />
     <ClCompile Include="Tools\Parser\Parser.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Teleporter.cpp" />
   </ItemGroup>
@@ -221,6 +222,7 @@
     <ClInclude Include="Code\States\Game\Actor\Player\PlayerUi.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Door.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Vec2.hpp" />
+    <ClInclude Include="Code\States\Game\HUD.hpp" />
     <ClInclude Include="Tools\Parser\Parser.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Teleporter.hpp" />
   </ItemGroup>
