@@ -7,7 +7,9 @@ Box::Box(GameData* _data, Vec2 _pos): Interactable(_data)
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Interactable/Box.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { _pos, 0.f, Vec2(64, 64) }, this, true);
+	sf::Vector2u textureSize = sprite.GetTexture()->getSize();
+
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { _pos, 0.f, textureSize }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 	b2Body_SetLinearDamping(body, 5.f);
 

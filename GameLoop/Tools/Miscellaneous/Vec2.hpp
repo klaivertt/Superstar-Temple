@@ -15,6 +15,7 @@ public:
 	Vec2(void);
 	Vec2(const sf::Vector2f& _vec);
 	Vec2(const sf::Vector2i& _vec);
+	Vec2(const sf::Vector2u& _vec);
 	Vec2(const b2Vec2& _vec);
 	Vec2(float _float);
 	Vec2(int _int);
@@ -29,6 +30,7 @@ public:
 	operator sf::Vector2f() const;
 	operator b2Vec2() const;
 	operator sf::Vector2i() const;
+	operator sf::Vector2u() const;
 	operator std::string() const;
 
 	friend std::string operator + (const std::string& _str, const Vec2& _vec);
