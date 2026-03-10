@@ -3,7 +3,10 @@
 #include "Actor/BasicCube.hpp"
 #include "../../GameLoop/Tools/Miscellaneous/Animation.hpp"
 #include "Code/States/Game/HUD.hpp"
+#include "Tools/Map/Map.hpp"
 
+Map* mappy;
+sf::View view;
 #include "Code/States/Game/Actor/Player/Player.hpp"
 #include "Code/States/Game/Actor/Player/PlayerUi.hpp"
 #include "Code/States/Game/Actor/Interactable/Key.hpp"
@@ -29,14 +32,14 @@ void Game::Load(void)
 
 	Scene::Load();
 	player = new Player(data);
-	key = new Key(data);
-	box = new Box(data);
-	fireButton = new Button(data);
-	spikeButton = new Button(data);
-	button = new Button(data);
-	fireTrap = new FireTrap(data);
-	spikeTrap = new SpikeTrap(data);
-	door = new Door(data);
+	key = new Key(data, Vec2(400, 100));
+	box = new Box(data, Vec2(500, 100));
+	fireButton = new Button(data, Vec2(600, 100));
+	spikeButton = new Button(data, Vec2(700, 100));
+	button = new Button(data, Vec2(800, 100));
+	fireTrap = new FireTrap(data, Vec2(600, 300));
+	spikeTrap = new SpikeTrap(data, Vec2(700, 300));
+	door = new Door(data, Vec2(800, 300));
 	button->SetTarget(door);
 	key->SetTarget(door);
 	fireButton->SetTarget(fireTrap);
@@ -52,8 +55,18 @@ void Game::Load(void)
 	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
 
 	//temp ground
-	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(900, 500), 0.f, Vec2(1800, 50) }, nullptr);
+	/*groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, {Vec2(900, 500), 0.f, Vec2(1800, 50)}, nullptr);
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(1800, 50) });
+
+	//temp wall
+	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
+	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
+	*/
+
+	mappy = new Map("Assets/Map/PlayMap", &data->physicsWorld);
+	view.setViewport(sf::FloatRect(0, 0, 1, 1));
+	// Dezoom to have more vision on the map
+	view.setSize(SCREEN_W, SCREEN_H);
 
 	////temp wall
 	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
@@ -65,12 +78,17 @@ void Game::Update(float _dt)
 	timer += _dt;
 	Scene::Update(_dt);
 	hud->Update(_dt);
+	b2Vec2 pPose = b2Body_GetPosition(player->body);
+	view.setCenter(sf::Vector2f(pPose.x*64, -pPose.y*64 + SCREEN_H /4));
 }
 
 void Game::Draw(sf::RenderTarget* _render)
 {
 	hud->draw(_render);
+	_render->setView(view);
+	//mappy->Draw(*_render);
 	Scene::Draw(_render);
+	
 }
 
 void Game::Destroy(void)

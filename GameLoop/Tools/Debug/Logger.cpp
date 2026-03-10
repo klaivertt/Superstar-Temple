@@ -223,6 +223,11 @@ std::string Logger::PrintVec2(const sf::Vector2i& v, const std::string& label)
 	return label + ": (" + std::to_string(v.x) + ", " + std::to_string(v.y) + ")";
 }
 
+std::string Logger::PrintVec2(const sf::Vector2u& v, const std::string& label)
+{
+	return label + ": (" + std::to_string(v.x) + ", " + std::to_string(v.y) + ")";
+}
+
 std::string Logger::Vec2(const sf::Vector2i& v, const std::string& label) 
 {
 	return PrintVec2(v, label);
@@ -231,6 +236,11 @@ std::string Logger::Vec2(const sf::Vector2i& v, const std::string& label)
 std::string Logger::Vec2(const sf::Vector2f& v, const std::string& label) 
 { 
 	return PrintVec2(v, label);
+}
+
+std::string Logger::Vec2(const sf::Vector2u& v, const std::string& label)
+{
+	return  PrintVec2(v, label);;
 }
 
 std::string Logger::PrintBool(const std::string& label, bool value)

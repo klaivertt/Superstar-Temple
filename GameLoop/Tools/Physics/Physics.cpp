@@ -115,6 +115,16 @@ void Physics::SetLinearVelocity(b2BodyId _body, Vec2 _velocity)
 	b2Body_SetLinearVelocity(_body, b2Vec2(_velocity.x, vel.y));
 }
 
+void Physics::SetVelocity(b2BodyId _body, Vec2 _velocity)
+{
+	b2Vec2 vel = b2Body_GetLinearVelocity(_body);
+
+	// set the velocity to 0 and apply new velocity
+	b2Body_SetLinearVelocity(_body, b2Vec2(0.f, 0.f));
+
+	b2Body_ApplyLinearImpulseToCenter(_body, b2Vec2(_velocity.x * b2Body_GetMass(_body), _velocity.y * b2Body_GetMass(_body)), true);
+}
+
 void Physics::ApplyForce(b2BodyId _body, Vec2 _force)
 {
 	b2Body_ApplyForceToCenter(_body, { _force.x, _force.y }, true);

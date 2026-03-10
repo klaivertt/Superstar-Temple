@@ -12,7 +12,7 @@ private:
 	Sprite sprite;
 
 public:
-	Key(GameData* _data);
+	Key(GameData* _data, Vec2 _pos);
 	b2ShapeId box;
 
 	std::string GetClassName(void) override { return "Key"; }

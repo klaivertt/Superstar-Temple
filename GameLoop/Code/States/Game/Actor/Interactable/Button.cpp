@@ -1,13 +1,13 @@
 ﻿#include "Button.hpp"
 #include "Tools/Physics/Physics.hpp"
 
-Button::Button(GameData* _data) : Interactable(_data)
+Button::Button(GameData* _data, Vec2 _pos) : Interactable(_data)
 {
 	texture.loadFromFile("Assets/Sprites/Game/Interactable/Button.png");
 	sprite.SetTexture(&texture);
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(800 + rand() % 200, 100), 0.f, Vec2(0, 0) }, this, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { _pos, 0.f, Vec2(0, 0) }, this, true);
 	Physics::CreateBoxTrigger(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 
 	//triggerRange = 55.f;
@@ -57,7 +57,7 @@ bool Button::ReturnState(void)
 void Button::OnTriggerEnter(ColEvent _col)
 {
 	// only if is a player or a box that collide with the button, it will be pressed
-	if (_col.other->GetClassName() == "Player" || _col.other->GetClassName() == "Box")
+	/*if (_col.other->GetClassName() == "Player" || _col.other->GetClassName() == "Box")
 	{
 		isPressed = true;
 		Logger::Debug("Button pressed !" + _col.other->GetClassName());
@@ -70,7 +70,7 @@ void Button::OnTriggerEnter(ColEvent _col)
 				interacte->OnInteract(this);
 			}
 		}
-	}
+	}*/
 }
 
 void Button::OnTriggerExit(ColEvent _col)

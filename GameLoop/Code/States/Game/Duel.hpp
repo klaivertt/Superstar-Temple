@@ -4,25 +4,33 @@
 
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
-#include "Interactable.hpp"
 
-class Box : public Interactable
+struct PlayerData
 {
-private:
-	Sprite sprite;
+	sf::Sprite spriteBullet;
+	bool isShooting = false;
+};
+
+class Duel : Actor
+{
+protected:
+	sf::Sprite spriteP1;
+	sf::Sprite spriteP2;
+	sf::RectangleShape rect[2];
+
+	PlayerData player[2];
+	float timer = 0.f;
+	bool isDuelStarted = false;
 
 public:
-	Box(GameData* _data, Vec2 _pos);
-
-	std::string GetClassName(void) override { return "Box"; }
+	Duel(GameData* _data);
+	~Duel(void);
 
 	virtual void Update(float _dt) override;
 	virtual void Draw(sf::RenderTarget* _render) override;
 
-	virtual void OnCollisionEnter(ColEvent _col) override;
-	virtual void OnCollisionExit(ColEvent _col) override;
-
-	virtual void OnInteract(Actor* _interactingActor) override;
+	// Note: to be notified when this interactable is destroyed, use
+	// the inherited  onDestroyed  delegate (defined on Actor).
 
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;

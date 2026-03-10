@@ -141,7 +141,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Dependencies/include;$(SolutionDir)/GameLoop;$(SolutionDir)\Dependencies\include\ImGui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Dependencies/include;$(SolutionDir)/GameLoop;$(SolutionDir)\Dependencies\include\ImGui;$(SolutionDir)\Dependencies\include\JSON</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -199,6 +199,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Tools\Json\jsoncpp.cpp" />
+    <ClCompile Include="Tools\Map\Layer.cpp" />
+    <ClCompile Include="Tools\Map\Map.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Actor.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Animation.cpp" />
     <ClCompile Include="Tools\AssetsManager.cpp" />
@@ -208,6 +211,7 @@
     <ClCompile Include="Tools\Miscellaneous\Inputs.cpp" />
     <ClCompile Include="Tools\Debug\Logger.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Vec2.cpp" />
+    <ClCompile Include="Tools\Parser\Parser.cpp" />
     <ClCompile Include="Tools\Physics\Motion.cpp" />
     <ClCompile Include="Tools\Physics\Physics.cpp" />
     <ClCompile Include="Tools\Scene.cpp" />
@@ -216,6 +220,8 @@
     <ClCompile Include="Tools\UI\AutoUi.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Dependencies\include\JSON\json-forwards.h" />
+    <ClInclude Include="..\Dependencies\include\JSON\json.h" />
     <ClInclude Include="Code\Core\Draw.hpp" />
     <ClInclude Include="Code\States\Gameover\Gameover.hpp" />
     <ClInclude Include="Code\States\Game\Actor\BasicCube.hpp" />
@@ -358,7 +364,11 @@
     <ClInclude Include="Dependencies\include\SFML\Window\Window.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowStyle.hpp" />
+    <ClInclude Include="Dependencies\JSON\json-forwards.h" />
+    <ClInclude Include="Dependencies\JSON\json.h" />
     <ClInclude Include="GameData.hpp" />
+    <ClInclude Include="Tools\Map\Layer.hpp" />
+    <ClInclude Include="Tools\Map\Map.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Actor.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Animation.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Array.hpp" />
@@ -371,6 +381,7 @@
     <ClInclude Include="Tools\Debug\ImGuiManager.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Inputs.hpp" />
     <ClInclude Include="Tools\Debug\Logger.hpp" />
+    <ClInclude Include="Tools\Parser\Parser.hpp" />
     <ClInclude Include="Tools\Physics\Motion.hpp" />
     <ClInclude Include="Tools\Physics\Physics.hpp" />
     <ClInclude Include="Tools\Scene.hpp" />
