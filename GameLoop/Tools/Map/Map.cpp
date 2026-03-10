@@ -29,14 +29,12 @@ void Map::LoadMap(std::string _path)
 		{
 			m_mapSize.y = jFile["height"].asInt();
 			m_mapSize.x = jFile["width"].asInt();
-			Logger::Debug(Logger::Vec2(m_mapSize, "Map size : "), false);
 			int numTileSet = jFile["tilesets"].size();
 			for (int l = 0; l < numTileSet; l++)
 			{
 				Layer::TileSet* tempSet= new Layer::TileSet;
 				tempSet->cellSize.x = jFile["tilesets"][l]["tilewidth"].asInt();
 				tempSet->cellSize.y = jFile["tilesets"][l]["tileheight"].asInt();
-				Logger::Debug(Logger::Vec2(tempSet->cellSize, "Map size : "), false);
 				tempSet->size.x = jFile["tilesets"][l]["imagewidth"].asInt();
 				tempSet->size.y = jFile["tilesets"][l]["imageheight"].asInt();
 				tempSet->collumns = jFile["tilesets"][l]["columns"].asInt();
