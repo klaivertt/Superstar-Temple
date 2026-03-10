@@ -15,14 +15,26 @@ void Game::Load(void)
 {
 	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n) { ResetScene(); });
 	data->inputs->GetPressedDelegate("DEBUG")->Add(this, &Game::OnPressedDebugKey);
-
-	// Créer les acteurs ici avec un new Actor() (ou de votre sous classe)
+	
 	// Les acteurs sont ajoutés automatiquement à la scène donc pas
 	// besoin de les gérer :)
 
 	Scene::Load();
 	player = new Player(data);
 	key = new Key(data);
+<<<<<<< Updated upstream
+=======
+	box = new Box(data);
+	button = new Button(data);
+	fireTrap = new FireTrap(data);
+	spikeTrap = new SpikeTrap(data);
+	door = new Door(data);
+	button->SetTarget(door);
+	key->SetTarget(door);
+	
+
+	playerUi = new PlayerUi(data, player);
+>>>>>>> Stashed changes
 
 	// desactivate gravity 
 	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });

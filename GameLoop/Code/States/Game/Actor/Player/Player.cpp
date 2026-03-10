@@ -54,6 +54,45 @@ void Player::Update(float _dt)
 void Player::Draw(sf::RenderTarget* _render)
 {
 
+<<<<<<< Updated upstream
+=======
+void Player::OnTriggerEnter(ColEvent _col)
+{
+	if (Interactable* interactable = dynamic_cast<Interactable*>(_col.other))
+	{
+		currentInteractable = interactable;
+
+		// ce delegate permet au player de savoir quand l'interactable qu'il a en pointeur est détruit, pour éviter les pointeurs invalides
+		// ce que cette fonction fait réelement, c'est de dire que quand l'interactable est détruit, le player met donc ensuite son pointeur currentInteractable à nullptr
+		interactable->onDestroyed.Add([this](Actor*) { currentInteractable = nullptr; });
+	}
+
+	Logger::Debug("Trigger Enter with " + _col.other->GetClassName() + " !");
+}
+
+void Player::OnTriggerExit(ColEvent _col)
+{
+	if (currentInteractable == _col.other)
+	{	
+		currentInteractable = nullptr;
+		Logger::Debug("Trigger Exit with " + _col.other->GetClassName() + " !");
+	}
+}
+
+float Player::GetHealth() const
+{
+	// return the health in percentage
+	return (health / maxHealth) * 100.f;
+}
+
+void Player::SetHealth(float _health)
+{
+}
+
+float Player::GetMaxHealth() const
+{
+	return 0.0f;
+>>>>>>> Stashed changes
 }
 
 void Player::UpdateIdle(float _dt)

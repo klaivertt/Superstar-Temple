@@ -14,6 +14,28 @@ void Interactable::SetTriggerRange(float _range, bool _centered)
 	Physics::CreateCircleTrigger(body, transform, _range);
 }
 
+bool Interactable::ActivateTarget(Actor* _interactingActor)
+{
+	Interactable* targetInteractable = dynamic_cast<Interactable*>(target);
+
+	if (targetInteractable == nullptr)
+	{
+		return false;
+	}
+
+	if (isCollidingWithTarget)
+	{
+		targetInteractable->OnInteract(_interactingActor);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+	return false;
+}
+
 Interactable::Interactable(GameData* _data) : Actor(_data)
 {
 }
@@ -38,3 +60,30 @@ void Interactable::OnCollisionEnter(ColEvent _col)
 void Interactable::OnCollisionExit(ColEvent _col)
 {
 }
+<<<<<<< Updated upstream
+=======
+
+void Interactable::SetTarget(Actor* _target)
+{
+	target = _target;
+	Interactable* targetInteractable = dynamic_cast<Interactable*>(target);
+	if (targetInteractable != nullptr)
+	{
+		targetInteractable->SetOwner(this);
+	}
+}
+
+void Interactable::ClearTarget()
+{
+	target = nullptr;
+}
+
+void Interactable::SetOwner(Actor* _owner)
+{
+	owner = _owner;
+}
+
+void Interactable::OnInteract(Actor* _interactingActor)
+{
+}
+>>>>>>> Stashed changes

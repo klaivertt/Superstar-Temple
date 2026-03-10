@@ -8,9 +8,19 @@
 class Interactable : public Actor
 {
 protected:
+<<<<<<< Updated upstream
 	void SetTriggerRange(float _range, bool _centered = true);
 
 	float triggerRange = 0.f;
+=======
+	void SetTriggerRange(float _range, Vec2 _decal = Vec2(0.f));
+	bool ActivateTarget(Actor* _interactingActor = nullptr);
+
+	float triggerRange = 0.f;
+	Actor* target = nullptr;
+	Actor* owner = nullptr;
+	bool isCollidingWithTarget = false;
+>>>>>>> Stashed changes
 private:
 
 public:
