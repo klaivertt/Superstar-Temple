@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
- <tileset firstgid="1" source="Gabarit_LD_64px_2D_Plateformer.tsx"/>
+ <editorsettings>
+  <export target="../x64/Debug/Assets/Map/fullyMap/test.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="Gabarit_LD_64px_2D_Plateformer" tilewidth="64" tileheight="64" tilecount="160" columns="8">
+  <image source="Gabarit_LD_64px_2D_Plateformer.png" width="512" height="1283"/>
+ </tileset>
  <layer id="1" name="Calque de Tuiles 1" width="10" height="10">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,
