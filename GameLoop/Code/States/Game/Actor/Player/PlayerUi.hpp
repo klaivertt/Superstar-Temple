@@ -17,7 +17,7 @@ private:
 	sf::Color cMid;
 	sf::Color cHigh;
 public:
-	PlayerUi(GameData* _data, Player* _player);
+	PlayerUi(GameData* _data, Player* _player, Vec2 _position = Vec2(20.f, 20.f));
 	~PlayerUi(void);
 	virtual std::string GetClassName(void) override { return "PlayerUi"; }
 	virtual void Update(float _dt) override;

@@ -17,12 +17,14 @@ class Button;
 class FireTrap;
 class SpikeTrap;
 class Door;
+class Map;
 
 struct Game : public Scene
 {
 protected:
 
 	Player* player = nullptr;
+	Player* player2 = nullptr;
 	Key* key = nullptr;
 	Box* box = nullptr;
 	Button* button = nullptr;
@@ -31,7 +33,11 @@ protected:
 	FireTrap* fireTrap = nullptr;
 	SpikeTrap* spikeTrap = nullptr;
 	PlayerUi* playerUi = nullptr;
+	PlayerUi* player2Ui = nullptr;
 	Door* door = nullptr;
+	Map* map = nullptr;
+	sf::View playerOneView;
+	sf::View playerTwoView;
 
 	//temp ground
 	b2BodyId groundBody = b2BodyId();

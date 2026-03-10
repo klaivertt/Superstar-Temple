@@ -65,6 +65,31 @@ void CreateInputs(GameData* _game)
 	input.axisValue = 0.f;
 	inputs->CreateInput("Interact", input);
 
+	input.key = sf::Keyboard::Up;
+	input.axis = true;
+	input.axisValue = -1.f;
+	inputs->CreateInput("P2WalkForward", input);
+
+	input.key = sf::Keyboard::Down;
+	input.axis = true;
+	input.axisValue = 1.f;
+	inputs->CreateInput("P2WalkBackward", input);
+
+	input.key = sf::Keyboard::Left;
+	input.axis = true;
+	input.axisValue = -1.f;
+	inputs->CreateInput("P2WalkLeft", input);
+
+	input.key = sf::Keyboard::Right;
+	input.axis = true;
+	input.axisValue = 1.f;
+	inputs->CreateInput("P2WalkRight", input);
+
+	input.key = sf::Keyboard::Numpad0;
+	input.axis = false;
+	input.axisValue = 0.f;
+	inputs->CreateInput("P2Interact", input);
+
 
 	//editor mode
 	input.key = sf::Keyboard::C;

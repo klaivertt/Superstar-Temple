@@ -3,32 +3,48 @@
 #include "Tools/Debug/Logger.hpp"
 #include "../Interactable/Interactable.hpp"
 
-void Player::InitInputs()
+namespace
 {
-	data->inputs->GetAxisDelegate("WalkForward")->Add(this, &Player::OnWalkForward);
-	data->inputs->GetAxisDelegate("WalkBackward")->Add(this, &Player::OnWalkBackward);
-	data->inputs->GetAxisDelegate("WalkLeft")->Add(this, &Player::OnWalkLeft);
-	data->inputs->GetAxisDelegate("WalkRight")->Add(this, &Player::OnWalkRight);
+	std::string BuildPlayerInputName(const std::string& _prefix, const std::string& _baseName)
+	{
+		if (_prefix.empty())
+		{
+			return _baseName;
+		}
 
-	data->inputs->GetPressedDelegate("Interact")->Add(this, &Player::OnInteract);
+		return _prefix + _baseName;
+	}
 }
 
-Player::Player(GameData* _data): Actor(_data)
+void Player::InitInputs()
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(0) }, this, true);
+	data->inputs->GetAxisDelegate(BuildPlayerInputName(inputPrefix, "WalkForward"))->Add(this, &Player::OnWalkForward);
+	data->inputs->GetAxisDelegate(BuildPlayerInputName(inputPrefix, "WalkBackward"))->Add(this, &Player::OnWalkBackward);
+	data->inputs->GetAxisDelegate(BuildPlayerInputName(inputPrefix, "WalkLeft"))->Add(this, &Player::OnWalkLeft);
+	data->inputs->GetAxisDelegate(BuildPlayerInputName(inputPrefix, "WalkRight"))->Add(this, &Player::OnWalkRight);
+
+	data->inputs->GetPressedDelegate(BuildPlayerInputName(inputPrefix, "Interact"))->Add(this, &Player::OnInteract);
+}
+
+Player::Player(GameData* _data, Vec2 _spawnPosition, const std::string& _inputPrefix, sf::Color _color) : Actor(_data)
+{
+	inputPrefix = _inputPrefix;
+	debugWindowName = inputPrefix.empty() ? "Player" : "Player " + inputPrefix;
+
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { _spawnPosition, 0.f, Vec2(0) }, this, true);
 	//Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64.f) });
 	Physics::CreateCircleCollider(body, { Vec2(0,0), 0.f, Vec2(0.f) }, 31.f);
 	b2Body_SetLinearDamping(body, 5.f);
 
 	sprite = new Sprite(data->assets->GetTexture("Assets/Sprites/Game/Player.png"));
-	sprite->SetColor(sf::Color(125, 200, 125));
+	sprite->SetColor(_color);
 	sprite->SetOrigin(Vec2(0.5f));
 #if _DEBUG
-	_data->guiManager->RegisterWindow("Player", true, ImGuiWindowFlags_AlwaysAutoResize);
-	_data->guiManager->AddSliderFloat("Player", "speed", "value", &speed, 0.f, 35.f);
-	_data->guiManager->AddSliderFloat("Player", "maxHealth", "Max Value", &maxHealth, 0.f, 200.f);
+	_data->guiManager->RegisterWindow(debugWindowName, true, ImGuiWindowFlags_AlwaysAutoResize);
+	_data->guiManager->AddSliderFloat(debugWindowName, "speed", "value", &speed, 0.f, 35.f);
+	_data->guiManager->AddSliderFloat(debugWindowName, "maxHealth", "Max Value", &maxHealth, 0.f, 200.f);
 	// Add a slider to change the health in percentage
-	_data->guiManager->AddSliderFloat("Player", "health", "Health in %", &healthInPercent, 0.f, 100.f, [this](float _health , std::string _n) { SetHealthInPercent(_health); });
+	_data->guiManager->AddSliderFloat(debugWindowName, "health", "Health in %", &healthInPercent, 0.f, 100.f, [this](float _health, std::string _n) { SetHealthInPercent(_health); });
 #endif
 
 	InitInputs();

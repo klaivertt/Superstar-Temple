@@ -51,8 +51,40 @@ void Scene::PollEvents(sf::Event& _event)
 
 void Scene::Draw(sf::RenderTarget* _render)
 {
-	//Array<Actor*>* actorOrdred = new Array<Actor*>();
-	//*actorOrdred = *actors;
+	DrawWorld(_render);
+	_render->setView(_render->getDefaultView());
+	DrawUi(_render);
+}
+
+void Scene::DrawWorld(sf::RenderTarget* _render)
+{
+	EnsureActorsOrder();
+
+	if (camera)
+	{
+		_render->setView(*camera);
+	}
+
+	for (int i = 0; i < actors->Size(); i++)
+	{
+		Actor* actor = actors->Get(i);
+		actor->Draw(_render);
+	}
+
+	b2World_Draw(data->physicsWorld, &data->manager->debugDraw);
+}
+
+void Scene::DrawUi(sf::RenderTarget* _render)
+{
+	for (int i = 0; i < uiElements->Size(); i++)
+	{
+		AutoUi* ui = uiElements->Get(i);
+		ui->Draw(_render);
+	}
+}
+
+void Scene::EnsureActorsOrder()
+{
 	if (ordered == false)
 	{
 		for (int i = 0; i < actors->Size() - 1; i++)
@@ -67,32 +99,9 @@ void Scene::Draw(sf::RenderTarget* _render)
 				}
 			}
 		}
+
 		ordered = true;
 	}
-
-	if (camera)
-	{
-		_render->setView(*camera);
-	}
-
-	for (int i = 0; i < actors->Size(); i++)
-	{
-		Actor* actor = actors->Get(i);
-		actor->Draw(_render);
-	}
-
-	b2World_Draw(data->physicsWorld, &data->manager->debugDraw);
-
-	_render->setView(_render->getDefaultView());
-
-
-	for (int i = 0; i < uiElements->Size(); i++)
-	{
-		AutoUi* ui = uiElements->Get(i);
-		ui->Draw(_render);
-	}
-
-	//delete actorOrdred;
 }
 
 void Scene::Destroy(void)

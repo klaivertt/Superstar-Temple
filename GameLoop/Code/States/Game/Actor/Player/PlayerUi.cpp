@@ -1,13 +1,13 @@
 #include "PlayerUi.hpp"
 #include "Player.hpp"
 
-PlayerUi::PlayerUi(GameData* _data, Player* _player) : AutoUi(_data), player(*_player)
+PlayerUi::PlayerUi(GameData* _data, Player* _player, Vec2 _position) : AutoUi(_data), player(*_player)
 {
 	healthBar = new Sprite(data->assets->GetTexture("Assets/Sprites/Game/HpBar.png"));
 	healthBarBackground = new Sprite(data->assets->GetTexture("Assets/Sprites/Game/HpContainer.png"));
 
-	healthBarBackground->SetPosition({ 20.f, 20.f });
-	healthBar->SetPosition({ 20.f, 20.f });
+	healthBarBackground->SetPosition(_position);
+	healthBar->SetPosition(_position);
 
 	cLow = sf::Color(200, 30, 30);
 	cMid = sf::Color(255, 200, 40);
@@ -32,6 +32,7 @@ void PlayerUi::Update(float _dt)
 	{
 		rect.width = (player.GetHealth() / 100.f) * healthBar->GetTexture()->getSize().x;
 	}
+	healthBar->SetTextureRect(rect);
 	
 	//lerp color from green to red
 	if (player.GetHealth() > 50.f)

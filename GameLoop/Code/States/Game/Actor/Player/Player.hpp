@@ -19,7 +19,7 @@ public:
 		IDLE,
 		WALK
 	};
-	Player(GameData* _data);
+	Player(GameData* _data, Vec2 _spawnPosition = Vec2(100.f, 100.f), const std::string& _inputPrefix = "", sf::Color _color = sf::Color(125, 200, 125));
 	virtual std::string GetClassName(void) override { return "Player"; }
 
 	virtual void Update(float _dt) override;
@@ -50,6 +50,8 @@ private:
 	float health = 100.f;
 	float maxHealth = 100.f;
 	float healthInPercent = 100.f;
+	std::string inputPrefix;
+	std::string debugWindowName = "Player";
 
 	Sprite* sprite;
 	Vec2 lastOrientation = { 0.f, 0.f };

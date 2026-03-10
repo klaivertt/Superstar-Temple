@@ -60,6 +60,10 @@ public:
 		return result;
 	}
 protected:
+	void DrawWorld(sf::RenderTarget* _render);
+	void DrawUi(sf::RenderTarget* _render);
+	void EnsureActorsOrder();
+
 	virtual void KeyPressed(sf::Keyboard::Key _key);
 	virtual void KeyReleased(sf::Keyboard::Key _key);
 	virtual void MousePressed(sf::Event::MouseButtonEvent _button);
