@@ -142,13 +142,10 @@
   <object id="16" name="KEY /12" x="5600" y="4584">
    <point/>
   </object>
-  <object id="17" name="DOOR /01" x="832" y="5436">
+  <object id="17" name="DOOR /01" x="832" y="5376">
    <point/>
   </object>
-  <object id="18" name="DOOR /11" x="2376" y="5416">
-   <point/>
-  </object>
-  <object id="156" name="DOOR /11" x="2376" y="5416">
+  <object id="156" name="DOOR /11" x="2368" y="5376">
    <point/>
   </object>
   <object id="19" name="DOOR /02" x="832" y="4200">

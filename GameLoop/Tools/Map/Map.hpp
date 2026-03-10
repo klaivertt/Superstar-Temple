@@ -33,6 +33,11 @@ public:
 	std::vector<InteractableSpawn> m_keySpawns;
 	std::vector<InteractableSpawn> m_doorSpawns;
 	std::vector<InteractableSpawn> m_stairSpawns;
+	std::vector<InteractableSpawn> m_fireTrap;
+	std::vector<InteractableSpawn> m_spike;
+	std::vector<InteractableSpawn> m_button;
+	std::vector<InteractableSpawn> m_tp;
+	std::vector<InteractableSpawn> m_box;
 private:
 	std::vector<Layer::TileSet*> m_tileSets;
 	std::vector<Layer::Layer*> m_Layers;

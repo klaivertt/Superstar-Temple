@@ -187,6 +187,7 @@
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Teleporter.cpp" />
+    <ClCompile Include="Code\States\Game\Duel.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
     <ClCompile Include="Code\States\Game\HUD.cpp" />
     <ClCompile Include="Code\States\Menu\Menu.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="Code\States\Game\Actor\Player\Player.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\PlayerUi.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Teleporter.hpp" />
+    <ClInclude Include="Code\States\Game\Duel.hpp" />
     <ClInclude Include="Code\States\Game\Game.hpp" />
     <ClInclude Include="Code\Core\Load.hpp" />
     <ClInclude Include="Code\Core\PollEvents.hpp" />

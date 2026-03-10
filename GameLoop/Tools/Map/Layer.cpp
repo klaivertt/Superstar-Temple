@@ -231,6 +231,31 @@ namespace Layer
 				_map->m_stairSpawns.push_back({ m_name, ExtractLinkId(m_name), m_position });
 				Logger::Debug("Stare " + m_name + " detected at : " + Logger::Vec2(m_position));
 			}
+			else if (PRSR::ContentWord(m_name, "FIRETRAP"))
+			{
+				_map->m_fireTrap.push_back({ m_name, ExtractLinkId(m_name), m_position });
+				Logger::Debug("Fire Trap " + m_name + " detected at : " + Logger::Vec2(m_position));
+			}
+			else if (PRSR::ContentWord(m_name, "SPIKE"))
+			{
+				_map->m_spike.push_back({ m_name, ExtractLinkId(m_name), m_position });
+				Logger::Debug("Spike " + m_name + " detected at : " + Logger::Vec2(m_position));
+			}
+			else if (PRSR::ContentWord(m_name, "BUTTON"))
+			{
+				_map->m_button.push_back({ m_name, ExtractLinkId(m_name), m_position });
+				Logger::Debug("Button " + m_name + " detected at : " + Logger::Vec2(m_position));
+			}
+			else if (PRSR::ContentWord(m_name, "TP"))
+			{
+				_map->m_tp.push_back({ m_name, ExtractLinkId(m_name), m_position });
+				Logger::Debug("Tp " + m_name + " detected at : " + Logger::Vec2(m_position));
+			}
+			else if (PRSR::ContentWord(m_name, "BOX"))
+			{
+				_map->m_box.push_back({ m_name, ExtractLinkId(m_name), m_position });
+				Logger::Debug("Box " + m_name + " detected at : " + Logger::Vec2(m_position));
+			}
 
 			break;
 		case CollidType::Collision:
