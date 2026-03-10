@@ -5,6 +5,7 @@
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Tools/AssetsManager.hpp"
+#include "Tools/Effects/Particle.hpp"
 
 
 class Interactable;
@@ -36,6 +37,7 @@ public:
 	float GetHealth() const;
 	void SetHealth(float _health);
 	float GetMaxHealth() const;
+	void TakeDamage(float _damage);
 
 	void ApplyFire(float _damagePerSecond, float _time);
 private:
@@ -52,6 +54,10 @@ private:
 	float healthInPercent = 100.f;
 	std::string inputPrefix;
 	std::string debugWindowName = "Player";
+	ParticleSystem fireParticles;
+	ParticleSystem bloodParticles;
+	float fireParticleTimer = 0.f;
+	float bloodParticleCooldown = 0.f;
 
 	Sprite* sprite;
 	Vec2 lastOrientation = { 0.f, 0.f };
@@ -69,6 +75,12 @@ private:
 	void OnInteract(Input _input);
 
 	void SetPlayerDirection(void);
+	void UpdateParticles(float _dt);
+	void EmitFireParticles(void);
+	void EmitBloodParticles(int _count, float _intensityMultiplier = 1.f);
+	void ApplyDamage(float _damage, bool _spawnBlood = true);
+	sf::Vector2f GetParticleSpawnPosition(void) const;
+	sf::Vector2f GetParticleVelocity(void) const;
 
 	void SetHealthInPercent(float _health);
 };

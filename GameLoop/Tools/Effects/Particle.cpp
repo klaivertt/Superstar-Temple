@@ -1,5 +1,26 @@
 ﻿#include "Particle.hpp"
 
+sf::Uint8 LerpChannel(sf::Uint8 _start, sf::Uint8 _end, float _alpha)
+{
+	float value = static_cast<float>(_end) + (static_cast<float>(_start) - static_cast<float>(_end)) * _alpha;
+	return static_cast<sf::Uint8>(std::clamp(value, 0.f, 255.f));
+}
+
+sf::Color EvaluateParticleColor(const ParticleTextureData& _textureData, const std::array<float, 4>& _colorFactor, float _lifeFactor)
+{
+	float rAlpha = std::pow(_lifeFactor, _colorFactor[0]);
+	float gAlpha = std::pow(_lifeFactor, _colorFactor[1]);
+	float bAlpha = std::pow(_lifeFactor, _colorFactor[2]);
+	float aAlpha = std::pow(_lifeFactor, _colorFactor[3]);
+
+	return sf::Color(
+		LerpChannel(_textureData.startColor.r, _textureData.endColor.r, rAlpha),
+		LerpChannel(_textureData.startColor.g, _textureData.endColor.g, gAlpha),
+		LerpChannel(_textureData.startColor.b, _textureData.endColor.b, bAlpha),
+		LerpChannel(_textureData.startColor.a, _textureData.endColor.a, aAlpha)
+	);
+}
+
 #pragma region Animation functions
 
 
@@ -25,14 +46,13 @@ Particles::Animation CreateAnim(sf::Sprite* _sprite, unsigned int _nbFrame, unsi
 
 void UpdateAnimation(Particles::Animation* _animation, float _dt)
 {
+	if (_animation == nullptr || _animation->sprite == nullptr || _animation->frameRate == 0 || _animation->nbFrame == 0)
+	{
+		return;
+	}
+
 	if (!_animation->pause)
 	{
-		//Security
-		if (!_animation || !&_animation->sprite)
-		{
-			return;
-		}
-
 		_animation->timer += _dt;
 
 		// Frame Gestion
@@ -101,17 +121,9 @@ void ParticleSystem::update(float dt, sf::Vector2f externalVelocity)
 	for (Particle& particle : m_particles)
 	{
 		float factor = 1.f - (particle.age / particle.lifetime);
+		factor = std::clamp(factor, 0.f, 1.f);
 
-		sf::Uint8 r = static_cast<sf::Uint8>(
-			std::clamp(255.f * std::pow(factor, particle.colorFactor[0]), 0.f, 255.f));
-		sf::Uint8 g = static_cast<sf::Uint8>(
-			std::clamp(255.f * std::pow(factor, particle.colorFactor[1]), 0.f, 255.f));
-		sf::Uint8 b = static_cast<sf::Uint8>(
-			std::clamp(255.f * std::pow(factor, particle.colorFactor[2]), 0.f, 255.f));
-		sf::Uint8 a = static_cast<sf::Uint8>(
-			std::clamp(255.f * std::pow(factor, particle.colorFactor[3]), 0.f, 255.f));
-
-		particle.sprite.setColor(sf::Color(r, g, b, a));
+		particle.sprite.setColor(EvaluateParticleColor(m_animData, particle.colorFactor, factor));
 
 		float reduction = expf(-5.f * dt);
 		particle.instanteVelocity *= reduction;
@@ -191,6 +203,7 @@ void ParticleSystem::addParticle(
 	particle.sprite.setPosition(position);
 	particle.sprite.setOrigin(0.5f * firstFrame.width, 0.5f * firstFrame.height);
 	particle.sprite.setRotation((float)(rand() % 360));
+	particle.sprite.setColor(m_animData.startColor);
 
 	// Animation
 	particle.animation = CreateAnim(

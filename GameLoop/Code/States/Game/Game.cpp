@@ -62,6 +62,9 @@ void Game::Load(void)
 	playerTwoView.setViewport(sf::FloatRect(0.5f, 0.f, 0.5f, 1.f));
 	playerOneView.setSize(SCREEN_W * 0.5f, SCREEN_H);
 	playerTwoView.setSize(SCREEN_W * 0.5f, SCREEN_H);
+	separator = sf::RectangleShape(sf::Vector2f(2.f, static_cast<float>(SCREEN_H)));
+	separator.setFillColor(sf::Color(20, 20, 20, 220));
+	separator.setPosition((SCREEN_W * 0.5f) - 1.f, 0.f);
 
 	////temp wall
 	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
@@ -90,9 +93,7 @@ void Game::Draw(sf::RenderTarget* _render)
 	camera = nullptr;
 	_render->setView(_render->getDefaultView());
 
-	sf::RectangleShape separator(sf::Vector2f(2.f, static_cast<float>(SCREEN_H)));
-	separator.setFillColor(sf::Color(20, 20, 20, 220));
-	separator.setPosition((SCREEN_W * 0.5f) - 1.f, 0.f);
+	
 	_render->draw(separator);
 
 	DrawUi(_render);

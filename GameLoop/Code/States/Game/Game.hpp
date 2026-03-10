@@ -38,7 +38,7 @@ protected:
 	Map* map = nullptr;
 	sf::View playerOneView;
 	sf::View playerTwoView;
-
+	sf::RectangleShape separator;
 	//temp ground
 	b2BodyId groundBody = b2BodyId();
 	b2ShapeId groundShape = b2ShapeId();

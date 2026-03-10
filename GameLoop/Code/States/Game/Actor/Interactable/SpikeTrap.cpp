@@ -60,7 +60,7 @@ void SpikeTrap::OnCollisionEnter(ColEvent _col)
 
 	if (player)
 	{
-		player->SetHealth(player->GetHealth() - 10.f);
+		player->TakeDamage(10.f);
 	}
 }
 
@@ -70,7 +70,7 @@ void SpikeTrap::OnCollisionExit(ColEvent _col)
 
 void SpikeTrap::OnInteract(Actor* _interactingActor)
 {
-	//si bouton appuyé -> désactiver le piège
+	//si bouton appuyï¿½ -> dï¿½sactiver le piï¿½ge
 	CloseSpikeTrap();
 }
 
