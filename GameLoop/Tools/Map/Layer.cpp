@@ -186,6 +186,18 @@ namespace Layer
 			{
 				_map->m_playerSpawn.push_back(m_position);
 			}
+			else if (PRSR::ContentWord(m_name, "KEY"))
+			{
+				Logger::Debug("Key " + m_name + " detected at : " + Logger::Vec2(m_position));
+			}
+			else if (PRSR::ContentWord(m_name, "DOOR"))
+			{
+
+			}
+			else if (PRSR::ContentWord(m_name, "STARE"))
+			{
+
+			}
 
 			break;
 		case CollidType::Collision:
