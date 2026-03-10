@@ -63,6 +63,7 @@ void Door::CloseDoor()
 
 void Door::CreateCollider()
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { position, 0.f, Vec2(64, 64) }, this, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
+	sf::Vector2u textureSize = sprite.GetTexture()->getSize();
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { position, 0.f, textureSize}, this, true);
+	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, textureSize });
 }
