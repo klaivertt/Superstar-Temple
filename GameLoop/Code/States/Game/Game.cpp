@@ -12,6 +12,7 @@
 #include "Code/States/Game/Actor/Interactable/FireTrap.hpp"
 #include "Code/States/Game/Actor/Interactable/SpikeTrap.hpp"
 #include "Code/States/Game/Actor/Interactable/Door.hpp"
+#include "Code/States/Game/Actor/Teleporter.hpp"
 
 Game::Game(GameData* _data) : Scene(_data)
 {
@@ -38,6 +39,7 @@ void Game::Load(void)
 	door = new Door(data);
 	fireButton->SetTarget(fireTrap);
 	spikeButton->SetTarget(spikeTrap);
+	new Teleporter(data);
 	
 
 	playerUi = new PlayerUi(data, player);
