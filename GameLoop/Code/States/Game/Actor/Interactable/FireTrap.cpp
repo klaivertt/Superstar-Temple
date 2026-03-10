@@ -1,6 +1,8 @@
 #include "FireTrap.hpp"
 #include "Tools/Physics/Physics.hpp"
 
+#include "../Player/Player.hpp"
+
 FireTrap::FireTrap(GameData* _data) : Interactable(_data)
 {
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/FireTrapOn.png"));
@@ -55,7 +57,12 @@ void FireTrap::Draw(sf::RenderTarget* _render)
 
 void FireTrap::OnCollisionEnter(ColEvent _col)
 {
-	//perte de vie du player
+	Player* player = dynamic_cast<Player*>(_col.other);
+
+	if (player)
+	{
+		player->ApplyFire(3.f, 5.f);
+	}
 }
 
 void FireTrap::OnCollisionExit(ColEvent _col)

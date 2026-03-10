@@ -1,4 +1,4 @@
-#include "Button.hpp"
+ï»¿#include "Button.hpp"
 #include "Tools/Physics/Physics.hpp"
 
 Button::Button(GameData* _data) : Interactable(_data)
@@ -7,12 +7,11 @@ Button::Button(GameData* _data) : Interactable(_data)
 	sprite.SetTexture(&texture);
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(800 + rand() % 200, 100), 0.f, Vec2(64, 64) }, this, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(800 + rand() % 200, 100), 0.f, Vec2(0, 0) }, this, true);
+	Physics::CreateBoxTrigger(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 
-
-	triggerRange = 55.f;
-	SetTriggerRange(triggerRange);
+	//triggerRange = 55.f;
+	//SetTriggerRange(triggerRange);
 }
 
 void Button::Update(float _dt)
@@ -27,7 +26,7 @@ void Button::Draw(sf::RenderTarget* _render)
 
 void Button::OnCollisionEnter(ColEvent _col)
 {
-	isPressed = true;
+
 }
 
 void Button::OnCollisionExit(ColEvent _col)
@@ -37,20 +36,52 @@ void Button::OnCollisionExit(ColEvent _col)
 
 void Button::OnInteract(Actor* _interactingActor)
 {
-	if (target != nullptr)
-	{
-		if (Interactable* interactOwner = dynamic_cast<Interactable*>(target))
-		{
-			Interactable* interacte = dynamic_cast<Interactable*>(target);
-			interacte->OnInteract(nullptr);
-		}
-	}
+	//if (target != nullptr)
+	//{
+	//	if (Interactable* interactOwner = dynamic_cast<Interactable*>(target))
+	//	{
+	//		Interactable* interacte = dynamic_cast<Interactable*>(target);
+	//		interacte->OnInteract(nullptr);
+	//	}
+	//}
 
-	// Test code : zero crash quand le bouton est détruit alors que le player interagit avec, et l'interactable ciblé ne pose pas de problème
+	// Test code : zero crash quand le bouton est dï¿½truit alors que le player interagit avec, et l'interactable ciblï¿½ ne pose pas de problï¿½me
 	//Interactable::~Interactable();
 }
 
 bool Button::ReturnState(void)
 {
 	return isPressed;
+}
+
+void Button::OnTriggerEnter(ColEvent _col)
+{
+	// only if is a player or a box that collide with the button, it will be pressed
+	if (_col.other->GetClassName() == "Player" || _col.other->GetClassName() == "Box")
+	{
+		isPressed = true;
+		Logger::Debug("Button pressed !" + _col.other->GetClassName());
+
+		if (target != nullptr)
+		{
+			if (Interactable* interactOwner = dynamic_cast<Interactable*>(target))
+			{
+				Interactable* interacte = dynamic_cast<Interactable*>(target);
+				interacte->OnInteract(this);
+			}
+		}
+	}
+}
+
+void Button::OnTriggerExit(ColEvent _col)
+{
+	isPressed = false;
+	if (target != nullptr)
+	{
+		if (Interactable* interactOwner = dynamic_cast<Interactable*>(target))
+		{
+			Interactable* interacte = dynamic_cast<Interactable*>(target);
+			interacte->OnInteract(this);
+		}
+	}
 }

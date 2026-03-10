@@ -23,8 +23,16 @@ PlayerUi::~PlayerUi(void)
 void PlayerUi::Update(float _dt)
 {
 
-	healthBar->SetScale(Vec2(player.GetHealth() / 100.f, 1.f));
-
+	sf::IntRect rect = healthBar->GetTextureRect();
+	if (player.GetHealth() <= 0.f)
+	{
+		rect.width = 0.f;
+	}
+	else
+	{
+		rect.width = (player.GetHealth() / 100.f) * healthBar->GetTexture()->getSize().x;
+	}
+	
 	//lerp color from green to red
 	if (player.GetHealth() > 50.f)
 	{

@@ -36,6 +36,17 @@ Player::Player(GameData* _data): Actor(_data)
 
 void Player::Update(float _dt)
 {
+	if (fire)
+	{
+		health -= fireDamage * _dt;
+
+		fireTime -= _dt;
+		if (fireTime <= 0.f)
+		{
+			fire = false;
+		}
+	}
+
 	switch (state)
 	{
 	case State::IDLE:
@@ -74,8 +85,8 @@ void Player::OnTriggerEnter(ColEvent _col)
 	{
 		currentInteractable = interactable;
 
-		// ce delegate permet au player de savoir quand l'interactable qu'il a en pointeur est détruit, pour éviter les pointeurs invalides
-		// ce que cette fonction fait réelement, c'est de dire que quand l'interactable est détruit, le player met donc ensuite son pointeur currentInteractable à nullptr
+		// ce delegate permet au player de savoir quand l'interactable qu'il a en pointeur est dï¿½truit, pour ï¿½viter les pointeurs invalides
+		// ce que cette fonction fait rï¿½element, c'est de dire que quand l'interactable est dï¿½truit, le player met donc ensuite son pointeur currentInteractable ï¿½ nullptr
 		interactable->onDestroyed.Add([this](Actor*) { currentInteractable = nullptr; });
 	}
 
@@ -87,6 +98,7 @@ void Player::OnTriggerExit(ColEvent _col)
 	if (currentInteractable == _col.other)
 	{	
 		currentInteractable = nullptr;
+		Logger::Debug("Trigger Exit with " + _col.other->GetClassName() + " !");
 	}
 }
 
@@ -98,11 +110,19 @@ float Player::GetHealth() const
 
 void Player::SetHealth(float _health)
 {
+	health = _health;
 }
 
 float Player::GetMaxHealth() const
 {
-	return 0.0f;
+	return maxHealth;
+}
+
+void Player::ApplyFire(float _damagePerSecond, float _time)
+{
+	fire = true;
+	fireTime = _time;
+	fireDamage = _damagePerSecond;
 }
 
 void Player::UpdateIdle(float _dt)

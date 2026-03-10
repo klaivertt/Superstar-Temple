@@ -5,7 +5,6 @@
 
 #include "Code/States/Game/Actor/Player/Player.hpp"
 #include "Code/States/Game/Actor/Player/PlayerUi.hpp"
-
 #include "Code/States/Game/Actor/Interactable/Key.hpp"
 #include "Code/States/Game/Actor/Interactable/Box.hpp"
 #include "Code/States/Game/Actor/Interactable/Button.hpp"
@@ -22,10 +21,9 @@ void Game::Load(void)
 {
 	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n) { ResetScene(); });
 	data->inputs->GetPressedDelegate("DEBUG")->Add(this, &Game::OnPressedDebugKey);
-
-	// Créer les acteurs ici avec un new Actor() (ou de votre sous classe)
-	// Les acteurs sont ajoutés automatiquement à la scène donc pas
-	// besoin de les gérer :)
+	
+	// Les acteurs sont ajoutï¿½s automatiquement ï¿½ la scï¿½ne donc pas
+	// besoin de les gï¿½rer :)
 
 	Scene::Load();
 	player = new Player(data);
@@ -33,13 +31,14 @@ void Game::Load(void)
 	box = new Box(data);
 	fireButton = new Button(data);
 	spikeButton = new Button(data);
+	button = new Button(data);
 	fireTrap = new FireTrap(data);
 	spikeTrap = new SpikeTrap(data);
 	door = new Door(data);
-	fireButton->SetTarget(fireTrap);
-	spikeButton->SetTarget(spikeTrap);
 	button->SetTarget(door);
 	key->SetTarget(door);
+	fireButton->SetTarget(fireTrap);
+	spikeButton->SetTarget(spikeTrap);
 	
 
 	playerUi = new PlayerUi(data, player);
@@ -51,8 +50,6 @@ void Game::Load(void)
 	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(900, 500), 0.f, Vec2(1800, 50) }, nullptr);
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(1800, 50) });
 
-
-	//Logger::Warning(Logger::Rect(player->GetBounds(), "Player :"));
 	////temp wall
 	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
 	//groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
@@ -70,7 +67,7 @@ void Game::Draw(sf::RenderTarget* _render)
 
 void Game::Destroy(void)
 {
-	// Les acteurs sont aussi auto détruit au changement de scène pas besoin de les gérer
+	// Les acteurs sont aussi auto dï¿½truit au changement de scï¿½ne pas besoin de les gï¿½rer
 	// destroy colliders
 
 	groundBody = b2BodyId();
