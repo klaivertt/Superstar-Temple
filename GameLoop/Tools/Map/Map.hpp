@@ -2,8 +2,14 @@
 #define MAP__H
 
 #include "Common.hpp"
-
+namespace Layer
+{
+	class TileSet;
+	class Layer;
+}
 //Map creator Masked-Bxy
+//to use this module make file with inside map named "Map.json" and the texture
+//_path = path of folder map;
 
 class Map
 {

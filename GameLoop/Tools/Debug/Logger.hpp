@@ -57,8 +57,10 @@ public:
 
 	static std::string PrintVec2(const sf::Vector2f& v, const std::string& label = "");
 	static std::string PrintVec2(const sf::Vector2i& v, const std::string& label = "");
+	static std::string PrintVec2(const sf::Vector2u& v, const std::string& label = "");
 	static std::string Vec2(const sf::Vector2i& v, const std::string& label = "");
 	static std::string Vec2(const sf::Vector2f& v, const std::string& label = "");
+	static std::string Vec2(const sf::Vector2u& v, const std::string& label = "");
 
 	static std::string PrintBool(const std::string& label, bool value);
 	static std::string Bool(const std::string& label, bool value);

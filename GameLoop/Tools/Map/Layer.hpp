@@ -67,6 +67,7 @@ namespace Layer
 	private:
 		unsigned CoordToId(sf::Vector2u _coord);
 		sf::Vector2u IdToCoord(unsigned _id);
+		sf::Vector2u IdToCoord(unsigned _id, TileSet& _tileSet);
 		sf::Vector2u m_size;
 		unsigned* m_grid;
 		unsigned m_gridLength;

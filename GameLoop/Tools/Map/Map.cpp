@@ -11,6 +11,7 @@ Map::Map()
 
 Map::Map(std::string _path)
 {
+	LoadMap(_path);
 }
 
 Map::~Map()
@@ -20,7 +21,7 @@ Map::~Map()
 void Map::LoadMap(std::string _path)
 {
 	Json::Value jFile;
-	std::fstream file(_path + "Map.json", std::ios::in);
+	std::fstream file(_path + "/Map.json", std::ios::in);
 	if (file.is_open())
 	{
 		file >> jFile;
@@ -28,18 +29,20 @@ void Map::LoadMap(std::string _path)
 		{
 			m_mapSize.y = jFile["height"].asInt();
 			m_mapSize.x = jFile["width"].asInt();
+			Logger::Debug(Logger::Vec2(m_mapSize, "Map size : "), false);
 			int numTileSet = jFile["tilesets"].size();
 			for (int l = 0; l < numTileSet; l++)
 			{
 				Layer::TileSet* tempSet= new Layer::TileSet;
 				tempSet->cellSize.x = jFile["tilesets"][l]["tilewidth"].asInt();
 				tempSet->cellSize.y = jFile["tilesets"][l]["tileheight"].asInt();
+				Logger::Debug(Logger::Vec2(tempSet->cellSize, "Map size : "), false);
 				tempSet->size.x = jFile["tilesets"][l]["imagewidth"].asInt();
 				tempSet->size.y = jFile["tilesets"][l]["imageheight"].asInt();
 				tempSet->collumns = jFile["tilesets"][l]["columns"].asInt();
-				sf::Texture tempTex;
-				tempTex.loadFromFile(_path + jFile["tilesets"][l]["image"].asString());
-				tempSet->sp.setTexture(tempTex, true);
+				sf::Texture* tempTex = new sf::Texture;
+				tempTex->loadFromFile(_path+"/" + jFile["tilesets"][l]["image"].asString());
+				tempSet->sp.setTexture(*tempTex, true);
 				m_tileSets.push_back(tempSet);
 			}
 			int layersNum = jFile["layers"].size();
@@ -54,11 +57,11 @@ void Map::LoadMap(std::string _path)
 					temp->m_name = jFile["layers"][l]["name"].asString();
 					int x = jFile["layers"][l]["x"].asInt();
 					int y = jFile["layers"][l]["y"].asInt();
-					temp->Position({ x,y });
+					temp->Position({ float (x),float (y) });
 					temp->m_visibility = jFile["layers"][l]["visible"].asBool();
 					int readLength = jFile["layers"][l]["data"].size();
 					int tileSetID = jFile["layers"][l]["id"].asInt();
-					temp->AddTileSet(m_tileSets[tileSetID]);
+					temp->AddTileSet(m_tileSets[tileSetID-1]);
 					for (int i = 0; i < readLength; i++)
 					{
 						temp->SetGridElem(i, jFile["layers"][l]["data"][i].asUInt());
@@ -73,7 +76,7 @@ void Map::LoadMap(std::string _path)
 					temp->m_name = jFile["layers"][l]["name"].asString();
 					int x = jFile["layers"][l]["x"].asInt();
 					int y = jFile["layers"][l]["y"].asInt();
-					temp->Position({ x,y });
+					temp->Position({ float(x),float(y) });
 					temp->m_visibility = jFile["layers"][l]["visible"].asBool();
 					int readLength = jFile["layers"][l]["objects"].size();
 					for (int i = 0; i < readLength; i++)
@@ -107,7 +110,7 @@ void Map::LoadMap(std::string _path)
 #ifdef _DEBUG
 	else
 	{
-		Logger::Error("file " + _path + "doesn't exist!");
+		Logger::Error("file " + _path + "/Map.json" + " doesn't exist!");
 	}
 #endif
 }

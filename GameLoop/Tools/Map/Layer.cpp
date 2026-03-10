@@ -118,22 +118,29 @@ namespace Layer
 	void TileLayer::Bake()
 	{
 		m_bakeRender.create(m_size.x * m_tileSet->cellSize.x, m_size.y * m_tileSet->cellSize.y);
-		m_bakeRender.clear(sf::Color::Black);
+		m_bakeRender.clear(sf::Color::Transparent);
 		for (int i = 0; i < m_gridLength; i++)
 		{
-			m_grid[i];
-			sf::Vector2u position = IdToCoord(i);
-			m_tileSet->sp.setRotation(0);
-			m_tileSet->sp.setScale(1,1);
-			position *= m_tileSet->cellSize;
-			sf::IntRect rect;
-			rect.left = position.x;
-			rect.top = position.y;
-			rect.width = m_tileSet->cellSize.x;
-			rect.height = m_tileSet->cellSize.y;
-			m_tileSet->sp.setTextureRect(rect);
-			m_tileSet->sp.setPosition(sf::Vector2f(position));
-			m_bakeRender.draw(m_tileSet->sp);
+			int u = m_grid[i] - 1;
+			if(u >= 0)
+			{
+				sf::Vector2u position = IdToCoord(i);
+				m_tileSet->sp.setRotation(0);
+				m_tileSet->sp.setScale(1, 1);
+				position *= m_tileSet->cellSize;
+				sf::IntRect rect;
+
+				rect.left = IdToCoord(u, *m_tileSet).x;
+				rect.top = IdToCoord(u, *m_tileSet).y;
+				rect.left *= m_tileSet->cellSize.x;
+				rect.top *= m_tileSet->cellSize.y;
+
+				rect.width = m_tileSet->cellSize.x;
+				rect.height = m_tileSet->cellSize.y;
+				m_tileSet->sp.setTextureRect(rect);
+				m_tileSet->sp.setPosition(sf::Vector2f(position));
+				m_bakeRender.draw(m_tileSet->sp);
+			}
 		}
 		m_bakeRender.display();
 		m_bakeSprite.setTexture(m_bakeRender.getTexture());
@@ -151,6 +158,14 @@ namespace Layer
 		sf::Vector2u coord;
 		coord.y = _id / m_size.x;
 		coord.x = _id % m_size.x;
+		return coord;
+	}
+
+	sf::Vector2u TileLayer::IdToCoord(unsigned _id, TileSet& _tileSet)
+	{
+		sf::Vector2u coord;
+		coord.y = _id / _tileSet.collumns;
+		coord.x = _id % _tileSet.collumns;
 		return coord;
 	}
 
