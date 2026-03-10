@@ -29,7 +29,7 @@ void Game::Load(void)
 	// besoin de les g�rer :)
 
 	Scene::Load();
-	player = new Player(data);
+	player = new Player(data, Vec2(900));
 	key = new Key(data, Vec2(400, 100));
 	box = new Box(data, Vec2(500, 100));
 	fireButton = new Button(data, Vec2(600, 100));
@@ -59,7 +59,10 @@ void Game::Load(void)
 	*/
 
 	mappy = new Map("Assets/Map/PlayMap", &data->physicsWorld);
-	view.setViewport(sf::FloatRect(0, 0, 1,float(SCREEN_W) / SCREEN_H));
+	view.setViewport(sf::FloatRect(0, 0, 1, 1));
+	// Dezoom to have more vision on the map
+	view.setSize(SCREEN_W, SCREEN_H);
+
 	////temp wall
 	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
 	//groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
