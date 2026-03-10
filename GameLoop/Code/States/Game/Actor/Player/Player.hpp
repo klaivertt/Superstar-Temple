@@ -12,6 +12,8 @@ class Player : public Actor
 {
 
 public:
+	Interactable* currentInteractable = nullptr;
+
 	enum State
 	{
 		IDLE,
@@ -28,24 +30,18 @@ public:
 	// virtual void OnCollisionEnter(ColEvent _col) override;
 	// virtual void OnCollisionExit(ColEvent _col) override;
 	// virtual void OnCollisionHit(ColEvent _col) override;
-	//virtual void OnTriggerEnter(ColEvent _col) override;
-	//virtual void OnTriggerExit(ColEvent _col) override;
-
 	virtual void OnTriggerEnter(ColEvent _col) override;
 	virtual void OnTriggerExit(ColEvent _col) override;
 
 	float GetHealth() const;
 	void SetHealth(float _health);
 	float GetMaxHealth() const;
-	Interactable* currentInteractable = nullptr;
-
 
 private:
 	b2ShapeId collider = b2ShapeId();
 	State state = State::IDLE;
 	Vec2 dir = { 0.f, 0.f };
 	float speed = 15.f;
-
 	float health = 100.f;
 	float maxHealth = 100.f;
 	float healthInPercent = 100.f;

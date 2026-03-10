@@ -17,25 +17,25 @@ Box::Box(GameData* _data) : Interactable(_data)
 
 void Box::Update(float _dt)
 {
-    if (owner != nullptr)
-    {
-        // If the Box has an owner, it means that it is being carried by an actor, so we set its position to the owner's position
-        position = owner->position;
-        Physics::Transform transform = Physics::GetBodyTransform(owner->body);
+	if (owner != nullptr)
+	{
+		// If the Box has an owner, it means that it is being carried by an actor, so we set its position to the owner's position
+		position = owner->position;
+		Physics::Transform transform = Physics::GetBodyTransform(owner->body);
 
-        //set Box position to the front of the owner (in the direction of the owner's orientation) and on front on him (player = 64.f, 64.f)
-        transform.position += Vec2(cos(transform.rotation) * 64.f, sin(transform.rotation) * 64.f);
+		//set Box position to the front of the owner (in the direction of the owner's orientation) and on front on him (player = 64.f, 64.f)
+		transform.position += Vec2(cos(transform.rotation) * 64.f, sin(transform.rotation) * 64.f);
 
-        Physics::SetBodyTransform(body, transform);
+		Physics::SetBodyTransform(body, transform);
 
-        if (Player* playerOwner = dynamic_cast<Player*>(owner))
-        {
-            if (playerOwner->currentInteractable != this)
-            {
-                playerOwner->currentInteractable = this;
-            }
-        }
-    }
+		if (Player* playerOwner = dynamic_cast<Player*>(owner))
+		{
+			if (playerOwner->currentInteractable != this)
+			{
+				playerOwner->currentInteractable = this;
+			}
+		}
+	}
 	sprite.SetPosition(Physics::GetBodyPosition(body));
 	sprite.SetRotation(Physics::GetBodyRotation(body));
 }
