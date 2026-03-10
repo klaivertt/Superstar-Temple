@@ -36,6 +36,7 @@ void Game::Load(void)
 	spikeTrap = new SpikeTrap(data);
 	door = new Door(data);
 	button->SetTarget(door);
+	key->SetTarget(door);
 	
 
 	playerUi = new PlayerUi(data, player);

@@ -11,6 +11,28 @@ void Interactable::SetTriggerRange(float _range, Vec2 _decal)
 	Physics::CreateCircleTrigger(body, transform, _range);
 }
 
+bool Interactable::ActivateTarget(Actor* _interactingActor)
+{
+	Interactable* targetInteractable = dynamic_cast<Interactable*>(target);
+
+	if (targetInteractable == nullptr)
+	{
+		return false;
+	}
+
+	if (isCollidingWithTarget)
+	{
+		targetInteractable->OnInteract(_interactingActor);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+	return false;
+}
+
 Interactable::Interactable(GameData* _data) : Actor(_data)
 {
 }

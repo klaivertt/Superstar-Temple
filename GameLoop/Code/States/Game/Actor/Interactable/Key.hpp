@@ -13,6 +13,7 @@ private:
 
 public:
 	Key(GameData* _data);
+	b2ShapeId box;
 
 	std::string GetClassName(void) override { return "Key"; }
 
@@ -26,6 +27,6 @@ public:
 
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;
-	// virtual void OnTriggerEnter(ColEvent _col) override;
-	// virtual void OnTriggerExit(ColEvent _col) override;
+	 virtual void OnTriggerEnter(ColEvent _col) override;
+	 virtual void OnTriggerExit(ColEvent _col) override;
 };

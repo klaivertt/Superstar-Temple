@@ -9,10 +9,12 @@ class Interactable : public Actor
 {
 protected:
 	void SetTriggerRange(float _range, Vec2 _decal = Vec2(0.f));
+	bool ActivateTarget(Actor* _interactingActor = nullptr);
 
 	float triggerRange = 0.f;
 	Actor* target = nullptr;
 	Actor* owner = nullptr;
+	bool isCollidingWithTarget = false;
 private:
 
 public:
@@ -27,12 +29,11 @@ public:
 	virtual void OnCollisionEnter(ColEvent _col) override;
 	virtual void OnCollisionExit(ColEvent _col) override;
 
+	virtual void OnInteract(Actor* _interactingActor);
+	virtual void SetOwner(Actor* _owner);
 	virtual void SetTarget(Actor* _target);
 	virtual void ClearTarget();
 
-	virtual void SetOwner(Actor* _owner);
-
-	virtual void OnInteract(Actor* _interactingActor);
 
 	// Note: to be notified when this interactable is destroyed, use
 	// the inherited  onDestroyed  delegate (defined on Actor).
