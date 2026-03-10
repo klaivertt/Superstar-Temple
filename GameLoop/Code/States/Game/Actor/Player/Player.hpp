@@ -12,6 +12,8 @@ class Player : public Actor
 {
 
 public:
+	Interactable* currentInteractable = nullptr;
+
 	enum State
 	{
 		IDLE,
@@ -40,7 +42,6 @@ private:
 	State state = State::IDLE;
 	Vec2 dir = { 0.f, 0.f };
 	float speed = 15.f;
-	Interactable* currentInteractable = nullptr;
 	float health = 100.f;
 	float maxHealth = 100.f;
 	float healthInPercent = 100.f;

@@ -38,6 +38,8 @@ void Game::Load(void)
 	door = new Door(data);
 	fireButton->SetTarget(fireTrap);
 	spikeButton->SetTarget(spikeTrap);
+	button->SetTarget(door);
+	key->SetTarget(door);
 	
 
 	playerUi = new PlayerUi(data, player);
