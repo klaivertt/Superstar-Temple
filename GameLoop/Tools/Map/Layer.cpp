@@ -192,11 +192,12 @@ namespace Layer
 			}
 			else if (PRSR::ContentWord(m_name, "DOOR"))
 			{
+				Logger::Debug("Door " + m_name + " detected at : " + Logger::Vec2(m_position));
 
 			}
 			else if (PRSR::ContentWord(m_name, "STARE"))
 			{
-
+				Logger::Debug("Stare " + m_name + " detected at : " + Logger::Vec2(m_position));
 			}
 
 			break;
