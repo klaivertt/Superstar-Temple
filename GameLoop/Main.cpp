@@ -43,6 +43,11 @@ int main(void)
 	{
 		data->dt = data->clock.restart().asSeconds();
 
+		if (data->dt <= 0.f)
+		{
+			data->dt = 0.01f;
+		}
+
 		sf::Event event;
 		while (data->render->pollEvent(event))
 		{

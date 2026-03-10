@@ -48,6 +48,7 @@
     <ClCompile Include="Code\States\Game\Actor\Interactable\Door.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Vec2.cpp" />
     <ClCompile Include="Tools\Parser\Parser.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Teleporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Core\Draw.hpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Code\States\Game\Actor\Interactable\Door.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Vec2.hpp" />
     <ClInclude Include="Tools\Parser\Parser.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Teleporter.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\lib\Debug\freeglut.lib" />

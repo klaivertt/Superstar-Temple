@@ -43,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -185,6 +185,7 @@
     <ClCompile Include="Code\States\Game\Actor\Interactable\SpikeTrap.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Teleporter.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
     <ClCompile Include="Code\States\Menu\Menu.cpp" />
     <ClCompile Include="Common.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="Code\States\Game\Actor\Interactable\SpikeTrap.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\Player.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\PlayerUi.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Teleporter.hpp" />
     <ClInclude Include="Code\States\Game\Game.hpp" />
     <ClInclude Include="Code\Core\Load.hpp" />
     <ClInclude Include="Code\Core\PollEvents.hpp" />
