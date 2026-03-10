@@ -31,6 +31,7 @@ void Game::Load(void)
 	box = new Box(data);
 	fireButton = new Button(data);
 	spikeButton = new Button(data);
+	button = new Button(data);
 	fireTrap = new FireTrap(data);
 	spikeTrap = new SpikeTrap(data);
 	door = new Door(data);
