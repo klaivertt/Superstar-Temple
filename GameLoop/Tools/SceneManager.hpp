@@ -5,7 +5,7 @@
 #include "../GameData.hpp"
 
 #include "Scene.hpp"
-#include "Physics/Physics.hpp"
+//#include "Physics/Physics.hpp"
 
 class SceneManager
 {
@@ -30,11 +30,6 @@ public:
 		debugDraw.drawJoints = true; //Dessine les joints
 		debugDraw.drawShapes = true; //Dessine les colliders
 		debugDraw.drawMass = true; //Dessine les centres de gravité des bodies
-	}
-
-	void CreateWorld(void)
-	{
-		data->physicsWorld = Physics::CreateWorld(&data->defaultWorld);
 	}
 
 	GameData* data = nullptr;

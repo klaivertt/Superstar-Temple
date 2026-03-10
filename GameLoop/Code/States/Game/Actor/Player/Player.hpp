@@ -4,9 +4,11 @@
 
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
+#include "Tools/AssetsManager.hpp"
+
 
 class Interactable;
-struct Player : public Actor
+class Player : public Actor
 {
 
 public:
@@ -26,10 +28,9 @@ public:
 	// virtual void OnCollisionEnter(ColEvent _col) override;
 	// virtual void OnCollisionExit(ColEvent _col) override;
 	// virtual void OnCollisionHit(ColEvent _col) override;
-<<<<<<< Updated upstream
 	//virtual void OnTriggerEnter(ColEvent _col) override;
 	//virtual void OnTriggerExit(ColEvent _col) override;
-=======
+
 	virtual void OnTriggerEnter(ColEvent _col) override;
 	virtual void OnTriggerExit(ColEvent _col) override;
 
@@ -37,22 +38,20 @@ public:
 	void SetHealth(float _health);
 	float GetMaxHealth() const;
 	Interactable* currentInteractable = nullptr;
->>>>>>> Stashed changes
+
 
 private:
 	b2ShapeId collider = b2ShapeId();
 	State state = State::IDLE;
 	Vec2 dir = { 0.f, 0.f };
 	float speed = 15.f;
-<<<<<<< Updated upstream
-=======
+
 	float health = 100.f;
 	float maxHealth = 100.f;
 	float healthInPercent = 100.f;
 
 	Sprite* sprite;
 	Vec2 lastOrientation = { 0.f, 0.f };
->>>>>>> Stashed changes
 
 	//functions 
 	void InitInputs();
@@ -66,6 +65,7 @@ private:
 	void OnWalkRight(Input _input);
 	void OnInteract(Input _input);
 
-	void CollisionPress(b2ContactEvents& events, b2Vec2& vec);
-	void CollisionRelease(b2ContactEvents& events, b2Vec2& vec);
+	void SetPlayerDirection(void);
+
+	void SetHealthInPercent(float _health);
 };

@@ -6,10 +6,13 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
-struct Button : public Interactable
+class Button : public Interactable
 {
 private:
-	// Variables here
+	Sprite sprite;
+	sf::Texture texture;
+	bool isPressed = false;
+
 public:
 	Button(GameData* _data);
 
@@ -20,6 +23,10 @@ public:
 
 	virtual void OnCollisionEnter(ColEvent _col) override;
 	virtual void OnCollisionExit(ColEvent _col) override;
+
+	virtual void OnInteract(Actor* _interactingActor) override;
+
+	bool ReturnState(void);
 
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;

@@ -4,7 +4,15 @@
 
 Box::Box(GameData* _data) : Interactable(_data)
 {
+	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Interactable/Box.png"));
+	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(600, 100), 0.f, Vec2(64, 64) }, this, true);
+	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
+
+	triggerRange = 100.f;
+
+	SetTriggerRange(triggerRange);
 }
 
 void Box::Update(float _dt)
@@ -34,7 +42,7 @@ void Box::Update(float _dt)
 
 void Box::Draw(sf::RenderTarget* _render)
 {
-
+	sprite.Draw(_render);
 }
 
 void Box::OnCollisionEnter(ColEvent _col)

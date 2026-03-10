@@ -47,11 +47,16 @@ void Key::Draw(sf::RenderTarget* _render)
 
 void Key::OnCollisionEnter(ColEvent _col)
 {
-
 }
 
 void Key::OnCollisionExit(ColEvent _col)
 {
+}
+
+void Key::OnInteract(Actor* _interactingActor)
+{
+	// Delete the key when interact with it
+	Actor::~Actor();
 
 }
 

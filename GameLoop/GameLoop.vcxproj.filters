@@ -20,8 +20,6 @@
     <ClCompile Include="Tools\AssetsManager.cpp" />
     <ClCompile Include="Tools\Effects\Particle.cpp" />
     <ClCompile Include="Tools\Scene.cpp" />
-    <ClCompile Include="Tools\UI\Button.cpp" />
-    <ClCompile Include="Tools\UI\Slider.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Actor.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Animation.cpp" />
@@ -33,6 +31,16 @@
     <ClCompile Include="Tools\Physics\Physics.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Sprite.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Text.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Box.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Button.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Interactable.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Key.cpp" />
+    <ClCompile Include="Tools\UI\AutoUi.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\FireTrap.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\SpikeTrap.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Door.cpp" />
+    <ClCompile Include="Tools\Miscellaneous\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Core\Draw.hpp" />
@@ -166,8 +174,6 @@
     <ClInclude Include="Tools\Effects\Particle.hpp" />
     <ClInclude Include="Tools\Scene.hpp" />
     <ClInclude Include="Tools\SceneManager.hpp" />
-    <ClInclude Include="Tools\UI\Button.hpp" />
-    <ClInclude Include="Tools\UI\Slider.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\Player.hpp" />
     <ClInclude Include="Tools\Overload\OperatorOverloading.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Actor.hpp" />
@@ -188,6 +194,16 @@
     <ClInclude Include="Dependencies\include\box2d\id.h" />
     <ClInclude Include="Dependencies\include\box2d\math_functions.h" />
     <ClInclude Include="Dependencies\include\box2d\types.h" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Box.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Button.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Interactable.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Key.hpp" />
+    <ClInclude Include="Tools\UI\AutoUi.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\FireTrap.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\SpikeTrap.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Player\PlayerUi.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Door.hpp" />
+    <ClInclude Include="Tools\Miscellaneous\Vec2.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\lib\Debug\freeglut.lib" />

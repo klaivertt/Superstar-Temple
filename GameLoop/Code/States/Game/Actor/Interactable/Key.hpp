@@ -6,11 +6,10 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
-struct Key : public Interactable
+class Key : public Interactable
 {
 private:
 	Sprite sprite;
-	sf::Texture texture;
 
 public:
 	Key(GameData* _data);
@@ -23,6 +22,8 @@ public:
 
 	virtual void OnCollisionEnter(ColEvent _col) override;
 	virtual void OnCollisionExit(ColEvent _col) override;
+
+	virtual void OnInteract(Actor* _interactingActor) override;
 
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;

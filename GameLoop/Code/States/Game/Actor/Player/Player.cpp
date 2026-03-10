@@ -1,7 +1,7 @@
 #include "Player.hpp"
 #include "Tools/Debug/ImGuiManager.hpp"
 #include "Tools/Debug/Logger.hpp"
-#include "Tools/Physics/Physics.hpp"
+#include "../Interactable/Interactable.hpp"
 
 void Player::InitInputs()
 {
@@ -15,13 +15,20 @@ void Player::InitInputs()
 
 Player::Player(GameData* _data): Actor(_data)
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(50, 50) }, nullptr, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(50, 50) });
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(0) }, this, true);
+	//Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64.f) });
+	Physics::CreateCircleCollider(body, { Vec2(0,0), 0.f, Vec2(0.f) }, 31.f);
 	b2Body_SetLinearDamping(body, 5.f);
 
+	sprite = new Sprite(data->assets->GetTexture("Assets/Sprites/Game/Player.png"));
+	sprite->SetColor(sf::Color(125, 200, 125));
+	sprite->SetOrigin(Vec2(0.5f));
 #if _DEBUG
 	_data->guiManager->RegisterWindow("Player", true, ImGuiWindowFlags_AlwaysAutoResize);
-	_data->guiManager->AddSliderFloat("Player", "speed", "translation", &speed, 0.f, 35.f);
+	_data->guiManager->AddSliderFloat("Player", "speed", "value", &speed, 0.f, 35.f);
+	_data->guiManager->AddSliderFloat("Player", "maxHealth", "Max Value", &maxHealth, 0.f, 200.f);
+	// Add a slider to change the health in percentage
+	_data->guiManager->AddSliderFloat("Player", "health", "Health in %", &healthInPercent, 0.f, 100.f, [this](float _health , std::string _n) { SetHealthInPercent(_health); });
 #endif
 
 	InitInputs();
@@ -42,28 +49,33 @@ void Player::Update(float _dt)
 	dir.Normalize();
 	Physics::ApplyForce(body, dir * speed);
 
-	//Contact
-	b2ContactEvents contactEvents = b2World_GetContactEvents(data->physicsWorld);
-	b2Vec2 impulseVec = { 0.f, 0.f };
-	CollisionPress(contactEvents, impulseVec);
-	CollisionRelease(contactEvents, impulseVec);
-	dir = Vec2( 0.f, 0.f );
+	if (dir.x != 0.f || dir.y != 0.f)
+	{
+		lastOrientation = dir;
+		SetPlayerDirection();
+	}
 
+	Actor::Update(_dt);
+
+	sprite->SetPosition(Physics::GetBodyPosition(body));
+	sprite->SetRotation(Physics::GetBodyRotation(body));
+
+	dir = Vec2(0.f, 0.f);
 }
 
 void Player::Draw(sf::RenderTarget* _render)
 {
+	sprite->Draw(_render);
+}
 
-<<<<<<< Updated upstream
-=======
 void Player::OnTriggerEnter(ColEvent _col)
 {
 	if (Interactable* interactable = dynamic_cast<Interactable*>(_col.other))
 	{
 		currentInteractable = interactable;
 
-		// ce delegate permet au player de savoir quand l'interactable qu'il a en pointeur est détruit, pour éviter les pointeurs invalides
-		// ce que cette fonction fait réelement, c'est de dire que quand l'interactable est détruit, le player met donc ensuite son pointeur currentInteractable à nullptr
+		// ce delegate permet au player de savoir quand l'interactable qu'il a en pointeur est dï¿½truit, pour ï¿½viter les pointeurs invalides
+		// ce que cette fonction fait rï¿½element, c'est de dire que quand l'interactable est dï¿½truit, le player met donc ensuite son pointeur currentInteractable ï¿½ nullptr
 		interactable->onDestroyed.Add([this](Actor*) { currentInteractable = nullptr; });
 	}
 
@@ -91,8 +103,7 @@ void Player::SetHealth(float _health)
 
 float Player::GetMaxHealth() const
 {
-	return 0.0f;
->>>>>>> Stashed changes
+	return maxHealth;
 }
 
 void Player::UpdateIdle(float _dt)
@@ -127,15 +138,21 @@ void Player::OnWalkRight(Input _input)
 
 void Player::OnInteract(Input _input)
 {
-	Logger::Log("Interact !");
-
+	if (currentInteractable)
+	{
+		currentInteractable->OnInteract(this);
+		//currentInteractable = nullptr;
+	}
 }
 
-
-void Player::CollisionPress(b2ContactEvents& events, b2Vec2& vec)
+void Player::SetPlayerDirection(void)
 {
+	// change the rotation of the player to look in the direction of the movement
+	Physics::SetBodyRotation(body, atan2f(lastOrientation.x, lastOrientation.y) * static_cast<float>(180.f / M_PI));
 }
 
-void Player::CollisionRelease(b2ContactEvents& events, b2Vec2& vec)
+void Player::SetHealthInPercent(float _health)
 {
+	health = maxHealth * (_health / 100);
+	Logger::Log("Health set to " + std::to_string(health) + " / " + std::to_string(maxHealth) + " (" + std::to_string(_health) + "%)");
 }
