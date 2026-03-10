@@ -1,12 +1,32 @@
 #include "Door.hpp"
 #include "Tools/Physics/Physics.hpp"
 
-Door::Door(GameData* _data, Vec2 _pos) : Interactable(_data)
+Door::Door(GameData* _data, Vec2 _pos, DoorLevel _level) : Interactable(_data)
 {
-	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/Door.png"));
+	doorLevel = _level;
+
+	switch (doorLevel)
+	{
+	case DOOR_LEVEL_1:
+		sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/Door.png"));
+		break;
+	case DOOR_LEVEL_2:
+		sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/Door2.png"));
+		break;
+	case NB_DOOR_LEVELS:
+		break;
+	default:
+		break;
+	}
+
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 	position = _pos;
 	CreateCollider();
+}
+
+void Door::SetColor(const sf::Color& _color)
+{
+	sprite.SetColor(_color);
 }
 
 void Door::Update(float _dt)
@@ -31,7 +51,7 @@ void Door::OnCollisionExit(ColEvent _col)
 }
 
 void Door::OnInteract(Actor* _interactingActor)
-{	
+{
 	ToggleDoor();
 }
 
@@ -64,6 +84,6 @@ void Door::CloseDoor()
 void Door::CreateCollider()
 {
 	sf::Vector2u textureSize = sprite.GetTexture()->getSize();
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { position, 0.f, textureSize}, this, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { position, 0.f, textureSize }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, textureSize });
 }

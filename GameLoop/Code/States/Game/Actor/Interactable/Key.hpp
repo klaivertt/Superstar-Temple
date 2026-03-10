@@ -6,14 +6,25 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
+enum KeyLevel
+{
+	KEY_LEVEL_1,
+	KEY_LEVEL_2,
+
+	NB_KEY_LEVELS
+};
+
 class Key : public Interactable
 {
 private:
+	KeyLevel keyLevel;
+
 	Sprite sprite;
 
 public:
-	Key(GameData* _data, Vec2 _pos);
+	Key(GameData* _data, Vec2 _pos, KeyLevel _level);
 	b2ShapeId box;
+	void SetColor(const sf::Color& _color);
 
 	std::string GetClassName(void) override { return "Key"; }
 

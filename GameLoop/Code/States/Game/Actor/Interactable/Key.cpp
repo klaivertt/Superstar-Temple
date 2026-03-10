@@ -2,9 +2,24 @@
 #include "Tools/Physics/Physics.hpp"
 #include "../Player/Player.hpp"
 
-Key::Key(GameData* _data, Vec2 _pos) : Interactable(_data)
+Key::Key(GameData* _data, Vec2 _pos, KeyLevel _level) : Interactable(_data)
 {
+	keyLevel = _level;
+
+	switch (keyLevel)
+	{
+	case KEY_LEVEL_1:
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Interactable/Key.png"));
+		break;
+	case KEY_LEVEL_2:
+	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Interactable/Key2.png"));
+		break;
+	case NB_KEY_LEVELS:
+		break;
+	default:
+		break;
+	}
+
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 
 	sf::Vector2u textureSize = sprite.GetTexture()->getSize();
@@ -16,6 +31,11 @@ Key::Key(GameData* _data, Vec2 _pos) : Interactable(_data)
 	triggerRange = 64.f;
 
 	SetTriggerRange(triggerRange);
+}
+
+void Key::SetColor(const sf::Color& _color)
+{
+	sprite.SetColor(_color);
 }
 
 void Key::Update(float _dt)

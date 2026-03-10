@@ -6,14 +6,24 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
+enum DoorLevel
+{
+	DOOR_LEVEL_1,
+	DOOR_LEVEL_2,
+
+	NB_DOOR_LEVELS
+};
+
 class Door : public Interactable
 {
 private:
+	DoorLevel doorLevel;
 	Sprite sprite;
 
 	bool isOpen = false;
 public:
-	Door(GameData* _data, Vec2 _pos);
+	Door(GameData* _data, Vec2 _pos, DoorLevel _level);
+	void SetColor(const sf::Color& _color);
 
 	std::string GetClassName(void) override { return "Box"; }
 
@@ -30,7 +40,7 @@ public:
 	void CloseDoor();
 
 	void CreateCollider();
-
+	          
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;
 	// virtual void OnTriggerEnter(ColEvent _col) override;

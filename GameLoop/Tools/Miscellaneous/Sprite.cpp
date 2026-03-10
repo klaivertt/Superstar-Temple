@@ -4,8 +4,8 @@ Sprite::Sprite(sf::Texture* _texture, Vec2 _origin)
 {
 	texture = _texture;
 	origin = _origin;
-
 	sprite.setTexture(*texture, true);
+	SetOrigin(origin);
 }
 
 Sprite::Sprite(std::string _path, Vec2 _origin)
@@ -14,6 +14,7 @@ Sprite::Sprite(std::string _path, Vec2 _origin)
 
 	texture = data->assets->GetTexture(_path);
 	origin = _origin;
+	SetOrigin(origin);
 }
 
 Sprite::Sprite(void)

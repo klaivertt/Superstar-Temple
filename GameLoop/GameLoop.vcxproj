@@ -49,7 +49,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -182,10 +182,13 @@
     <ClCompile Include="Code\States\Game\Actor\Interactable\FireTrap.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Interactable.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Key.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Stair.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\SpikeTrap.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Teleporter.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
+    <ClCompile Include="Code\States\Game\HUD.cpp" />
     <ClCompile Include="Code\States\Menu\Menu.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Dependencies\include\ImGui\imgui-SFML.cpp" />
@@ -230,13 +233,16 @@
     <ClInclude Include="Code\States\Game\Actor\Interactable\FireTrap.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Interactable.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Key.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Stair.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\SpikeTrap.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\Player.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\PlayerUi.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Teleporter.hpp" />
     <ClInclude Include="Code\States\Game\Game.hpp" />
     <ClInclude Include="Code\Core\Load.hpp" />
     <ClInclude Include="Code\Core\PollEvents.hpp" />
     <ClInclude Include="Code\Core\Update.hpp" />
+    <ClInclude Include="Code\States\Game\HUD.hpp" />
     <ClInclude Include="Code\States\Menu\Menu.hpp" />
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="Dependencies\include\box2d\base.h" />
