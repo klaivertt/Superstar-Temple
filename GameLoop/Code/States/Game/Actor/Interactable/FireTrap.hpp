@@ -6,6 +6,9 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
+#define FIRE_DURATION 2.f
+#define FLAME_COOLDOWN 5.f
+
 class FireTrap : public Interactable
 {
 private:
@@ -23,6 +26,16 @@ public:
 	virtual void OnCollisionExit(ColEvent _col) override;
 
 	virtual void OnInteract(Actor* _interactingActor) override;
+
+	void CloseFireTrap();
+
+	void FlameDown();
+	void FlameUp();
+	void CreateCollider();
+
+	float flameTimer = 0.f;
+	bool isFlameDown = false;
+	bool isFlameDesactivatedByPlayer = false;
 
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;

@@ -22,19 +22,22 @@ void Game::Load(void)
 	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n) { ResetScene(); });
 	data->inputs->GetPressedDelegate("DEBUG")->Add(this, &Game::OnPressedDebugKey);
 	
-	// Les acteurs sont ajoutés automatiquement à la scène donc pas
-	// besoin de les gérer :)
+	// Les acteurs sont ajoutï¿½s automatiquement ï¿½ la scï¿½ne donc pas
+	// besoin de les gï¿½rer :)
 
 	Scene::Load();
 	player = new Player(data);
 	key = new Key(data);
 	box = new Box(data);
-	button = new Button(data);
+	fireButton = new Button(data);
+	spikeButton = new Button(data);
 	fireTrap = new FireTrap(data);
 	spikeTrap = new SpikeTrap(data);
 	door = new Door(data);
 	button->SetTarget(door);
 	key->SetTarget(door);
+	fireButton->SetTarget(fireTrap);
+	spikeButton->SetTarget(spikeTrap);
 	
 
 	playerUi = new PlayerUi(data, player);
@@ -63,7 +66,7 @@ void Game::Draw(sf::RenderTarget* _render)
 
 void Game::Destroy(void)
 {
-	// Les acteurs sont aussi auto détruit au changement de scène pas besoin de les gérer
+	// Les acteurs sont aussi auto dï¿½truit au changement de scï¿½ne pas besoin de les gï¿½rer
 	// destroy colliders
 
 	groundBody = b2BodyId();

@@ -36,6 +36,17 @@ Player::Player(GameData* _data): Actor(_data)
 
 void Player::Update(float _dt)
 {
+	if (fire)
+	{
+		health -= fireDamage * _dt;
+
+		fireTime -= _dt;
+		if (fireTime <= 0.f)
+		{
+			fire = false;
+		}
+	}
+
 	switch (state)
 	{
 	case State::IDLE:
@@ -99,11 +110,19 @@ float Player::GetHealth() const
 
 void Player::SetHealth(float _health)
 {
+	health = _health;
 }
 
 float Player::GetMaxHealth() const
 {
 	return maxHealth;
+}
+
+void Player::ApplyFire(float _damagePerSecond, float _time)
+{
+	fire = true;
+	fireTime = _time;
+	fireDamage = _damagePerSecond;
 }
 
 void Player::UpdateIdle(float _dt)

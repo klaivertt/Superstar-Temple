@@ -33,7 +33,7 @@ void Door::OnCollisionExit(ColEvent _col)
 
 void Door::OnInteract(Actor* _interactingActor)
 {	
-	ToggleDoor();
+
 }
 
 void Door::ToggleDoor()
