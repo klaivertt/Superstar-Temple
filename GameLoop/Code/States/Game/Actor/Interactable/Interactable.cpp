@@ -2,7 +2,7 @@
 #include "Tools/Physics/Physics.hpp"
 #include "Tools/Debug/Logger.hpp"
 
-void Interactable::SetTriggerRange(float _range, Vec2 _decal))
+void Interactable::SetTriggerRange(float _range, Vec2 _decal)
 {
 	Physics::Transform transform = Physics::GetBodyTransform(body);
 

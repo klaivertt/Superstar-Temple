@@ -8,7 +8,6 @@
 
 class Box : public Interactable
 {
-	Sprite sprite;
 private:
 	Sprite sprite;
 

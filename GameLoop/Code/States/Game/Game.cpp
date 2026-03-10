@@ -4,7 +4,13 @@
 #include "../../GameLoop/Tools/Miscellaneous/Animation.hpp"
 
 #include "Code/States/Game/Actor/Player/Player.hpp"
+#include "Code/States/Game/Actor/Player/PlayerUi.hpp"
 #include "Code/States/Game/Actor/Interactable/Key.hpp"
+#include "Code/States/Game/Actor/Interactable/Box.hpp"
+#include "Code/States/Game/Actor/Interactable/Button.hpp"
+#include "Code/States/Game/Actor/Interactable/FireTrap.hpp"
+#include "Code/States/Game/Actor/Interactable/SpikeTrap.hpp"
+#include "Code/States/Game/Actor/Interactable/Door.hpp"
 
 Game::Game(GameData* _data) : Scene(_data)
 {
@@ -22,8 +28,6 @@ void Game::Load(void)
 	Scene::Load();
 	player = new Player(data);
 	key = new Key(data);
-<<<<<<< Updated upstream
-=======
 	box = new Box(data);
 	button = new Button(data);
 	fireTrap = new FireTrap(data);
@@ -34,7 +38,6 @@ void Game::Load(void)
 	
 
 	playerUi = new PlayerUi(data, player);
->>>>>>> Stashed changes
 
 	// desactivate gravity 
 	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });

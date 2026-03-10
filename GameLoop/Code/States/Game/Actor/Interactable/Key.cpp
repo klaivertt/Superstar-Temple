@@ -55,13 +55,6 @@ void Key::OnCollisionExit(ColEvent _col)
 
 void Key::OnInteract(Actor* _interactingActor)
 {
-	// Delete the key when interact with it
-	Actor::~Actor();
-
-}
-
-void Key::OnInteract(Actor* _interactingActor)
-{
 	if (owner == _interactingActor)
 	{
 		//Interactable* targetInteractable = dynamic_cast<Interactable*>(target);

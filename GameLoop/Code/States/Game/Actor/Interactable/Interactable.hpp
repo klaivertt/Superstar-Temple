@@ -31,6 +31,9 @@ public:
 	virtual void OnCollisionExit(ColEvent _col) override;
 
 	virtual void OnInteract(Actor* _interactingActor);
+	virtual void SetTarget(Actor* _target);
+	virtual void SetOwner(Actor* _owner);
+	virtual void ClearTarget();
 
 	// Uncomment the function if you want to use them
 	// virtual void OnCollisionHit(ColEvent _col) override;
