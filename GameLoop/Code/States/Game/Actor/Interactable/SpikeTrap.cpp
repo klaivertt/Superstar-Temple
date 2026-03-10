@@ -8,9 +8,7 @@ SpikeTrap::SpikeTrap(GameData* _data, Vec2 _pos) : Interactable(_data)
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/SpikeTrapOn.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 	position = _pos;
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { _pos, 0.f, Vec2(64, 64) }, this, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
-
+	CreateCollider();
 	sprite.SetPosition(Physics::GetBodyPosition(body));
 	
 	isSpikeDown = false;
@@ -105,8 +103,9 @@ void SpikeTrap::SpikeUp()
 
 void SpikeTrap::CreateCollider()
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { position, 0.f, Vec2(64, 64) }, this, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
+	sf::Vector2u textureSize = sprite.GetTexture()->getSize();
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { position, 0.f, textureSize }, this, true);
+	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, textureSize });
 }
 
 void SpikeTrap::OnTriggerEnter(ColEvent _col)

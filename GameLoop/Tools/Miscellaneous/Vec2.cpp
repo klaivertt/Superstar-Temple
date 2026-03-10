@@ -28,6 +28,12 @@ Vec2::Vec2(const sf::Vector2i& _vec)
 	y = static_cast<float>(_vec.y);
 }
 
+Vec2::Vec2(const sf::Vector2u& _vec)
+{
+	x = static_cast<float>(_vec.x);
+	y = static_cast<float>(_vec.y);
+}
+
 Vec2::Vec2(const b2Vec2& _vec)
 {
 	x = _vec.x;
@@ -124,6 +130,11 @@ Vec2::operator b2Vec2() const
 Vec2::operator sf::Vector2i() const
 {
 	return sf::Vector2i(static_cast<int>(x), static_cast<int>(y));
+}
+
+Vec2::operator sf::Vector2u() const
+{
+	return sf::Vector2u(static_cast<unsigned int>(x), static_cast<unsigned int>(y));
 }
 
 Vec2::operator std::string() const

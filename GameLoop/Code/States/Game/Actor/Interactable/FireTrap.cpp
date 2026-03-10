@@ -8,8 +8,7 @@ FireTrap::FireTrap(GameData* _data, Vec2 _pos) : Interactable(_data)
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/FireTrapOn.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 	position = _pos;
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { _pos, 0.f, Vec2(64, 64) }, this, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
+	CreateCollider();
 
 	sprite.SetPosition(Physics::GetBodyPosition(body));
 	
@@ -105,6 +104,7 @@ void FireTrap::FlameUp()
 
 void FireTrap::CreateCollider()
 {
+	sf::Vector2u textureSize = sprite.GetTexture()->getSize();
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { position, 0.f, Vec2(64, 64) }, this, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
+	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, textureSize });
 }
