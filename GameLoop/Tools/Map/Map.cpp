@@ -4,24 +4,26 @@
 #include "JSON/json-forwards.h"
 #include "Tools/Debug/Logger.hpp"
 #include "Tools/Map/Layer.hpp"
+#include "Tools/Parser/Parser.hpp"
 
 Map::Map()
 {
 }
 
-Map::Map(std::string _path)
+Map::Map(std::string _path, b2WorldId* _world)
 {
-	LoadMap(_path);
+	LoadMap(_path, _world);
 }
 
 Map::~Map()
 {
 }
 
-void Map::LoadMap(std::string _path)
+void Map::LoadMap(std::string _path, b2WorldId* _world)
 {
 	Json::Value jFile;
 	std::fstream file(_path + "/Map.json", std::ios::in);
+	m_world = _world;
 	if (file.is_open())
 	{
 		file >> jFile;
@@ -88,6 +90,14 @@ void Map::LoadMap(std::string _path)
 						oSize.y = jFile["layers"][l]["objects"][i]["height"].asFloat();
 						bool oVisible = jFile["layers"][l]["objects"][i]["visible"].asBool();
 						Layer::CollidType type = Layer::CollidType::None;
+						if(PRSR::ContentWord(temp->m_name,"Trigger"))
+						{
+							type = Layer::CollidType::Trigger;
+						}
+						else if (PRSR::ContentWord(temp->m_name, "Collisions"))
+						{
+							type = Layer::CollidType::Collision;
+						}
 
 						Layer::Object* tempObj = new Layer::Object(oName,oPos,oSize,oVisible, type, m_world);
 						temp->AddObject(tempObj);

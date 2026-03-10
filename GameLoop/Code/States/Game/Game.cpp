@@ -47,15 +47,16 @@ void Game::Load(void)
 	playerUi = new PlayerUi(data, player);
 
 	// desactivate gravity 
-	b2World_SetGravity(data->physicsWorld, { 0.f, -1.f });
+	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
 
 	//temp ground
-	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(900, 500), 0.f, Vec2(1800, 50) }, nullptr);
+	/*groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, {Vec2(900, 500), 0.f, Vec2(1800, 50)}, nullptr);
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(1800, 50) });
 
 	//temp wall
 	groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
+	*/
 
 	mappy = new Map("Assets/Map/PlayMap");
 	view.setViewport(sf::FloatRect(0, 0, 1, 1));
@@ -68,7 +69,7 @@ void Game::Update(float _dt)
 {
 	Scene::Update(_dt);
 	b2Vec2 pPose = b2Body_GetPosition(player->body);
-	view.setCenter(sf::Vector2f(pPose.x*64, -pPose.y*64));
+	view.setCenter(sf::Vector2f(pPose.x*64, -pPose.y*64 + SCREEN_H /4));
 }
 
 void Game::Draw(sf::RenderTarget* _render)
