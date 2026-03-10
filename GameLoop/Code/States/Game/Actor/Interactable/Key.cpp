@@ -10,6 +10,7 @@ Key::Key(GameData* _data, Vec2 _pos) : Interactable(_data)
 
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { _pos, 0.f, Vec2(64, 64) }, this, true);
 	box = Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(32, 32) });
+	b2Body_SetLinearDamping(body, 5.f);
 
 	triggerRange = 64.f;
 
@@ -65,6 +66,7 @@ void Key::OnInteract(Actor* _interactingActor)
 		}
 		else
 		{
+			Physics::SetLinearVelocity(body, Vec2(0.f, 0.f));
 			owner = nullptr;
 			box = Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(32, 32) });
 			return;
