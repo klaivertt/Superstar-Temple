@@ -7,7 +7,7 @@ Button::Button(GameData* _data) : Interactable(_data)
 	sprite.SetTexture(&texture);
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(800, 100), 0.f, Vec2(64, 64) }, this, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(800 + rand() % 200, 100), 0.f, Vec2(64, 64) }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 
 

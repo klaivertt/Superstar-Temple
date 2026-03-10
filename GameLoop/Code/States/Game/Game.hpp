@@ -25,7 +25,8 @@ protected:
 	Player* player = nullptr;
 	Key* key = nullptr;
 	Box* box = nullptr;
-	Button* button = nullptr;
+	Button* fireButton = nullptr;
+	Button* spikeButton = nullptr;
 	FireTrap* fireTrap = nullptr;
 	SpikeTrap* spikeTrap = nullptr;
 	PlayerUi* playerUi = nullptr;

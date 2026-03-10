@@ -31,11 +31,13 @@ void Game::Load(void)
 	player = new Player(data);
 	key = new Key(data);
 	box = new Box(data);
-	button = new Button(data);
+	fireButton = new Button(data);
+	spikeButton = new Button(data);
 	fireTrap = new FireTrap(data);
 	spikeTrap = new SpikeTrap(data);
 	door = new Door(data);
-	button->SetTarget(door);
+	fireButton->SetTarget(fireTrap);
+	spikeButton->SetTarget(spikeTrap);
 	
 
 	playerUi = new PlayerUi(data, player);
