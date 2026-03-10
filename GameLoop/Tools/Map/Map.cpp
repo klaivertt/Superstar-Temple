@@ -99,7 +99,7 @@ void Map::LoadMap(std::string _path, b2WorldId* _world)
 							type = Layer::CollidType::Collision;
 						}
 
-						Layer::Object* tempObj = new Layer::Object(oName,oPos,oSize,oVisible, type, m_world);
+						Layer::Object* tempObj = new Layer::Object(oName,oPos,oSize,oVisible, type, m_world, this);
 						temp->AddObject(tempObj);
 
 					}
