@@ -181,6 +181,7 @@
     <ClCompile Include="Code\States\Game\Actor\Interactable\Interactable.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Key.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
     <ClCompile Include="Code\States\Menu\Menu.cpp" />
     <ClCompile Include="Common.cpp" />

@@ -10,11 +10,8 @@ struct Key : public Interactable
 {
 private:
 	Sprite sprite;
-<<<<<<< Updated upstream
 	sf::Texture texture;
 
-=======
->>>>>>> Stashed changes
 public:
 	Key(GameData* _data);
 	b2ShapeId box;

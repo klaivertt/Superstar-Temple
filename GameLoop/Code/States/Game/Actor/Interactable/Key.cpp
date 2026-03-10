@@ -4,21 +4,12 @@
 
 Key::Key(GameData* _data) : Interactable(_data)
 {
-<<<<<<< Updated upstream
-	texture.loadFromFile("Assets/Sprites/Game/Interactable/Key.png");
-	sprite.SetTexture(&texture);
-	sprite.SetOrigin(Vec2(0.5f,0.5f));
-
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(400, 100), 0.f, Vec2(64, 64) }, nullptr, true);
-	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
-=======
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Interactable/Key.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 	sprite.SetScale(Vec2(0.5f, 0.5f));
 
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(400, 100), 0.f, Vec2(64, 64) }, this, true);
 	box = Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(32, 32) });
->>>>>>> Stashed changes
 
 	triggerRange = 64.f;
 
@@ -27,9 +18,6 @@ Key::Key(GameData* _data) : Interactable(_data)
 
 void Key::Update(float _dt)
 {
-<<<<<<< Updated upstream
-	sprite.SetPosition(Physics::GetBodyPosition(body));
-=======
 	if (owner != nullptr)
 	{
 		// If the key has an owner, it means that it is being carried by an actor, so we set its position to the owner's position
@@ -50,7 +38,6 @@ void Key::Update(float _dt)
 
 	sprite.SetPosition(Physics::GetBodyPosition(body));
 	sprite.SetRotation(Physics::GetBodyRotation(body));
->>>>>>> Stashed changes
 }
 
 void Key::Draw(sf::RenderTarget* _render)
@@ -65,8 +52,6 @@ void Key::OnCollisionEnter(ColEvent _col)
 
 void Key::OnCollisionExit(ColEvent _col)
 {
-<<<<<<< Updated upstream
-=======
 
 }
 
@@ -77,7 +62,6 @@ void Key::OnInteract(Actor* _interactingActor)
 		//Interactable* targetInteractable = dynamic_cast<Interactable*>(target);
 		if (ActivateTarget(target))
 		{
->>>>>>> Stashed changes
 
 			ClearTarget();
 			delete this;

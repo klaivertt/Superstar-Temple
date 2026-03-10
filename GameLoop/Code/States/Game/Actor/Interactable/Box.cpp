@@ -1,9 +1,6 @@
 #include "Box.hpp"
-<<<<<<< Updated upstream
-=======
 #include "Tools/Physics/Physics.hpp"
 #include "../Player/Player.hpp"
->>>>>>> Stashed changes
 
 Box::Box(GameData* _data) : Interactable(_data)
 {
@@ -12,9 +9,6 @@ Box::Box(GameData* _data) : Interactable(_data)
 
 void Box::Update(float _dt)
 {
-<<<<<<< Updated upstream
-
-=======
     if (owner != nullptr)
     {
         // If the Box has an owner, it means that it is being carried by an actor, so we set its position to the owner's position
@@ -36,7 +30,6 @@ void Box::Update(float _dt)
     }
 	sprite.SetPosition(Physics::GetBodyPosition(body));
 	sprite.SetRotation(Physics::GetBodyRotation(body));
->>>>>>> Stashed changes
 }
 
 void Box::Draw(sf::RenderTarget* _render)
@@ -51,8 +44,6 @@ void Box::OnCollisionEnter(ColEvent _col)
 void Box::OnCollisionExit(ColEvent _col)
 {
 }
-<<<<<<< Updated upstream
-=======
 
 void Box::OnInteract(Actor* _interactingActor)
 {
@@ -72,4 +63,3 @@ void Box::OnInteract(Actor* _interactingActor)
 		b2Body_Disable(body);
 	}
 }
->>>>>>> Stashed changes

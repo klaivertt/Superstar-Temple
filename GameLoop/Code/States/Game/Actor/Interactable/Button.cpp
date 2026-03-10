@@ -22,8 +22,6 @@ void Button::OnCollisionEnter(ColEvent _col)
 void Button::OnCollisionExit(ColEvent _col)
 {
 }
-<<<<<<< Updated upstream
-=======
 
 void Button::OnInteract(Actor* _interactingActor)
 {
@@ -36,4 +34,3 @@ bool Button::ReturnState(void)
 {
 	return isPressed;
 }
->>>>>>> Stashed changes

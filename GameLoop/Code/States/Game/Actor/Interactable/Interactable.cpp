@@ -2,17 +2,15 @@
 #include "Tools/Physics/Physics.hpp"
 #include "Tools/Debug/Logger.hpp"
 
-void Interactable::SetTriggerRange(float _range, bool _centered)
+void Interactable::SetTriggerRange(float _range, Vec2 _decal))
 {
 	Physics::Transform transform = Physics::GetBodyTransform(body);
-	
-	if (_centered)
-	{
-		transform.position += Vec2((_range / 2 + transform.size.x / 2), -(_range / 2 + transform.size.y / 2));
-	}
+
+	transform.position += _decal;
 
 	Physics::CreateCircleTrigger(body, transform, _range);
 }
+
 
 bool Interactable::ActivateTarget(Actor* _interactingActor)
 {
@@ -60,8 +58,6 @@ void Interactable::OnCollisionEnter(ColEvent _col)
 void Interactable::OnCollisionExit(ColEvent _col)
 {
 }
-<<<<<<< Updated upstream
-=======
 
 void Interactable::SetTarget(Actor* _target)
 {
@@ -86,4 +82,3 @@ void Interactable::SetOwner(Actor* _owner)
 void Interactable::OnInteract(Actor* _interactingActor)
 {
 }
->>>>>>> Stashed changes
