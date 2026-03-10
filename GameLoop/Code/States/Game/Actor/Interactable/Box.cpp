@@ -9,6 +9,7 @@ Box::Box(GameData* _data, Vec2 _pos): Interactable(_data)
 
 	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { _pos, 0.f, Vec2(64, 64) }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
+	b2Body_SetLinearDamping(body, 5.f);
 
 	triggerRange = 100.f;
 
@@ -60,6 +61,7 @@ void Box::OnInteract(Actor* _interactingActor)
 		// If the interacting actor is the owner of the key, we drop the key
 		owner = nullptr;
 		b2Body_Enable(body);
+		Physics::SetLinearVelocity(body, Vec2(0.f, 0.f));
 		return;
 	}
 	// Delete the key when interact with it

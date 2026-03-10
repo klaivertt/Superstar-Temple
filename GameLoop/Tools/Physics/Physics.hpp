@@ -57,6 +57,7 @@ namespace Physics
 	void SetShapeResponses(b2ShapeId _shape, uint32_t _presets);
 
 	void SetLinearVelocity(b2BodyId _body, Vec2 _velocity);
+	void SetVelocity(b2BodyId _body, Vec2 _velocity);
 	void ApplyForce(b2BodyId _body, Vec2 _force);
 	void SetBodyFixedRotation(b2BodyId _body, bool _fixed);
 	Transform GetBodyTransform(b2BodyId _body);
