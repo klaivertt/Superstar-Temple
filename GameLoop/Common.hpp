@@ -1,35 +1,35 @@
-#ifndef COMMON__H
+﻿#ifndef COMMON__H
 #define COMMON__H
 
-#include <iostream>
+#define _USE_MATH_DEFINES
+
+#include <algorithm>
+#include <array>
+#include <cmath>
+#include <ctime>
+#include <cstdlib>
+#include <filesystem>
 #include <fstream>
-#include <time.h>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <sstream>
+#include <string>
+#include <vector>
 
 #include <box2d/box2d.h>
-#include "SFML/Window.hpp"
+#include <ImGui/imgui.h>
+#include <ImGui/imgui-SFML.h>
 #include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 #include "SFML/Network.hpp"
-#include <stdlib.h>
-#include <ctime>
-#include <map>
-#include <functional>
-#include <ImGui/imgui.h>
-#include <ImGui/imgui-SFML.h>
-#include <string>
-#include "Tools/Miscellaneous/Array.hpp"
-#include <filesystem>
-#include <cmath>
-#include <algorithm>
-#include <vector>
-#include <array>
-#include "Tools/Overload/OperatorOverloading.hpp"
-#include <chrono>
+#include "SFML/Window.hpp"
 
-
-#define _USE_MATH_DEFINES
-#include <math.h>
 #include "Tools/Miscellaneous/Delegate.hpp"
+#include "Tools/Miscellaneous/Array.hpp"
+#include "Tools/Miscellaneous/Vec2.hpp"
+#include "Tools/Overload/OperatorOverloading.hpp"
 
 #define VSYNC true
 #define FULLSCREEN false
@@ -40,8 +40,7 @@
 #define SCREEN_H 1080
 #define SCREEN_SIZE sf::Vector2f(SCREEN_W, SCREEN_H)
 
-#define GAME_NAME "SFML Engine"
-
+#define GAME_NAME "Shadow Tower"
 #define GRAVITY 9.81f
 
 DECLARE_DELEGATE(PropertyDelegate);
@@ -64,148 +63,6 @@ enum ObjectType
 	OT_INTERACTABLE,
 };
 
-class Vec2
-{
-public:
-	float x = 0.f;
-	float y = 0.f;
-
-	Vec2(float _x, float _y);
-	Vec2(void);
-
-	void Normalize(void);
-	float GetLenght(void);
-	float GetLenghtSquared(void);
-	float GetDistance(Vec2 _other);
-	std::string ToString(void);
-	sf::Vector2f ToSFML(void);
-
-	// Surchages
-
-	// Vector 2
-	Vec2 operator + (Vec2 _other)
-	{
-		return Vec2(x + _other.x, y + _other.y);
-	}
-
-	Vec2 operator - (Vec2 _other)
-	{
-		return Vec2(x - _other.x, y - _other.y);
-	}
-
-	Vec2 operator * (Vec2 _other)
-	{
-		return Vec2(x * _other.x, y * _other.y);
-	}
-
-	Vec2 operator / (Vec2 _other)
-	{
-		Vec2 vector(0.f, 0.f);
-
-		if (_other.x)
-		{
-			vector.x = 0.f;
-		}
-		else
-		{
-			vector.x = x / _other.x;
-		}
-
-		if (_other.y)
-		{
-			vector.x = 0.f;
-		}
-		else
-		{
-			vector.y = y / _other.y;
-		}
-
-		return vector;
-	}
-
-	// Float
-	Vec2 operator + (float _other)
-	{
-		return Vec2(x + _other, y + _other);
-	}
-
-	Vec2 operator - (float _other)
-	{
-		return Vec2(x - _other, y - _other);
-	}
-
-	Vec2 operator * (float _other)
-	{
-		return Vec2(x * _other, y * _other);
-	}
-
-	Vec2 operator / (float _other)
-	{
-		Vec2 vector(0.f, 0.f);
-
-		if (_other == 0.f)
-		{
-			vector.x = 0.f;
-			vector.y = 0.f;
-		}
-		else
-		{
-			vector.x = x / _other;
-			vector.y = y / _other;
-		}
-
-		return vector;
-	}
-
-	Vec2 operator = (sf::Vector2f _vec)
-	{
-
-		return Vec2(_vec.x, _vec.y);
-	}
-
-	Vec2 operator += (Vec2 _vec)
-	{
-		x += _vec.x;
-		y += _vec.y;
-		return *this;
-	}
-
-	Vec2 operator -= (Vec2 _vec)
-	{
-		x -= _vec.x;
-		y -= _vec.y;
-		return *this;
-	}
-	
-	Vec2 operator *= (Vec2 _vec)
-		{
-		x *= _vec.x;
-		y *= _vec.y;
-		return *this;
-	}
-
-	Vec2 operator /= (Vec2 _vec)
-	{
-		if (_vec.x)
-		{
-			x /= _vec.x;
-		}
-		else
-		{
-			x = 0.f;
-		}
-		if (_vec.y)
-		{
-			y /= _vec.y;
-		}
-		else
-		{
-			y = 0.f;
-		}
-		return *this;
-	}
-};
-
 struct Property
 {
 	std::string name;
@@ -218,27 +75,37 @@ struct Property
 	Vec2 range = { 0.f,0.f };
 };
 
-inline b2Vec2 ToB2Vec2(const Vec2& v)
-{
-	return b2Vec2{ v.x, v.y };
-}
-
-inline Vec2 ToVec2(const b2Vec2& v)
-{
-	return Vec2{ v.x, v.y };
-}
-
-inline Vec2 ToVec2(const sf::Vector2f& _vec)
-{
-	return Vec2(_vec.x, _vec.y);
-}
-
-inline sf::Vector2f ToSFML(const Vec2& _vec)
-{
-	return sf::Vector2f(_vec.x, _vec.y);
-}
-
 // Scalar product
 float GetVectorDistance(Vec2 _a, Vec2 _b);
 
+sf::Vector2f NormalizeVector2f(sf::Vector2f _vector);
+
+// You can clamp your value between a min and max value
+float Clamp(float _value, float _min, float _max);
+// You can clamp your value between a min and max value
+int Clamp(int _value, int _min, int _max);
+
+// This function will lerp your value smoothly
+// @param
+// _speed : the speed is the desired value per second you want
+float Lerp(float _value, float _desired, float _speed, float _dt);
+sf::Vector2f Lerp(sf::Vector2f _value, sf::Vector2f _desired, float _speed, float _dt);
+sf::Color LerpColor(const sf::Color& _a, const sf::Color& _b, float _t);
+
+float VectorLength(sf::Vector2f _vector);
+
+float RadianToDegrees(float _value);
+float DegreesToRadian(float _value);
+
+float DegToRad(float _value);
+float RadToDeg(float _value);
+
+sf::Vector2f RotateVec(sf::Vector2f _v, float _angleDeg);
+
+float Random(float _min, float _max);
+int Random(int _min, int _max);
+Vec2 Random(Vec2 _min, Vec2 _max);
+
+// This function will return the rotation of an actor based on its position, parent rotation and parent scale
+Vec2 GetRotationByPosition(Vec2 _position, float _parentRotation, Vec2 _parentScale);
 #endif

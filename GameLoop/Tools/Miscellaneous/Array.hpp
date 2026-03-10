@@ -64,7 +64,7 @@ inline void Array<T>::Add(T _value)
 		capacity *= 2;
 		data = new T[capacity];
 
-		for (int i = 0; i < size; i++)
+		for (unsigned int i = 0; i < size; i++)
 		{
 			data[i] = oldTab[i];
 		}
@@ -79,7 +79,7 @@ inline void Array<T>::Remove(int _index)
 {
 	if (size > 0)
 	{
-		for (int i = _index; i < size - 1; i++)
+		for (unsigned int i = _index; i < size - 1; i++)
 		{
 			data[i] = data[i + 1];
 		}
@@ -92,7 +92,7 @@ inline void Array<T>::Remove(int _index)
 			capacity /= 2;
 			data = new T[capacity];
 
-			for (int i = 0; i < size; i++)
+			for (unsigned int i = 0; i < size; i++)
 			{
 				data[i] = oldTab[i];
 			}

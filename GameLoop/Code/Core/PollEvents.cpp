@@ -3,7 +3,6 @@
 #include "../../GameData.hpp"
 
 #include "../States/Game/Game.hpp"
-#include "../States/LevelEditor/LevelEditor.hpp"
 
 #include "../../Tools/Debug/DebugViewer.hpp"
 
@@ -19,12 +18,6 @@ void PollEvents(GameData* _game, sf::Event _event)
 	if (_event.type == sf::Event::KeyPressed)
 	{
 		KeyPressed(_game, _event.key.code);
-	}
-
-	LevelEditor* editor = dynamic_cast<LevelEditor*>(_game->manager->currentScene);
-	if (editor)
-	{
-		editor->HandleInput(_event);
 	}
 
 	_game->manager->PollEvents(_event);

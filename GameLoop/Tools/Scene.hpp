@@ -5,6 +5,7 @@
 
 class SceneManager;
 class Actor;
+class AutoUi;
 class GameData;
 
 class Scene
@@ -12,12 +13,12 @@ class Scene
 public:
 	// Array of all the actors in the scene
 	Array<Actor*>* actors;
+	Array<AutoUi*>* uiElements;
 	// Number of actors created in the scene, used to give them unique names
 	std::map<std::string, int> actorTypeCounters;
 	int actorsCount = 0;
 
 	GameData* data = nullptr;
-
 	sf::View* camera = nullptr;
 public:
 	bool ordered = false;
@@ -32,6 +33,9 @@ public:
 
 	void AddActor(Actor* _actor);
 	void RemoveActor(Actor* _actor);
+
+	void AddUi(AutoUi* _ui);
+	void RemoveUi(AutoUi* _ui);
 
 	template <typename T>
 	void SpawnActor(void)

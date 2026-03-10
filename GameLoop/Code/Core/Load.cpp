@@ -3,8 +3,6 @@
 #include "../States/Game/Game.hpp"
 #include "../States/Menu/Menu.hpp"
 #include "../States/Gameover/Gameover.hpp"
-#include "../States/LevelEditor/LevelEditor.hpp"
-
 #include "../../Tools/SceneManager.hpp"
 #include "../../Tools/Miscellaneous/Inputs.hpp"
 #include "../../Tools/Miscellaneous/Text.hpp"
@@ -21,13 +19,10 @@ void Load(GameData* _game)
 	_game->manager->Create<Game>("Game");
 	_game->manager->Create<Menu>("Menu");
 	_game->manager->Create<Gameover>("Gameover");
-	_game->manager->Create<LevelEditor>("LevelEditor");
 
 	CreateInputs(_game);
 
 	_game->manager->LoadScene("Game");
-	//_game->manager->LoadScene("LevelEditor");
-
 	Logger::Success("Everything loaded successfully !");
 }
 

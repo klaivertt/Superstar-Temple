@@ -6,18 +6,32 @@
 #include "../../GameLoop/GameData.hpp"
 
 #include "../../GameLoop/Tools/Miscellaneous/Inputs.hpp"
-
-#include "Code/States/Game/Actor/Player/Player.hpp"
 #include "Tools/Physics/Physics.hpp"
 
 class Animation;
 class Player;
+class PlayerUi;
+class Key;
+class Box;
+class Button;
+class FireTrap;
+class SpikeTrap;
+class Door;
 
 struct Game : public Scene
 {
 protected:
 
 	Player* player = nullptr;
+	Key* key = nullptr;
+	Box* box = nullptr;
+	Button* button = nullptr;
+	Button* fireButton = nullptr;
+	Button* spikeButton = nullptr;
+	FireTrap* fireTrap = nullptr;
+	SpikeTrap* spikeTrap = nullptr;
+	PlayerUi* playerUi = nullptr;
+	Door* door = nullptr;
 
 	//temp ground
 	b2BodyId groundBody = b2BodyId();
@@ -36,6 +50,8 @@ public:
 	void Destroy(void) override;
 
 	virtual void OnPressedDebugKey(Input _input);
+
+	void ResetScene(void);
 };
 
 #endif // !GAME_H

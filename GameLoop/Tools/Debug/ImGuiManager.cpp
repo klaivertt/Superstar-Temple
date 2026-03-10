@@ -1,4 +1,5 @@
 #include "ImGuiManager.hpp"
+#include "Logger.hpp"
 
 Debug::GuiManager::GuiManager(sf::RenderWindow* _render)
 {
@@ -29,6 +30,8 @@ void Debug::GuiManager::Render(void)
 	{
 		lastUpdate -= frameRateTarget;
 
+		lastUpdate = (lastUpdate < 0.f) ? 0.01f : lastUpdate;
+		//Logger::Log("Updating ImGui with dt: " + std::to_string(lastUpdate) + " seconds");
 		// IMPORTANT: Appeler Update AVANT toute utilisation d'ImGui
 		ImGui::SFML::Update(*render, sf::seconds(lastUpdate));
 
@@ -37,52 +40,45 @@ void Debug::GuiManager::Render(void)
 
 		if (windows.size() > 0)
 		{
-
-			// Rendre les fenetres enregistrées (nouveau)
+			// Rendre les fenetres enregistrï¿½es (nouveau)
 			for (auto& [winName, win] : windows)
 			{
-				// Si la fenêtre a été fermée via le flag 'open', on respecte ça
-				if (!win.open)
-					continue;
-
-				if (win.categories.size() > 0)
+				if (win.open && win.categories.size() > 0)
 				{
 					ImGui::Begin(win.name.c_str(), &win.open, win.flags);
 
 					for (auto& [categoryName, category] : win.categories)
 					{
-						// Créer un collapsing header pour chaque catégorie
+						// Crï¿½er un collapsing header pour chaque catï¿½gorie
 						if (ImGui::CollapsingHeader(categoryName.c_str(),
 							category.isOpen ? ImGuiTreeNodeFlags_DefaultOpen : 0))
 						{
-							// Permet de decaler les contrôles à l'intérieur du collapsing header
+							// Permet de decaler les contrï¿½les ï¿½ l'intï¿½rieur du collapsing header
 							ImGui::Indent(15.f);
 
 							for (auto& control : category.controls)
+							{
+								int pushedColors = 0;
+
+								if (control->colorType != ImGuiCol_COUNT)
 								{
-									int pushedColors = 0;
-									
-									// Push des couleurs si définies
-									if (control->colorType != ImGuiCol_COUNT)
-									{
-										ImGui::PushStyleColor(control->colorType, control->color);
-										pushedColors++;
-									}
-									if (control->backColorType != ImGuiCol_COUNT)
-									{
-										ImGui::PushStyleColor(control->backColorType, control->backColor);
-										pushedColors++;
-									}
-									
-									// Rendu du contrôle
-									control->Render(categoryName);
-									
-									// Pop des couleurs dans l'ordre inverse
-									if (pushedColors > 0)
-									{
-										ImGui::PopStyleColor(pushedColors);
-									}
+									ImGui::PushStyleColor(control->colorType, control->color);
+									pushedColors++;
 								}
+
+								if (control->backColorType != ImGuiCol_COUNT)
+								{
+									ImGui::PushStyleColor(control->backColorType, control->backColor);
+									pushedColors++;
+								}
+
+								control->Render(categoryName);
+
+								if (pushedColors > 0)
+								{
+									ImGui::PopStyleColor(pushedColors);
+								}
+							}
 
 							ImGui::Unindent(15.f);
 							ImGui::Spacing();
@@ -96,14 +92,14 @@ void Debug::GuiManager::Render(void)
 
 		// --- FIN DE LA FRAME IMGUI ---
 
-		// Render à la fin
+		// Render ï¿½ la fin
 	}
 	ImGui::SFML::Render(*render);
 }
 
 void Debug::GuiManager::AddSliderFloat(std::string _win, std::string _cat, std::string _label, float* _value, float _min, float _max, std::function<void(float, std::string)> _call, sf::Color _color)
 {
-	Window& win = GetOrCreateWindow(_win);
+	Category& cat = GetOrCreateCategory(_win, _cat);
 
 	auto slider = std::make_unique<GuiSliderFloat>();
 	slider->label = _label;
@@ -118,13 +114,12 @@ void Debug::GuiManager::AddSliderFloat(std::string _win, std::string _cat, std::
 	slider->backColorType = ImGuiCol_FrameBg;
 	slider->backColor = ImVec4(_color.r / 255.f, _color.g / 255.f, _color.b / 255.f, _color.a / 255.f / 2.f);
 
-
-	win.categories[_cat].controls.push_back(std::move(slider));
+	cat.controls.push_back(std::move(slider));
 }
 
 void Debug::GuiManager::AddSliderInt(std::string _win, std::string _cat, std::string _label, int* _value, int _min, int _max, std::function<void(int, std::string)> _call)
 {
-	Window& win = GetOrCreateWindow(_win);
+	Category& cat = GetOrCreateCategory(_win, _cat);
 
 	auto slider = std::make_unique<GuiSliderInt>();
 	slider->label = _label;
@@ -133,53 +128,53 @@ void Debug::GuiManager::AddSliderInt(std::string _win, std::string _cat, std::st
 	slider->max = _max;
 	slider->callback = _call;
 
-	win.categories[_cat].controls.push_back(std::move(slider));
+	cat.controls.push_back(std::move(slider));
 }
 
 void Debug::GuiManager::AddCheckbox(std::string _win, std::string _cat, std::string _label, bool* _value, std::function<void(bool, std::string)> _call)
 {
-	Window& win = GetOrCreateWindow(_win);
+	Category& cat = GetOrCreateCategory(_win, _cat);
 
 	auto checkbox = std::make_unique<GuiCheckbox>();
 	checkbox->label = _label;
 	checkbox->value = _value;
 	checkbox->callback = _call;
 
-	win.categories[_cat].controls.push_back(std::move(checkbox));
+	cat.controls.push_back(std::move(checkbox));
 }
 
-void Debug::GuiManager::AddComboBox(std::string _win, std::string _cat, std::string _label, void** _objectArray, const char** _namesArray, int _size, std::function<void(void*, std::string)> _call)
+void Debug::GuiManager::AddComboBox(std::string _win, std::string _cat, std::string _label, void** _objectArray, const char** _namesArray, int _size, std::function<void(void*, std::string)> _call, int _currentIndex)
 {
-	Window& win = GetOrCreateWindow(_win);
+	Category& cat = GetOrCreateCategory(_win, _cat);
 
-	auto combo = std::make_unique<
-	GuiComboBox>();
+	auto combo = std::make_unique<GuiComboBox>();
 	combo->label = _label;
-	combo->count = new int(_size);
-	combo->current = new int(0);
-	combo->items = _objectArray;
-	combo->itemsNames = _namesArray;
-	combo->selected_item = _objectArray[0];
+	combo->currentIndex = _currentIndex;
 	combo->callback = _call;
 
-	win.categories[_cat].controls.push_back(std::move(combo));
+	for (int i = 0; i < _size; i++)
+	{
+		combo->items.push_back(_objectArray[i]);
+		combo->itemNames.push_back(_namesArray[i] != nullptr ? _namesArray[i] : "");
+	}
+	combo->SyncRawNames();
+
+	cat.controls.push_back(std::move(combo));
 }
 
 void Debug::GuiManager::AddButton(std::string _win, std::string _cat, std::string _label, std::function<void(std::string)> _call)
 {
-	Window& win = GetOrCreateWindow(_win);
 	Category& cat = GetOrCreateCategory(_win, _cat);
 
 	auto button = std::make_unique<GuiButton>();
 	button->label = _label;
 	button->callback = _call;
 
-	win.categories[_cat].controls.push_back(std::move(button));
+	cat.controls.push_back(std::move(button));
 }
 
 void Debug::GuiManager::AddHierarchyButton(std::string _win, std::string _cat, std::string _label, Actor* _actor, std::function<void(Actor* _actor, std::string)> _call)
 {
-	Window& win = GetOrCreateWindow(_win);
 	Category& cat = GetOrCreateCategory(_win, _cat);
 
 	auto button = std::make_unique<GuiHierarchyButton>();
@@ -187,12 +182,12 @@ void Debug::GuiManager::AddHierarchyButton(std::string _win, std::string _cat, s
 	button->callback = _call;
 	button->actor = _actor;
 
-	win.categories[_cat].controls.push_back(std::move(button));
+	cat.controls.push_back(std::move(button));
 }
 
 void Debug::GuiManager::AddInputText(std::string _win, std::string _cat, std::string _label, char* _buffer, size_t _bufferSize, std::function<void(const char*)> _call)
 {
-	Window& win = GetOrCreateWindow(_win);
+	Category& cat = GetOrCreateCategory(_win, _cat);
 
 	auto inputText = std::make_unique<GuiTextInput>();
 	inputText->label = _label;
@@ -200,7 +195,7 @@ void Debug::GuiManager::AddInputText(std::string _win, std::string _cat, std::st
 	inputText->bufferSize = _bufferSize;
 	inputText->callback = _call;
 
-	win.categories[_cat].controls.push_back(std::move(inputText));
+	cat.controls.push_back(std::move(inputText));
 }
 
 void Debug::GuiManager::RegisterWindow(std::string _name, bool _open, ImGuiWindowFlags flags)
@@ -212,13 +207,37 @@ void Debug::GuiManager::RegisterWindow(std::string _name, bool _open, ImGuiWindo
 
 void Debug::GuiManager::RemoveWindow(std::string _name)
 {
-	windows[_name].categories.clear();
-	windows.erase(_name);
+	auto it = windows.find(_name);
+	if (it == windows.end())
+	{
+		return;
+	}
+
+	it->second.categories.clear();
+	windows.erase(it);
+	Logger::Info("ImGui window removed: " + _name);
+}
+
+void Debug::GuiManager::ClearWindow(std::string _name)
+{
+	auto it = windows.find(_name);
+	if (it == windows.end())
+	{
+		return;
+	}
+
+	it->second.categories.clear();
 }
 
 void Debug::GuiManager::RemoveCategory(std::string _winName, std::string _catName)
 {
-	windows[_winName].categories.erase(_catName);
+	auto winIt = windows.find(_winName);
+	if (winIt == windows.end())
+	{
+		return;
+	}
+
+	winIt->second.categories.erase(_catName);
 }
 
 void Debug::GuiManager::Clear()
@@ -283,22 +302,32 @@ void Debug::GuiManager::PopID()
 void Debug::GuiManager::Indent(float indentWidth)
 {
 	if (indentWidth > 0.f)
+	{
 		ImGui::Indent(indentWidth);
+	}
 	else
+	{
 		ImGui::Indent();
+	}
 }
 
 void Debug::GuiManager::Unindent(float indentWidth)
 {
 	if (indentWidth > 0.f)
+	{
 		ImGui::Unindent(indentWidth);
+	}
 	else
+	{
 		ImGui::Unindent();
+	}
 }
 
 Debug::GuiManager::Category& Debug::GuiManager::GetOrCreateCategory(std::string _window, std::string _name)
 {
-	Category cat;
+	Window& win = GetOrCreateWindow(_window);
+	Category& cat = win.categories[_name];
+	cat.name = _name;
 	return cat;
 }
 

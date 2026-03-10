@@ -1,11 +1,17 @@
 #pragma once
 
-#include "../../GameData.hpp"
-#include <cmath>
+#include "../../Common.hpp"
 
 #define METERS_TO_PIXELS 64.f
 
 class Actor;
+
+// Structure to store shape user data (Actor pointer + sensor identifier)
+struct ShapeData
+{
+	Actor* actor = nullptr;
+	std::string sensorId = "";  // Empty string = main collider, otherwise identifies the sensor
+};
 
 namespace Physics
 {
@@ -43,7 +49,8 @@ namespace Physics
 	void Destroy(b2WorldId _id);
 
 	// Actor needed to set the user data of the body, so we can easily get the actor from the body in the collision events
-	b2BodyId CreateBody(b2WorldId _world, BodyType _type, Transform _transform, Actor* _parent);
+	// @param Actor* _parent: Important, si vous voulez que les collisions de ce body soient associ�es � un acteur, mettez un pointeur vers cet acteur, sinon mettez nullptr
+	b2BodyId CreateBody(b2WorldId _world, BodyType _type, Transform _transform, Actor* _parent, bool _fixedRotation = false);
 	// Set the preset of the shape, so we can easily set the collision response of the shape in the collision events
 	void SetShapePreset(b2ShapeId _shape, CollisionPreset _preset);
 	// Set the collision response of the shape with a custom preset, so you can use it in the collision events
@@ -63,8 +70,13 @@ namespace Physics
 	b2ShapeId CreateCircleCollider(b2BodyId _body, Transform _transform, float _radius);
 
 	b2ShapeId CreateBoxTrigger(b2BodyId _body, Transform _transform);
+	b2ShapeId CreateBoxTrigger(b2BodyId _body, Transform _transform, const std::string& _sensorId);
+	
 	b2ShapeId CreateConvexTrigger(b2BodyId _body, Transform _transform, b2Hull _hull);
+	b2ShapeId CreateConvexTrigger(b2BodyId _body, Transform _transform, b2Hull _hull, const std::string& _sensorId);
+	
 	b2ShapeId CreateCircleTrigger(b2BodyId _body, Transform _transform, float _radius);
+	b2ShapeId CreateCircleTrigger(b2BodyId _body, Transform _transform, float _radius, const std::string& _sensorId);
 
 	// Modify the shape with new values for friction, restitution and density
 	void ModifyShape(b2ShapeId _shape, float _friction, float _restitution, float _density);
@@ -97,4 +109,12 @@ namespace Physics
 	sf::Vector2f WorldToScreen(b2Vec2 _world);
 
 	Vec2 GetBodyPosition(b2BodyId _body);
+	void SetBodyPosition(b2BodyId _body, Vec2 _position);
+
+	float GetBodyRotation(b2BodyId _body);
+	void SetBodyRotation(b2BodyId _body, float _rotation);
+
+	sf::FloatRect GetBodyBound(b2BodyId _body);
+
+	// Not destroy the world immediately, just clear it by destroying all the bodies and shapes in it, so you can reuse it later without having to create a new one
 }

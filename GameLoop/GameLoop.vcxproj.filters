@@ -8,9 +8,6 @@
     <ClCompile Include="Code\States\Gameover\Gameover.cpp" />
     <ClCompile Include="Code\States\Game\Actor\BasicCube.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Inspector.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\LevelBoxCollider.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\LevelEditor.cpp" />
     <ClCompile Include="Code\States\Menu\Menu.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Dependencies\include\ImGui\imgui-SFML.cpp" />
@@ -23,17 +20,10 @@
     <ClCompile Include="Tools\AssetsManager.cpp" />
     <ClCompile Include="Tools\Effects\Particle.cpp" />
     <ClCompile Include="Tools\Scene.cpp" />
-    <ClCompile Include="Tools\UI\Button.cpp" />
-    <ClCompile Include="Tools\UI\Slider.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Interactable\Door.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Interactable\Elevator.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Interactable\Interactable.cpp" />
-    <ClCompile Include="Code\States\LevelEditor\Actors\Interactable\LevelLever.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Actor.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Animation.cpp" />
     <ClCompile Include="Tools\Debug\DebugViewer.cpp" />
-    <ClCompile Include="Tools\Movement\Walk.cpp" />
     <ClCompile Include="Tools\Debug\ImGuiManager.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Inputs.cpp" />
     <ClCompile Include="Tools\Debug\Logger.cpp" />
@@ -47,6 +37,16 @@
     <ClCompile Include="Tools\Map\Layer.cpp" />
     <ClCompile Include="Tools\Map\Map.cpp" />
     <ClCompile Include="Tools\Json\jsoncpp.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Box.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Button.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Interactable.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Key.cpp" />
+    <ClCompile Include="Tools\UI\AutoUi.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\FireTrap.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\SpikeTrap.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Door.cpp" />
+    <ClCompile Include="Tools\Miscellaneous\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Core\Draw.hpp" />
@@ -56,10 +56,6 @@
     <ClInclude Include="Code\Core\Load.hpp" />
     <ClInclude Include="Code\Core\PollEvents.hpp" />
     <ClInclude Include="Code\Core\Update.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Inspector.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\LevelActor.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\LevelBoxCollider.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\LevelEditor.hpp" />
     <ClInclude Include="Code\States\Menu\Menu.hpp" />
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="Dependencies\include\GL\freeglut.h" />
@@ -184,20 +180,13 @@
     <ClInclude Include="Tools\Effects\Particle.hpp" />
     <ClInclude Include="Tools\Scene.hpp" />
     <ClInclude Include="Tools\SceneManager.hpp" />
-    <ClInclude Include="Tools\UI\Button.hpp" />
-    <ClInclude Include="Tools\UI\Slider.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Player\Player.hpp" />
     <ClInclude Include="Tools\Overload\OperatorOverloading.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Interactable\Door.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Interactable\Elevator.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Interactable\Interactable.hpp" />
-    <ClInclude Include="Code\States\LevelEditor\Actors\Interactable\LevelLever.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Actor.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Animation.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Array.hpp" />
     <ClInclude Include="Tools\Debug\DebugViewer.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Delegate.hpp" />
-    <ClInclude Include="Tools\Movement\Walk.hpp" />
     <ClInclude Include="Tools\Debug\ImGuiManager.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Inputs.hpp" />
     <ClInclude Include="Tools\Debug\Logger.hpp" />
@@ -220,6 +209,16 @@
     <ClInclude Include="..\Dependencies\include\JSON\json.h" />
     <ClInclude Include="Dependencies\JSON\json.h" />
     <ClInclude Include="Dependencies\JSON\json-forwards.h" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Box.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Button.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Interactable.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Key.hpp" />
+    <ClInclude Include="Tools\UI\AutoUi.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\FireTrap.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\SpikeTrap.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Player\PlayerUi.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Door.hpp" />
+    <ClInclude Include="Tools\Miscellaneous\Vec2.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\lib\Debug\freeglut.lib" />
