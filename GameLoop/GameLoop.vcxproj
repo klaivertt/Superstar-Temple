@@ -212,6 +212,7 @@
     <ClCompile Include="Tools\Debug\ImGuiManager.cpp" />
     <ClCompile Include="Tools\Miscellaneous\Inputs.cpp" />
     <ClCompile Include="Tools\Debug\Logger.cpp" />
+    <ClCompile Include="Tools\Parser\Parser.cpp" />
     <ClCompile Include="Tools\Physics\Motion.cpp" />
     <ClCompile Include="Tools\Physics\Physics.cpp" />
     <ClCompile Include="Tools\Scene.cpp" />
@@ -384,6 +385,7 @@
     <ClInclude Include="Tools\Debug\ImGuiManager.hpp" />
     <ClInclude Include="Tools\Miscellaneous\Inputs.hpp" />
     <ClInclude Include="Tools\Debug\Logger.hpp" />
+    <ClInclude Include="Tools\Parser\Parser.hpp" />
     <ClInclude Include="Tools\Physics\Motion.hpp" />
     <ClInclude Include="Tools\Physics\Physics.hpp" />
     <ClInclude Include="Tools\Scene.hpp" />

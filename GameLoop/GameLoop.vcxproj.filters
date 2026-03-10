@@ -47,6 +47,7 @@
     <ClCompile Include="Tools\Map\Layer.cpp" />
     <ClCompile Include="Tools\Map\Map.cpp" />
     <ClCompile Include="Tools\Json\jsoncpp.cpp" />
+    <ClCompile Include="Tools\Parser\Parser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Core\Draw.hpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="..\Dependencies\include\JSON\json.h" />
     <ClInclude Include="Dependencies\JSON\json.h" />
     <ClInclude Include="Dependencies\JSON\json-forwards.h" />
+    <ClInclude Include="Tools\Parser\Parser.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\lib\Debug\freeglut.lib" />

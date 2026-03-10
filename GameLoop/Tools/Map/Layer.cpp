@@ -2,6 +2,7 @@
 
 #include "Tools/Debug/Logger.hpp"
 #include "Tools/Miscellaneous/Text.hpp"
+#include "Tools/Physics/Physics.hpp"
 
 namespace Layer
 {
@@ -169,12 +170,27 @@ namespace Layer
 		return coord;
 	}
 
-	Object::Object(std::string _name, sf::Vector2f _position, sf::Vector2f _size, bool _visibility, CollidType _type, b2WorldId _world)
+	Object::Object(std::string _name, sf::Vector2f _position, sf::Vector2f _size, bool _visibility, CollidType _type, b2WorldId* _world)
 	{
 		m_name = _name;
 		m_size = _size;
-		m_position = m_position;
+		m_position = _position;
 		m_visibility = _visibility;
+
+		switch (_type)
+		{
+		case CollidType::Collision:
+		case CollidType::Trigger:
+			b2ShapeId shape;
+
+			Physics::Transform tr;
+			tr.position = Vec2(m_position.x, m_position.y);
+
+			m_body = Physics::CreateBody(*_world, Physics::STATIC, tr, nullptr);
+			shape = Physics::CreateBoxCollider(m_body, { Vec2(_size.x/2,_size.y/2), 0.f, Vec2(_size.x, _size.y) });
+
+			break;
+		}
 	}
 
 	Object::~Object()
