@@ -57,7 +57,7 @@ bool Button::ReturnState(void)
 void Button::OnTriggerEnter(ColEvent _col)
 {
 	// only if is a player or a box that collide with the button, it will be pressed
-	if (_col.other->GetClassName() == "Player" || _col.other->GetClassName() == "Box")
+	/*if (_col.other->GetClassName() == "Player" || _col.other->GetClassName() == "Box")
 	{
 		isPressed = true;
 		Logger::Debug("Button pressed !" + _col.other->GetClassName());
@@ -70,7 +70,7 @@ void Button::OnTriggerEnter(ColEvent _col)
 				interacte->OnInteract(this);
 			}
 		}
-	}
+	}*/
 }
 
 void Button::OnTriggerExit(ColEvent _col)

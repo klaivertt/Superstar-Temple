@@ -58,7 +58,7 @@ void Game::Load(void)
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
 	*/
 
-	mappy = new Map("Assets/Map/PlayMap");
+	mappy = new Map("Assets/Map/PlayMap", &data->physicsWorld);
 	view.setViewport(sf::FloatRect(0, 0, 1, 1));
 	////temp wall
 	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
