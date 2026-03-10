@@ -1,6 +1,8 @@
 #include "SpikeTrap.hpp"
 #include "Tools/Physics/Physics.hpp"
 
+#include "../Player/Player.hpp"
+
 SpikeTrap::SpikeTrap(GameData* _data) : Interactable(_data)
 {
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/SpikeTrap.png"));
@@ -22,7 +24,12 @@ void SpikeTrap::Draw(sf::RenderTarget* _render)
 
 void SpikeTrap::OnCollisionEnter(ColEvent _col)
 {
-	//perte de vie du player
+	Player* player = dynamic_cast<Player*>(_col.other);
+
+	if (player)
+	{
+		player->SetHealth(player->GetHealth() - 10.f);
+	}
 }
 
 void SpikeTrap::OnCollisionExit(ColEvent _col)
@@ -32,4 +39,9 @@ void SpikeTrap::OnCollisionExit(ColEvent _col)
 void SpikeTrap::OnInteract(Actor* _interactingActor)
 {
 	//si bouton appuyé -> désactiver le piège
+}
+
+void SpikeTrap::OnTriggerEnter(ColEvent _col)
+{
+
 }

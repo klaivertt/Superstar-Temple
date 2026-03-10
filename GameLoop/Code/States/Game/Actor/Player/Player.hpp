@@ -35,7 +35,12 @@ public:
 	void SetHealth(float _health);
 	float GetMaxHealth() const;
 
+	void ApplyFire(float _damagePerSecond, float _time);
 private:
+	bool fire = false;
+	float fireTime = 0.f;
+	float fireDamage = 0.f;
+
 	b2ShapeId collider = b2ShapeId();
 	State state = State::IDLE;
 	Vec2 dir = { 0.f, 0.f };
