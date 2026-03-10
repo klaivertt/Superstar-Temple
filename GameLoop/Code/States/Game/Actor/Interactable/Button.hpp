@@ -5,9 +5,6 @@
 #include "Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
-
-#include <vector>
-
 class Button : public Interactable
 {
 private:

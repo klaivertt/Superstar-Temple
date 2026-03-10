@@ -3,8 +3,6 @@
 
 #include "../Player/Player.hpp"
 
-#include <cmath>
-
 FireTrap::FireTrap(GameData* _data, Vec2 _pos) : Interactable(_data)
 {
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/FireTrapOn.png"));
