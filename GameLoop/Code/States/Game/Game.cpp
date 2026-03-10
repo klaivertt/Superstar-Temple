@@ -26,27 +26,27 @@ void Game::Load(void)
 {
 	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n) { ResetScene(); });
 	data->inputs->GetPressedDelegate("DEBUG")->Add(this, &Game::OnPressedDebugKey);
-	
+
 	// Les acteurs sont ajout�s automatiquement � la sc�ne donc pas
 	// besoin de les g�rer :)
 
 	Scene::Load();
 	player = new Player(data);
-	key = new Key(data, Vec2(400, 100));
+	key = new Key(data, Vec2(400, 100), KEY_LEVEL_1);
 	box = new Box(data, Vec2(500, 100));
 	fireButton = new Button(data, Vec2(600, 100));
 	spikeButton = new Button(data, Vec2(700, 100));
 	button = new Button(data, Vec2(800, 100));
 	fireTrap = new FireTrap(data, Vec2(600, 300));
 	spikeTrap = new SpikeTrap(data, Vec2(700, 300));
-	door = new Door(data, Vec2(800, 300));
+	door = new Door(data, Vec2(800, 300), DOOR_LEVEL_2);
 	button->SetTarget(door);
 	key->SetTarget(door);
 	fireButton->SetTarget(fireTrap);
 	spikeButton->SetTarget(spikeTrap);
 
 	timer = 0.f;
-	hud = new HUD(data,timer);
+	hud = new HUD(data, timer);
 
 
 	playerUi = new PlayerUi(data, player);
@@ -79,7 +79,7 @@ void Game::Update(float _dt)
 	Scene::Update(_dt);
 	hud->Update(_dt);
 	b2Vec2 pPose = b2Body_GetPosition(player->body);
-	view.setCenter(sf::Vector2f(pPose.x*64, -pPose.y*64 + SCREEN_H /4));
+	view.setCenter(sf::Vector2f(pPose.x * 64, -pPose.y * 64 + SCREEN_H / 4));
 }
 
 void Game::Draw(sf::RenderTarget* _render)
@@ -88,7 +88,7 @@ void Game::Draw(sf::RenderTarget* _render)
 	_render->setView(view);
 	//mappy->Draw(*_render);
 	Scene::Draw(_render);
-	
+
 }
 
 void Game::Destroy(void)

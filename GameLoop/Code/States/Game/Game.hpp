@@ -18,6 +18,8 @@ class Button;
 class FireTrap;
 class SpikeTrap;
 class Door;
+enum DoorLevel;
+enum KeyLevel;
 
 struct Game : public Scene
 {
