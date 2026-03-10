@@ -29,7 +29,7 @@ void Game::Load(void)
 
 	Scene::Load();
 	player = new Player(data, Vec2(mappy->m_playerSpawn[0]), "", sf::Color(125, 200, 125));
-	player2 = new Player(data, Vec2(220.f, 100.f), "P2", sf::Color(220, 170, 90));
+	player2 = new Player(data, Vec2(mappy->m_playerSpawn[1]), "P2", sf::Color(220, 170, 90));
 	key = new Key(data, Vec2(400, 100));
 	box = new Box(data, Vec2(500, 100));
 	fireButton = new Button(data, Vec2(600, 100));
@@ -77,8 +77,8 @@ void Game::Update(float _dt)
 	Scene::Update(_dt);
 	b2Vec2 p1Pose = b2Body_GetPosition(player->body);
 	b2Vec2 p2Pose = b2Body_GetPosition(player2->body);
-	playerOneView.setCenter(sf::Vector2f(p1Pose.x * 64.f, -p1Pose.y * 64.f + SCREEN_H / 4.f));
-	playerTwoView.setCenter(sf::Vector2f(p2Pose.x * 64.f, -p2Pose.y * 64.f + SCREEN_H / 4.f));
+	playerOneView.setCenter(sf::Vector2f(p1Pose.x * 64.f, -p1Pose.y * 64.f));
+	playerTwoView.setCenter(sf::Vector2f(p2Pose.x * 64.f, -p2Pose.y * 64.f));
 }
 
 void Game::Draw(sf::RenderTarget* _render)
