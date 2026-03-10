@@ -13,9 +13,9 @@ void Player::InitInputs()
 	data->inputs->GetPressedDelegate("Interact")->Add(this, &Player::OnInteract);
 }
 
-Player::Player(GameData* _data): Actor(_data)
+Player::Player(GameData* _data, Vec2 _pos) : Actor(_data)
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(100, 100), 0.f, Vec2(0) }, this, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { _pos, 0.f, Vec2(0) }, this, true);
 	//Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64.f) });
 	Physics::CreateCircleCollider(body, { Vec2(0,0), 0.f, Vec2(0.f) }, 31.f);
 	b2Body_SetLinearDamping(body, 5.f);

@@ -27,9 +27,11 @@ void Game::Load(void)
 	
 	// Les acteurs sont ajout�s automatiquement � la sc�ne donc pas
 	// besoin de les g�rer :)
+	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
+	mappy = new Map("Assets/Map/PlayMap", &data->physicsWorld);
 
 	Scene::Load();
-	player = new Player(data);
+	player = new Player(data, Vec2(mappy->m_playerSpawn[0]));
 	key = new Key(data, Vec2(400, 100));
 	box = new Box(data, Vec2(500, 100));
 	fireButton = new Button(data, Vec2(600, 100));
@@ -47,7 +49,7 @@ void Game::Load(void)
 	playerUi = new PlayerUi(data, player);
 
 	// desactivate gravity 
-	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
+	
 
 	//temp ground
 	/*groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, {Vec2(900, 500), 0.f, Vec2(1800, 50)}, nullptr);
@@ -58,9 +60,12 @@ void Game::Load(void)
 	groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });
 	*/
 
-	mappy = new Map("Assets/Map/PlayMap", &data->physicsWorld);
+	
 	view.reset(sf::FloatRect(0, 0, SCREEN_W, SCREEN_H));
 	view.setViewport(sf::FloatRect(0, 0, 1,1));
+	//view.setViewport(sf::FloatRect(0, 0, 1, 1));
+	// Dezoom to have more vision on the map
+	//view.setSize(SCREEN_W, SCREEN_H);
 	////temp wall
 	//groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 300), 0.f, Vec2(50, 600) }, nullptr);
 	//groundShape = Physics::CreateBoxCollider(groundBody, { Vec2(0,0), 0.f, Vec2(50, 600) });

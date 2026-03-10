@@ -19,7 +19,7 @@ public:
 		IDLE,
 		WALK
 	};
-	Player(GameData* _data);
+	Player(GameData* _data, Vec2 _pos = { 100.f, 100.f });
 	virtual std::string GetClassName(void) override { return "Player"; }
 
 	virtual void Update(float _dt) override;
