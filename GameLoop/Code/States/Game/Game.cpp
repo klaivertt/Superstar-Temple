@@ -2,6 +2,7 @@
 
 #include "Actor/BasicCube.hpp"
 #include "../../GameLoop/Tools/Miscellaneous/Animation.hpp"
+#include "Code/States/Game/HUD.hpp"
 
 #include "Code/States/Game/Actor/Player/Player.hpp"
 #include "Code/States/Game/Actor/Player/PlayerUi.hpp"
@@ -11,6 +12,7 @@
 #include "Code/States/Game/Actor/Interactable/FireTrap.hpp"
 #include "Code/States/Game/Actor/Interactable/SpikeTrap.hpp"
 #include "Code/States/Game/Actor/Interactable/Door.hpp"
+
 
 Game::Game(GameData* _data) : Scene(_data)
 {
@@ -39,7 +41,10 @@ void Game::Load(void)
 	key->SetTarget(door);
 	fireButton->SetTarget(fireTrap);
 	spikeButton->SetTarget(spikeTrap);
-	
+
+	timer = 0.f;
+	hud = new HUD(data,timer);
+
 
 	playerUi = new PlayerUi(data, player);
 
@@ -57,11 +62,14 @@ void Game::Load(void)
 
 void Game::Update(float _dt)
 {
+	timer += _dt;
 	Scene::Update(_dt);
+	hud->Update(_dt);
 }
 
 void Game::Draw(sf::RenderTarget* _render)
 {
+	hud->draw(_render);
 	Scene::Draw(_render);
 }
 

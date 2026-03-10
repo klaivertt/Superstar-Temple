@@ -8,6 +8,7 @@
 #include "../../GameLoop/Tools/Miscellaneous/Inputs.hpp"
 #include "Tools/Physics/Physics.hpp"
 
+class HUD;
 class Animation;
 class Player;
 class PlayerUi;
@@ -32,6 +33,9 @@ protected:
 	SpikeTrap* spikeTrap = nullptr;
 	PlayerUi* playerUi = nullptr;
 	Door* door = nullptr;
+
+	float timer = 0.f;
+	HUD* hud = nullptr;
 
 	//temp ground
 	b2BodyId groundBody = b2BodyId();

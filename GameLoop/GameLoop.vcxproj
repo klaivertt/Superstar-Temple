@@ -186,6 +186,7 @@
     <ClCompile Include="Code\States\Game\Actor\Player\Player.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Player\PlayerUi.cpp" />
     <ClCompile Include="Code\States\Game\Game.cpp" />
+    <ClCompile Include="Code\States\Game\HUD.cpp" />
     <ClCompile Include="Code\States\Menu\Menu.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Dependencies\include\ImGui\imgui-SFML.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="Code\Core\Load.hpp" />
     <ClInclude Include="Code\Core\PollEvents.hpp" />
     <ClInclude Include="Code\Core\Update.hpp" />
+    <ClInclude Include="Code\States\Game\HUD.hpp" />
     <ClInclude Include="Code\States\Menu\Menu.hpp" />
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="Dependencies\include\box2d\base.h" />
