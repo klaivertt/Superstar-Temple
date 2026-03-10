@@ -41,6 +41,7 @@
     <ClCompile Include="Code\States\Game\Actor\Interactable\Button.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Interactable.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\Key.cpp" />
+    <ClCompile Include="Code\States\Game\Actor\Interactable\Stair.cpp" />
     <ClCompile Include="Tools\UI\AutoUi.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\FireTrap.cpp" />
     <ClCompile Include="Code\States\Game\Actor\Interactable\SpikeTrap.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="Code\States\Game\Actor\Interactable\Button.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Interactable.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\Key.hpp" />
+    <ClInclude Include="Code\States\Game\Actor\Interactable\Stair.hpp" />
     <ClInclude Include="Tools\UI\AutoUi.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\FireTrap.hpp" />
     <ClInclude Include="Code\States\Game\Actor\Interactable\SpikeTrap.hpp" />

@@ -8,7 +8,7 @@
 class Interactable : public Actor
 {
 protected:
-	void SetTriggerRange(float _range, Vec2 _decal = Vec2(0.f));
+	void SetTriggerRange(float _range, Vec2 _decal = Vec2(0.f,0.f));
 	bool ActivateTarget(Actor* _interactingActor = nullptr);
 
 	float triggerRange = 0.f;
@@ -31,6 +31,7 @@ public:
 
 	virtual void OnInteract(Actor* _interactingActor);
 	virtual void SetOwner(Actor* _owner);
+	virtual bool IsOwnedBy(const Actor* _actor) const;
 	virtual void SetTarget(Actor* _target);
 	virtual void ClearTarget();
 

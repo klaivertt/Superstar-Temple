@@ -38,6 +38,7 @@ public:
 	void SetHealth(float _health);
 	float GetMaxHealth() const;
 	void TakeDamage(float _damage);
+	void Respawn();
 
 	void ApplyFire(float _damagePerSecond, float _time);
 private:
@@ -52,6 +53,7 @@ private:
 	float health = 100.f;
 	float maxHealth = 100.f;
 	float healthInPercent = 100.f;
+	Vec2 spawnPosition = { 100.f, 100.f };
 	std::string inputPrefix;
 	std::string debugWindowName = "Player";
 	ParticleSystem fireParticles;

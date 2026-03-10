@@ -29,6 +29,7 @@ void Player::InitInputs()
 Player::Player(GameData* _data, Vec2 _spawnPosition, const std::string& _inputPrefix, sf::Color _color) : Actor(_data)
 {
 	inputPrefix = _inputPrefix;
+	spawnPosition = _spawnPosition;
 	debugWindowName = inputPrefix.empty() ? "Player" : "Player " + inputPrefix;
 	fireParticles = ParticleSystem(
 		{
@@ -85,6 +86,11 @@ void Player::Update(float _dt)
 		{
 			fire = false;
 		}
+	}
+
+	if (health <= 0.f)
+	{
+		Respawn();
 	}
 
 	switch (state)
@@ -184,6 +190,32 @@ void Player::TakeDamage(float _damage)
 		EmitBloodParticles(std::max(3, static_cast<int>(std::ceil(damageTaken * 0.8f))), 1.f + damageTaken * 0.05f);
 		bloodParticleCooldown = 0.1f;
 	}
+}
+
+void Player::Respawn()
+{
+	if (currentInteractable != nullptr && currentInteractable->IsOwnedBy(this))
+	{
+		currentInteractable->OnInteract(this);
+	}
+
+	currentInteractable = nullptr;
+	fire = false;
+	fireTime = 0.f;
+	fireDamage = 0.f;
+	fireParticleTimer = 0.f;
+	bloodParticleCooldown = 0.f;
+	health = maxHealth;
+	healthInPercent = 100.f;
+	dir = Vec2(0.f, 0.f);
+	position = spawnPosition;
+
+	b2Body_SetLinearVelocity(body, { 0.f, 0.f });
+	Physics::SetBodyPosition(body, spawnPosition);
+	Physics::SetBodyRotation(body, 0.f);
+	sprite->SetPosition(spawnPosition);
+
+	Logger::Debug(debugWindowName + " respawned at " + Logger::Vec2(sf::Vector2f(spawnPosition.x, spawnPosition.y)));
 }
 
 void Player::UpdateIdle(float _dt)

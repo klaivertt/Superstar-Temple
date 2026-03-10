@@ -11,7 +11,53 @@
 #include "Code/States/Game/Actor/Interactable/FireTrap.hpp"
 #include "Code/States/Game/Actor/Interactable/SpikeTrap.hpp"
 #include "Code/States/Game/Actor/Interactable/Door.hpp"
+#include "Code/States/Game/Actor/Interactable/Stair.hpp"
 #include "Code/States/Game/Actor/Teleporter.hpp"
+
+#include <array>
+#include <map>
+
+namespace
+{
+	sf::Color GetLinkedInteractableColor(int _linkId)
+	{
+		static const std::array<sf::Color, 15> palette =
+		{
+			sf::Color(227, 74, 51),
+			sf::Color(52, 152, 219),
+			sf::Color(46, 204, 113),
+			sf::Color(241, 196, 15),
+			sf::Color(230, 126, 34),
+			sf::Color(155, 89, 182),
+			sf::Color(26, 188, 156),
+			sf::Color(231, 76, 60),
+			sf::Color(52, 73, 94),
+			sf::Color(22, 160, 133),
+			sf::Color(243, 156, 18),
+			sf::Color(142, 68, 173),
+			sf::Color(39, 174, 96),
+			sf::Color(41, 128, 185),
+			sf::Color(192, 57, 43)
+		};
+
+		if (_linkId <= 0)
+		{
+			return sf::Color(220, 220, 220);
+		}
+
+		return palette[static_cast<size_t>(_linkId - 1) % palette.size()];
+	}
+
+	int GetPairedStairId(int _linkId)
+	{
+		if (_linkId <= 0)
+		{
+			return -1;
+		}
+
+		return (_linkId % 2 == 0) ? (_linkId - 1) : (_linkId + 1);
+	}
+}
 
 Game::Game(GameData* _data) : Scene(_data)
 {
@@ -31,18 +77,58 @@ void Game::Load(void)
 	Scene::Load();
 	player = new Player(data, Vec2(mappy->m_playerSpawn[0]), "", sf::Color(125, 200, 125));
 	player2 = new Player(data, Vec2(mappy->m_playerSpawn[1]), "P2", sf::Color(220, 170, 90));
-	key = new Key(data, Vec2(400, 100));
 	box = new Box(data, Vec2(500, 100));
 	fireButton = new Button(data, Vec2(600, 100));
 	spikeButton = new Button(data, Vec2(700, 100));
 	button = new Button(data, Vec2(800, 100));
 	fireTrap = new FireTrap(data, Vec2(600, 300));
 	spikeTrap = new SpikeTrap(data, Vec2(700, 300));
-	door = new Door(data, Vec2(800, 300));
-	button->SetTarget(door);
-	key->SetTarget(door);
 	fireButton->SetTarget(fireTrap);
 	spikeButton->SetTarget(spikeTrap);
+
+	doorsById.clear();
+	for (const Map::InteractableSpawn& doorSpawn : mappy->m_doorSpawns)
+	{
+		Door* spawnedDoor = new Door(data, Vec2(doorSpawn.position), DOOR_LEVEL_1);
+		spawnedDoor->SetColor(GetLinkedInteractableColor(doorSpawn.linkId));
+
+		if (doorSpawn.linkId > 0 && doorsById.find(doorSpawn.linkId) == doorsById.end())
+		{
+			doorsById[doorSpawn.linkId] = spawnedDoor;
+		}
+	}
+
+	for (const Map::InteractableSpawn& keySpawn : mappy->m_keySpawns)
+	{
+		Key* spawnedKey = new Key(data, Vec2(keySpawn.position), KEY_LEVEL_1);
+		spawnedKey->SetColor(GetLinkedInteractableColor(keySpawn.linkId));
+
+		const std::map<int, Door*>::const_iterator doorIt = doorsById.find(keySpawn.linkId);
+		if (doorIt != doorsById.end())
+		{
+			spawnedKey->SetTarget(doorIt->second);
+			Logger::Debug("Key " + keySpawn.name + " linked to door " + doorIt->second->name);
+		}
+	}
+
+	std::map<int, Stair*> stairsById;
+	for (const Map::InteractableSpawn& stairSpawn : mappy->m_stairSpawns)
+	{
+		Stair* spawnedStair = new Stair(data, Vec2(stairSpawn.position), stairSpawn.linkId);
+		spawnedStair->SetColor(GetLinkedInteractableColor(std::min(stairSpawn.linkId, GetPairedStairId(stairSpawn.linkId))));
+		stairsById[stairSpawn.linkId] = spawnedStair;
+	}
+
+	for (const std::pair<const int, Stair*>& stairEntry : stairsById)
+	{
+		const int pairedId = GetPairedStairId(stairEntry.first);
+		const std::map<int, Stair*>::const_iterator stairIt = stairsById.find(pairedId);
+		if (stairIt != stairsById.end())
+		{
+			stairEntry.second->SetTarget(stairIt->second);
+		}
+	}
+
 	new Teleporter(data);
 	
 

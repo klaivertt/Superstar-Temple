@@ -23,6 +23,7 @@ private:
 	bool isOpen = false;
 public:
 	Door(GameData* _data, Vec2 _pos, DoorLevel _level);
+	void SetColor(const sf::Color& _color);
 
 	std::string GetClassName(void) override { return "Box"; }
 

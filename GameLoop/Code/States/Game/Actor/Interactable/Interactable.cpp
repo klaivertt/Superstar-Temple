@@ -94,6 +94,11 @@ void Interactable::SetOwner(Actor* _owner)
 	owner = _owner;
 }
 
+bool Interactable::IsOwnedBy(const Actor* _actor) const
+{
+	return owner == _actor;
+}
+
 void Interactable::OnInteract(Actor* _interactingActor)
 {
 }

@@ -24,6 +24,7 @@ private:
 public:
 	Key(GameData* _data, Vec2 _pos, KeyLevel _level);
 	b2ShapeId box;
+	void SetColor(const sf::Color& _color);
 
 	std::string GetClassName(void) override { return "Key"; }
 

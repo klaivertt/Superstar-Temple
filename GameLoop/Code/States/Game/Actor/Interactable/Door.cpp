@@ -24,6 +24,11 @@ Door::Door(GameData* _data, Vec2 _pos, DoorLevel _level) : Interactable(_data)
 	CreateCollider();
 }
 
+void Door::SetColor(const sf::Color& _color)
+{
+	sprite.SetColor(_color);
+}
+
 void Door::Update(float _dt)
 {
 	sprite.SetPosition(Physics::GetBodyPosition(body));

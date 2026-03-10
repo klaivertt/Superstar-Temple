@@ -33,6 +33,11 @@ Key::Key(GameData* _data, Vec2 _pos, KeyLevel _level) : Interactable(_data)
 	SetTriggerRange(triggerRange);
 }
 
+void Key::SetColor(const sf::Color& _color)
+{
+	sprite.SetColor(_color);
+}
+
 void Key::Update(float _dt)
 {
 	if (owner != nullptr)

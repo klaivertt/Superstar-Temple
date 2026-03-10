@@ -6,6 +6,35 @@
 #include "Tools/Parser/Parser.hpp"
 #include "Tools/Map/Map.hpp"
 
+namespace
+{
+	int ExtractLinkId(const std::string& _name)
+	{
+		const size_t slashIndex = _name.find_last_of('/');
+		if (slashIndex == std::string::npos)
+		{
+			return -1;
+		}
+
+		std::string digits;
+		for (size_t i = slashIndex + 1; i < _name.size(); ++i)
+		{
+			const char character = _name[i];
+			if (character >= '0' && character <= '9')
+			{
+				digits += character;
+			}
+		}
+
+		if (digits.empty())
+		{
+			return -1;
+		}
+
+		return std::stoi(digits);
+	}
+}
+
 namespace Layer
 {
 	Layer::Layer()
@@ -188,15 +217,18 @@ namespace Layer
 			}
 			else if (PRSR::ContentWord(m_name, "KEY"))
 			{
+				_map->m_keySpawns.push_back({ m_name, ExtractLinkId(m_name), m_position });
 				Logger::Debug("Key " + m_name + " detected at : " + Logger::Vec2(m_position));
 			}
 			else if (PRSR::ContentWord(m_name, "DOOR"))
 			{
+				_map->m_doorSpawns.push_back({ m_name, ExtractLinkId(m_name), m_position });
 				Logger::Debug("Door " + m_name + " detected at : " + Logger::Vec2(m_position));
 
 			}
 			else if (PRSR::ContentWord(m_name, "STARE"))
 			{
+				_map->m_stairSpawns.push_back({ m_name, ExtractLinkId(m_name), m_position });
 				Logger::Debug("Stare " + m_name + " detected at : " + Logger::Vec2(m_position));
 			}
 

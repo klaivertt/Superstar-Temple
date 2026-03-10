@@ -14,6 +14,13 @@ namespace Layer
 class Map
 {
 public:
+	struct InteractableSpawn
+	{
+		std::string name;
+		int linkId = -1;
+		sf::Vector2f position;
+	};
+
 	Map();
 	Map(std::string _path, b2WorldId* _world);
 	~Map();
@@ -23,6 +30,9 @@ public:
 	void DrawLayer(sf::RenderTarget& _target, unsigned LayerID);
 	unsigned GetNumOfLayers();
 	std::vector<sf::Vector2f> m_playerSpawn;
+	std::vector<InteractableSpawn> m_keySpawns;
+	std::vector<InteractableSpawn> m_doorSpawns;
+	std::vector<InteractableSpawn> m_stairSpawns;
 private:
 	std::vector<Layer::TileSet*> m_tileSets;
 	std::vector<Layer::Layer*> m_Layers;
