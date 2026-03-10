@@ -6,13 +6,11 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
-#define FIRE_DURATION 2.f
-#define FLAME_COOLDOWN 5.f
-
 class FireTrap : public Interactable
 {
 private:
 	Sprite sprite;
+	float visualTimer = 0.f;
 
 public:
 	FireTrap(GameData* _data, Vec2 _pos);
@@ -32,8 +30,8 @@ public:
 	void FlameDown();
 	void FlameUp();
 	void CreateCollider();
+	bool IsFlameActive() const;
 
-	float flameTimer = 0.f;
 	bool isFlameDown = false;
 	bool isFlameDesactivatedByPlayer = false;
 

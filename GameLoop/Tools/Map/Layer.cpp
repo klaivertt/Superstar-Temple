@@ -6,33 +6,30 @@
 #include "Tools/Parser/Parser.hpp"
 #include "Tools/Map/Map.hpp"
 
-namespace
+int ExtractLinkId(const std::string& _name)
 {
-	int ExtractLinkId(const std::string& _name)
+	const size_t slashIndex = _name.find_last_of('/');
+	if (slashIndex == std::string::npos)
 	{
-		const size_t slashIndex = _name.find_last_of('/');
-		if (slashIndex == std::string::npos)
-		{
-			return -1;
-		}
-
-		std::string digits;
-		for (size_t i = slashIndex + 1; i < _name.size(); ++i)
-		{
-			const char character = _name[i];
-			if (character >= '0' && character <= '9')
-			{
-				digits += character;
-			}
-		}
-
-		if (digits.empty())
-		{
-			return -1;
-		}
-
-		return std::stoi(digits);
+		return -1;
 	}
+
+	std::string digits;
+	for (size_t i = slashIndex + 1; i < _name.size(); ++i)
+	{
+		const char character = _name[i];
+		if (character >= '0' && character <= '9')
+		{
+			digits += character;
+		}
+	}
+
+	if (digits.empty())
+	{
+		return -1;
+	}
+
+	return std::stoi(digits);
 }
 
 namespace Layer
@@ -64,7 +61,7 @@ namespace Layer
 
 	void Layer::Draw(sf::RenderTarget& _target)
 	{
-		if(m_visibility)
+		if (m_visibility)
 		{
 			_target.draw(m_bakeSprite);
 		}
@@ -154,7 +151,7 @@ namespace Layer
 		for (int i = 0; i < m_gridLength; i++)
 		{
 			int u = m_grid[i] - 1;
-			if(u >= 0)
+			if (u >= 0)
 			{
 				sf::Vector2u position = IdToCoord(i);
 				m_tileSet->sp.setRotation(0);
@@ -266,7 +263,7 @@ namespace Layer
 			tr.position = Vec2(m_position.x, m_position.y);
 
 			m_body = Physics::CreateBody(*_world, Physics::STATIC, tr, nullptr);
-			shape = Physics::CreateBoxCollider(m_body, { Vec2(_size.x/2,_size.y/2), 0.f, Vec2(_size.x, _size.y) });
+			shape = Physics::CreateBoxCollider(m_body, { Vec2(_size.x / 2,_size.y / 2), 0.f, Vec2(_size.x, _size.y) });
 
 			break;
 		}
@@ -328,7 +325,7 @@ namespace Layer
 
 	void ObjectLayer::Bake()
 	{
-		m_bakeRender.create(m_size.x , m_size.y);
+		m_bakeRender.create(m_size.x, m_size.y);
 		m_bakeRender.clear(sf::Color::Black);
 		for (int i = 0; i < m_objects.size(); i++)
 		{

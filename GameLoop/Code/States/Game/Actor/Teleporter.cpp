@@ -1,38 +1,85 @@
 #include "Teleporter.hpp"
 
-#include "Interactable/Interactable.hpp"
-
-Teleporter::Teleporter(GameData* _data, std::string _name) : Actor(_data, _name)
+Teleporter::Teleporter(GameData* _data, Vec2 _pos, int _teleporterId) : Actor(_data)
 {
-	sf::Texture* texture = data->assets->GetTexture("Assets/Sprites/Game/Map/Teleporter.png");
+	teleporterId = _teleporterId;
+	portal.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/Teleporter.png"));
+	portal.SetOrigin(Vec2(0.5f, 0.5f));
+	portal.SetPosition(_pos);
 
-	first = new Sprite(texture, Vec2(0.5f, 0.5f));
-	second = new Sprite(texture, Vec2(0.5f, 0.5f));
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { _pos, 0.f, Vec2(64.f, 64.f) }, this, true);
+	Physics::CreateBoxTrigger(body, { Vec2(0, 0), 0.f, Vec2(64.f, 64.f) }, TP_TRIGGER);
+	position = _pos;
+	z = 0.05f;
+}
 
-	secondTeleporterLocal.x = 200.f;
-	secondTeleporterLocal.y = 50.f;
+bool Teleporter::CanTeleportActor(Actor* _actor)
+{
+	if (_actor == nullptr)
+	{
+		return false;
+	}
 
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(500, 200), 0.f, Vec2(64, 64) }, this, true);
-	Physics::CreateBoxTrigger(body, { Vec2(0,0), 0.f, Vec2(64, 64) }, TP_LEFT);
-	Physics::CreateBoxTrigger(body, { secondTeleporterLocal, 0.f, Vec2(64, 64) }, TP_RIGHT);
+	if (_actor->GetClassName() == "Player")
+	{
+		return false;
+	}
+	const std::unordered_map<Actor*, float>::iterator cooldownIt = recentlyTeleportedActors.find(_actor);
+	return cooldownIt == recentlyTeleportedActors.end() || cooldownIt->second <= 0.f;
+}
 
-	first->SetPosition(Physics::GetBodyPosition(body));
-	first->SetColor(sf::Color::Red);
-	second->SetPosition(Physics::GetBodyPosition(body) + secondTeleporterLocal);
-	second->SetColor(sf::Color::Green);
+void Teleporter::MarkActorAsTeleported(Actor* _actor)
+{
+	if (_actor != nullptr)
+	{
+		recentlyTeleportedActors[_actor] = TELEPORTER_COOLDOWN;
+	}
+}
+
+void Teleporter::SetTargetTeleporter(Teleporter* _teleporter)
+{
+	linkedTeleporter = _teleporter;
+}
+
+void Teleporter::SetColor(const sf::Color& _color)
+{
+	portal.SetColor(_color);
 }
 
 void Teleporter::Update(float _dt)
 {
 	Actor::Update(_dt);
-	first->SetRotation(first->GetRotation() + 60.f * _dt);
-	second->SetRotation(first->GetRotation() + 60.f * _dt);
+	visualTimer += _dt;
+	portal.SetPosition(Physics::GetBodyPosition(body));
+	portal.SetRotation(portal.GetRotation() + 55.f * _dt);
+
+	const float pulse = 0.92f + 0.08f * std::sin(visualTimer * 4.5f);
+	portal.SetScale(Vec2(pulse, pulse));
+
+	for (std::unordered_map<Actor*, float>::iterator it = recentlyTeleportedActors.begin(); it != recentlyTeleportedActors.end();)
+	{
+		it->second -= _dt;
+		if (it->second <= 0.f)
+		{
+			it = recentlyTeleportedActors.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 void Teleporter::Draw(sf::RenderTarget* _render)
 {
-	first->Draw(_render);
-	second->Draw(_render);
+	sf::CircleShape glow(38.f);
+	glow.setOrigin(38.f, 38.f);
+	glow.setPosition(portal.GetPosition().x, portal.GetPosition().y);
+	const sf::Color baseColor = portal.GetColor();
+	glow.setFillColor(sf::Color(baseColor.r, baseColor.g, baseColor.b, 70));
+	_render->draw(glow);
+
+	portal.Draw(_render);
 	Actor::Draw(_render);
 }
 
@@ -46,28 +93,29 @@ void Teleporter::OnCollisionExit(ColEvent _col)
 
 void Teleporter::OnTriggerEnter(ColEvent _col)
 {
-	Interactable* obj = dynamic_cast<Interactable*>(_col.other);
-
-	if (obj)
+	Actor* actor = dynamic_cast<Actor*>(_col.other);
+	if (linkedTeleporter == nullptr || actor == nullptr || actor == this || !b2Body_IsValid(actor->body))
 	{
-		if (_col.sensorId == TP_LEFT)
-		{
-			Vec2 basePos = Physics::GetBodyPosition(body);
+		return;
+	}
 
-			Vec2 pos = Physics::GetBodyPosition(obj->body);
-			Vec2 selfPos = Physics::GetBodyPosition(body);
-			Vec2 decal = Vec2(selfPos - pos);
-			Physics::SetBodyPosition(obj->body, basePos + secondTeleporterLocal + decal);
-		}
-		else
-		{
-			Vec2 basePos = Physics::GetBodyPosition(body);
+	if (!CanTeleportActor(actor) || !linkedTeleporter->CanTeleportActor(actor))
+	{
+		return;
+	}
 
-			Vec2 pos = Physics::GetBodyPosition(obj->body);
-			Vec2 selfPos = Physics::GetBodyPosition(body) + secondTeleporterLocal;
-			Vec2 decal = Vec2(selfPos - pos);
-			Physics::SetBodyPosition(obj->body, basePos + decal);
-		}
+	Vec2 entryPosition = Physics::GetBodyPosition(body);
+	Vec2 exitPosition = Physics::GetBodyPosition(linkedTeleporter->body);
+	Vec2 actorPosition = Physics::GetBodyPosition(actor->body);
+	Vec2 localOffset = actorPosition - entryPosition;
+
+	Physics::SetBodyPosition(actor->body, exitPosition + localOffset);
+	MarkActorAsTeleported(actor);
+	linkedTeleporter->MarkActorAsTeleported(actor);
+
+	if (actor->GetClassName() == "Box")
+	{
+		Physics::SetLinearVelocity(actor->body, Vec2(0.f, 0.f));
 	}
 }
 

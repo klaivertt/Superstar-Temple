@@ -6,13 +6,11 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
-#define SPIKE_DURATION 1.f
-#define SPIKE_COOLDOWN 2.f
-
 class SpikeTrap : public Interactable
 {
 private:
 	Sprite sprite;
+	float visualTimer = 0.f;
 
 public:
 	SpikeTrap(GameData* _data, Vec2 _pos);
@@ -32,9 +30,9 @@ public:
 	void SpikeDown();
 	void SpikeUp();
 	void CreateCollider();
+	bool IsDangerous() const;
 
 
-	float spikeTimer = 0.f;
 	bool isSpikeDown = false;
 	bool isSpikeDesactivatedByPlayer = false;
 

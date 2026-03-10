@@ -26,12 +26,6 @@ protected:
 	Player* player = nullptr;
 	Player* player2 = nullptr;
 	Key* key = nullptr;
-	Box* box = nullptr;
-	Button* button = nullptr;
-	Button* fireButton = nullptr;
-	Button* spikeButton = nullptr;
-	FireTrap* fireTrap = nullptr;
-	SpikeTrap* spikeTrap = nullptr;
 	PlayerUi* playerUi = nullptr;
 	PlayerUi* player2Ui = nullptr;
 	std::map<int, Door*> doorsById;

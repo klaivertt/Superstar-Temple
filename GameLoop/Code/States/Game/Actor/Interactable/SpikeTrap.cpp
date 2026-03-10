@@ -3,6 +3,8 @@
 
 #include "../Player/Player.hpp"
 
+#include <cmath>
+
 SpikeTrap::SpikeTrap(GameData* _data, Vec2 _pos) : Interactable(_data)
 {
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/SpikeTrapOn.png"));
@@ -12,41 +14,39 @@ SpikeTrap::SpikeTrap(GameData* _data, Vec2 _pos) : Interactable(_data)
 	sprite.SetPosition(Physics::GetBodyPosition(body));
 	
 	isSpikeDown = false;
-	spikeTimer = 0.f;
 }
 
 void SpikeTrap::Update(float _dt)
 {
+	visualTimer += _dt;
+	sprite.SetPosition(position);
 
 	if (isSpikeDesactivatedByPlayer)
 	{
 		if (!isSpikeDown)
 		{
 			SpikeDown();
-			spikeTimer = 0.f;
 		}
+	}
+	else if (isSpikeDown)
+	{
+		SpikeUp();
+	}
+
+	if (isSpikeDown)
+	{
+		const sf::Uint8 alpha = static_cast<sf::Uint8>(95.f + 35.f * (0.5f + 0.5f * std::sin(visualTimer * 5.f)));
+		sprite.SetColor(sf::Color(255, 255, 255, alpha));
 	}
 	else
 	{
-		if (!isSpikeDown)
-		{
-			spikeTimer += _dt;
-			if (spikeTimer >= SPIKE_DURATION)
-			{
-				SpikeDown();
-				spikeTimer = 0.f;
-			}
-		}
-		else
-		{
-			spikeTimer += _dt;
-			if (spikeTimer >= SPIKE_COOLDOWN)
-			{
-				SpikeUp();
-				spikeTimer = 0.f;
-			}
-		}
+		sprite.SetColor(sf::Color::White);
 	}
+}
+
+bool SpikeTrap::IsDangerous() const
+{
+	return !isSpikeDown;
 }
 
 void SpikeTrap::Draw(sf::RenderTarget* _render)
@@ -89,15 +89,16 @@ void SpikeTrap::SpikeDown()
 	isSpikeDown = true;
 
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/SpikeTrapOff.png"));
+	sprite.SetColor(sf::Color(255, 255, 255, 110));
 }
 
 void SpikeTrap::SpikeUp()
 {
+	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/SpikeTrapOn.png"));
+	sprite.SetColor(sf::Color::White);
 	CreateCollider();
 
 	isSpikeDown = false;
-
-	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/SpikeTrapOn.png"));
 
 }
 

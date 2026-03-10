@@ -15,6 +15,52 @@ Button::Button(GameData* _data, Vec2 _pos) : Interactable(_data)
 	//SetTriggerRange(triggerRange);
 }
 
+void Button::NotifyTargets()
+{
+	for (Interactable* interactable : targets)
+	{
+		if (interactable != nullptr)
+		{
+			interactable->OnInteract(this);
+		}
+	}
+}
+
+void Button::SetColor(const sf::Color& _color)
+{
+	sprite.SetColor(_color);
+}
+
+void Button::AddTarget(Interactable* _target)
+{
+	if (_target == nullptr)
+	{
+		return;
+	}
+
+	for (Interactable* existingTarget : targets)
+	{
+		if (existingTarget == _target)
+		{
+			return;
+		}
+	}
+
+	targets.push_back(_target);
+	Interactable::SetTarget(_target);
+}
+
+void Button::SetTarget(Actor* _target)
+{
+	AddTarget(dynamic_cast<Interactable*>(_target));
+}
+
+void Button::ClearTarget()
+{
+	targets.clear();
+	Interactable::ClearTarget();
+}
+
 void Button::Update(float _dt)
 {
 	sprite.SetPosition(Physics::GetBodyPosition(body));
@@ -32,7 +78,6 @@ void Button::OnCollisionEnter(ColEvent _col)
 
 void Button::OnCollisionExit(ColEvent _col)
 {
-	isPressed = false;
 }
 
 void Button::OnInteract(Actor* _interactingActor)
@@ -59,18 +104,13 @@ void Button::OnTriggerEnter(ColEvent _col)
 	{
 		if (Actor* actor = dynamic_cast<Actor*>(_col.other))
 		{
-			Logger::Debug("Button collided with " + _col.other->GetClassName());
 			if (actor->GetClassName() == "Player" || actor->GetClassName() == "Box")
 			{
-				isPressed = true;
-
-				if (target != nullptr)
+				pressingActorsCount++;
+				if (!isPressed)
 				{
-					if (Interactable* interactOwner = dynamic_cast<Interactable*>(target))
-					{
-						Interactable* interacte = dynamic_cast<Interactable*>(target);
-						interacte->OnInteract(this);
-					}
+					isPressed = true;
+					NotifyTargets();
 				}
 			}
 		}
@@ -79,13 +119,19 @@ void Button::OnTriggerEnter(ColEvent _col)
 
 void Button::OnTriggerExit(ColEvent _col)
 {
-	isPressed = false;
-	if (target != nullptr)
+	if (_col.other != nullptr)
 	{
-		if (Interactable* interactOwner = dynamic_cast<Interactable*>(target))
+		if (Actor* actor = dynamic_cast<Actor*>(_col.other))
 		{
-			Interactable* interacte = dynamic_cast<Interactable*>(target);
-			interacte->OnInteract(this);
+			if ((actor->GetClassName() == "Player" || actor->GetClassName() == "Box") && pressingActorsCount > 0)
+			{
+				pressingActorsCount--;
+				if (pressingActorsCount == 0 && isPressed)
+				{
+					isPressed = false;
+					NotifyTargets();
+				}
+			}
 		}
 	}
 }

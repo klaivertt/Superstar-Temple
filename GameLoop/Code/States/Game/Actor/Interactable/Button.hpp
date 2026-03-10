@@ -6,17 +6,27 @@
 #include "Tools/Miscellaneous/Sprite.hpp"
 #include "Interactable.hpp"
 
+#include <vector>
+
 class Button : public Interactable
 {
 private:
 	Sprite sprite;
 	sf::Texture texture;
 	bool isPressed = false;
+	int pressingActorsCount = 0;
+	std::vector<Interactable*> targets;
+
+	void NotifyTargets();
 
 public:
 	Button(GameData* _data, Vec2 _pos);
 
 	std::string GetClassName(void) override { return "Button"; }
+	void SetColor(const sf::Color& _color);
+	void AddTarget(Interactable* _target);
+	virtual void SetTarget(Actor* _target) override;
+	virtual void ClearTarget() override;
 
 	virtual void Update(float _dt) override;
 	virtual void Draw(sf::RenderTarget* _render) override;

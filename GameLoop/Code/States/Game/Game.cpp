@@ -14,49 +14,53 @@
 #include "Code/States/Game/Actor/Interactable/Stair.hpp"
 #include "Code/States/Game/Actor/Teleporter.hpp"
 
-#include <array>
-#include <map>
-
-namespace
+sf::Color GetLinkedInteractableColor(int _linkId)
 {
-	sf::Color GetLinkedInteractableColor(int _linkId)
+	std::array<sf::Color, 15> palette =
 	{
-		static const std::array<sf::Color, 15> palette =
-		{
-			sf::Color(227, 74, 51),
-			sf::Color(52, 152, 219),
-			sf::Color(46, 204, 113),
-			sf::Color(241, 196, 15),
-			sf::Color(230, 126, 34),
-			sf::Color(155, 89, 182),
-			sf::Color(26, 188, 156),
-			sf::Color(231, 76, 60),
-			sf::Color(52, 73, 94),
-			sf::Color(22, 160, 133),
-			sf::Color(243, 156, 18),
-			sf::Color(142, 68, 173),
-			sf::Color(39, 174, 96),
-			sf::Color(41, 128, 185),
-			sf::Color(192, 57, 43)
-		};
+		sf::Color(227, 74, 51),
+		sf::Color(52, 152, 219),
+		sf::Color(46, 204, 113),
+		sf::Color(241, 196, 15),
+		sf::Color(230, 126, 34),
+		sf::Color(155, 89, 182),
+		sf::Color(26, 188, 156),
+		sf::Color(231, 76, 60),
+		sf::Color(52, 73, 94),
+		sf::Color(22, 160, 133),
+		sf::Color(243, 156, 18),
+		sf::Color(142, 68, 173),
+		sf::Color(39, 174, 96),
+		sf::Color(41, 128, 185),
+		sf::Color(192, 57, 43)
+	};
 
-		if (_linkId <= 0)
-		{
-			return sf::Color(220, 220, 220);
-		}
-
-		return palette[static_cast<size_t>(_linkId - 1) % palette.size()];
+	if (_linkId <= 0)
+	{
+		return sf::Color(220, 220, 220);
 	}
 
-	int GetPairedStairId(int _linkId)
-	{
-		if (_linkId <= 0)
-		{
-			return -1;
-		}
+	return palette[static_cast<size_t>(_linkId - 1) % palette.size()];
+}
 
-		return (_linkId % 2 == 0) ? (_linkId - 1) : (_linkId + 1);
+int GetPairedStairId(int _linkId)
+{
+	if (_linkId <= 0)
+	{
+		return -1;
 	}
+
+	return (_linkId % 2 == 0) ? (_linkId - 1) : (_linkId + 1);
+}
+
+int GetPairedTeleporterId(int _linkId)
+{
+	if (_linkId <= 0)
+	{
+		return -1;
+	}
+
+	return (_linkId > 10) ? (_linkId - 10) : (_linkId + 10);
 }
 
 Game::Game(GameData* _data) : Scene(_data)
@@ -68,7 +72,7 @@ void Game::Load(void)
 {
 	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n) { ResetScene(); });
 	data->inputs->GetPressedDelegate("DEBUG")->Add(this, &Game::OnPressedDebugKey);
-	
+
 	// Les acteurs sont ajout�s automatiquement � la sc�ne donc pas
 	// besoin de les g�rer :)
 	b2World_SetGravity(data->physicsWorld, { 0.f, 0.f });
@@ -77,14 +81,11 @@ void Game::Load(void)
 	Scene::Load();
 	player = new Player(data, Vec2(mappy->m_playerSpawn[0]), "", sf::Color(125, 200, 125));
 	player2 = new Player(data, Vec2(mappy->m_playerSpawn[1]), "P2", sf::Color(220, 170, 90));
-	box = new Box(data, Vec2(500, 100));
-	fireButton = new Button(data, Vec2(600, 100));
-	spikeButton = new Button(data, Vec2(700, 100));
-	button = new Button(data, Vec2(800, 100));
-	fireTrap = new FireTrap(data, Vec2(600, 300));
-	spikeTrap = new SpikeTrap(data, Vec2(700, 300));
-	fireButton->SetTarget(fireTrap);
-	spikeButton->SetTarget(spikeTrap);
+
+	for (const Map::InteractableSpawn& boxSpawn : mappy->m_box)
+	{
+		new Box(data, Vec2(boxSpawn.position));
+	}
 
 	doorsById.clear();
 	for (const Map::InteractableSpawn& doorSpawn : mappy->m_doorSpawns)
@@ -129,14 +130,81 @@ void Game::Load(void)
 		}
 	}
 
-	new Teleporter(data);
-	
+	std::map<int, std::vector<FireTrap*>> fireTrapsById;
+	for (const Map::InteractableSpawn& fireTrapSpawn : mappy->m_fireTrap)
+	{
+		FireTrap* spawnedFireTrap = new FireTrap(data, Vec2(fireTrapSpawn.position));
+		fireTrapsById[fireTrapSpawn.linkId].push_back(spawnedFireTrap);
+	}
+
+	std::map<int, std::vector<SpikeTrap*>> spikeTrapsById;
+	for (const Map::InteractableSpawn& spikeSpawn : mappy->m_spike)
+	{
+		SpikeTrap* spawnedSpikeTrap = new SpikeTrap(data, Vec2(spikeSpawn.position));
+		spikeTrapsById[spikeSpawn.linkId].push_back(spawnedSpikeTrap);
+	}
+
+	std::map<int, std::vector<Button*>> buttonsById;
+	for (const Map::InteractableSpawn& buttonSpawn : mappy->m_button)
+	{
+		Button* spawnedButton = new Button(data, Vec2(buttonSpawn.position));
+		spawnedButton->SetColor(GetLinkedInteractableColor(buttonSpawn.linkId));
+		buttonsById[buttonSpawn.linkId].push_back(spawnedButton);
+	}
+
+	for (const std::pair<const int, std::vector<Button*>>& buttonEntry : buttonsById)
+	{
+		const int linkId = buttonEntry.first;
+
+		const std::map<int, std::vector<FireTrap*>>::const_iterator fireTrapIt = fireTrapsById.find(linkId);
+		if (fireTrapIt != fireTrapsById.end())
+		{
+			for (Button* buttonActor : buttonEntry.second)
+			{
+				for (FireTrap* fireTrapActor : fireTrapIt->second)
+				{
+					buttonActor->AddTarget(fireTrapActor);
+				}
+			}
+		}
+
+		const std::map<int, std::vector<SpikeTrap*>>::const_iterator spikeTrapIt = spikeTrapsById.find(linkId);
+		if (spikeTrapIt != spikeTrapsById.end())
+		{
+			for (Button* buttonActor : buttonEntry.second)
+			{
+				for (SpikeTrap* spikeTrapActor : spikeTrapIt->second)
+				{
+					buttonActor->AddTarget(spikeTrapActor);
+				}
+			}
+		}
+	}
+
+	std::map<int, Teleporter*> teleportersById;
+	for (const Map::InteractableSpawn& teleporterSpawn : mappy->m_tp)
+	{
+		Teleporter* spawnedTeleporter = new Teleporter(data, Vec2(teleporterSpawn.position), teleporterSpawn.linkId);
+		spawnedTeleporter->SetColor(GetLinkedInteractableColor(std::min(teleporterSpawn.linkId, GetPairedTeleporterId(teleporterSpawn.linkId))));
+		teleportersById[teleporterSpawn.linkId] = spawnedTeleporter;
+	}
+
+	for (const std::pair<const int, Teleporter*>& teleporterEntry : teleportersById)
+	{
+		const int pairedId = GetPairedTeleporterId(teleporterEntry.first);
+		const std::map<int, Teleporter*>::const_iterator teleporterIt = teleportersById.find(pairedId);
+		if (teleporterIt != teleportersById.end())
+		{
+			teleporterEntry.second->SetTargetTeleporter(teleporterIt->second);
+		}
+	}
+
 
 	playerUi = new PlayerUi(data, player, Vec2(20.f, 20.f));
 	player2Ui = new PlayerUi(data, player2, Vec2((SCREEN_W * 0.5f) + 20.f, 20.f));
 
 	// desactivate gravity 
-	
+
 
 	//temp ground
 	/*groundBody = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, {Vec2(900, 500), 0.f, Vec2(1800, 50)}, nullptr);
@@ -190,11 +258,11 @@ void Game::Draw(sf::RenderTarget* _render)
 	camera = nullptr;
 	_render->setView(_render->getDefaultView());
 
-	
+
 	_render->draw(separator);
 
 	DrawUi(_render);
-	
+
 }
 
 void Game::Destroy(void)
