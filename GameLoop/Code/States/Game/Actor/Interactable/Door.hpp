@@ -12,9 +12,8 @@ private:
 	Sprite sprite;
 
 	bool isOpen = false;
-
 public:
-	Door(GameData* _data);
+	Door(GameData* _data, Vec2 _pos);
 
 	std::string GetClassName(void) override { return "Box"; }
 

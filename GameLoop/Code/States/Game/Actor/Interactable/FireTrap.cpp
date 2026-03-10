@@ -3,12 +3,12 @@
 
 #include "../Player/Player.hpp"
 
-FireTrap::FireTrap(GameData* _data) : Interactable(_data)
+FireTrap::FireTrap(GameData* _data, Vec2 _pos) : Interactable(_data)
 {
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/FireTrapOn.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
-
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(600, 200), 0.f, Vec2(64, 64) }, this, true);
+	position = _pos;
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { _pos, 0.f, Vec2(64, 64) }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 
 	sprite.SetPosition(Physics::GetBodyPosition(body));
@@ -105,6 +105,6 @@ void FireTrap::FlameUp()
 
 void FireTrap::CreateCollider()
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(600, 200), 0.f, Vec2(64, 64) }, this, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { position, 0.f, Vec2(64, 64) }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 }

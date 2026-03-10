@@ -15,7 +15,7 @@ private:
 	Sprite sprite;
 
 public:
-	FireTrap(GameData* _data);
+	FireTrap(GameData* _data, Vec2 _pos);
 
 	std::string GetClassName(void) override { return "FireTrap"; }
 

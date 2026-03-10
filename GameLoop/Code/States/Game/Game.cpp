@@ -27,14 +27,14 @@ void Game::Load(void)
 
 	Scene::Load();
 	player = new Player(data);
-	key = new Key(data);
-	box = new Box(data);
-	fireButton = new Button(data);
-	spikeButton = new Button(data);
-	button = new Button(data);
-	fireTrap = new FireTrap(data);
-	spikeTrap = new SpikeTrap(data);
-	door = new Door(data);
+	key = new Key(data, Vec2(400, 100));
+	box = new Box(data, Vec2(500, 100));
+	fireButton = new Button(data, Vec2(600, 100));
+	spikeButton = new Button(data, Vec2(700, 100));
+	button = new Button(data, Vec2(800, 100));
+	fireTrap = new FireTrap(data, Vec2(600, 300));
+	spikeTrap = new SpikeTrap(data, Vec2(700, 300));
+	door = new Door(data, Vec2(800, 300));
 	button->SetTarget(door);
 	key->SetTarget(door);
 	fireButton->SetTarget(fireTrap);

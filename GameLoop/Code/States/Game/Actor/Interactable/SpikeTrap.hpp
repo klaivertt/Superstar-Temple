@@ -15,7 +15,7 @@ private:
 	Sprite sprite;
 
 public:
-	SpikeTrap(GameData* _data);
+	SpikeTrap(GameData* _data, Vec2 _pos);
 
 	std::string GetClassName(void) override { return "SpikeTrap"; }
 

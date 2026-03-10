@@ -3,12 +3,12 @@
 
 #include "../Player/Player.hpp"
 
-SpikeTrap::SpikeTrap(GameData* _data) : Interactable(_data)
+SpikeTrap::SpikeTrap(GameData* _data, Vec2 _pos) : Interactable(_data)
 {
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/SpikeTrapOn.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
-
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(300, 200), 0.f, Vec2(64, 64) }, this, true);
+	position = _pos;
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { _pos, 0.f, Vec2(64, 64) }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 
 	sprite.SetPosition(Physics::GetBodyPosition(body));
@@ -105,7 +105,7 @@ void SpikeTrap::SpikeUp()
 
 void SpikeTrap::CreateCollider()
 {
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(300, 200), 0.f, Vec2(64, 64) }, this, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { position, 0.f, Vec2(64, 64) }, this, true);
 	Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 }
 

@@ -2,13 +2,13 @@
 #include "Tools/Physics/Physics.hpp"
 #include "../Player/Player.hpp"
 
-Key::Key(GameData* _data) : Interactable(_data)
+Key::Key(GameData* _data, Vec2 _pos) : Interactable(_data)
 {
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Interactable/Key.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 	sprite.SetScale(Vec2(0.5f, 0.5f));
 
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { Vec2(400, 100), 0.f, Vec2(64, 64) }, this, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::DYNAMIC, { _pos, 0.f, Vec2(64, 64) }, this, true);
 	box = Physics::CreateBoxCollider(body, { Vec2(0,0), 0.f, Vec2(32, 32) });
 
 	triggerRange = 64.f;
@@ -60,7 +60,6 @@ void Key::OnInteract(Actor* _interactingActor)
 		//Interactable* targetInteractable = dynamic_cast<Interactable*>(target);
 		if (ActivateTarget(target))
 		{
-
 			ClearTarget();
 			delete this;
 		}

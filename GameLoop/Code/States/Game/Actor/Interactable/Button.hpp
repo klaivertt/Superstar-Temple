@@ -14,7 +14,7 @@ private:
 	bool isPressed = false;
 
 public:
-	Button(GameData* _data);
+	Button(GameData* _data, Vec2 _pos);
 
 	std::string GetClassName(void) override { return "Button"; }
 

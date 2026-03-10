@@ -1,13 +1,13 @@
 ﻿#include "Button.hpp"
 #include "Tools/Physics/Physics.hpp"
 
-Button::Button(GameData* _data) : Interactable(_data)
+Button::Button(GameData* _data, Vec2 _pos) : Interactable(_data)
 {
 	texture.loadFromFile("Assets/Sprites/Game/Interactable/Button.png");
 	sprite.SetTexture(&texture);
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
 
-	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { Vec2(800 + rand() % 200, 100), 0.f, Vec2(0, 0) }, this, true);
+	body = Physics::CreateBody(data->physicsWorld, Physics::BodyType::STATIC, { _pos, 0.f, Vec2(0, 0) }, this, true);
 	Physics::CreateBoxTrigger(body, { Vec2(0,0), 0.f, Vec2(64, 64) });
 
 	//triggerRange = 55.f;

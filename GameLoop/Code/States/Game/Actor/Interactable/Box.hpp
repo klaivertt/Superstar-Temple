@@ -12,7 +12,7 @@ private:
 	Sprite sprite;
 
 public:
-	Box(GameData* _data);
+	Box(GameData* _data, Vec2 _pos);
 
 	std::string GetClassName(void) override { return "Box"; }
 

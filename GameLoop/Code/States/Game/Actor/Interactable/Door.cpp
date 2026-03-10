@@ -1,12 +1,11 @@
 #include "Door.hpp"
 #include "Tools/Physics/Physics.hpp"
 
-Door::Door(GameData* _data) : Interactable(_data)
+Door::Door(GameData* _data, Vec2 _pos) : Interactable(_data)
 {
 	sprite.SetTexture(data->assets->GetTexture("Assets/Sprites/Game/Map/Door.png"));
 	sprite.SetOrigin(Vec2(0.5f, 0.5f));
-	position = Vec2(800, 400);
-
+	position = _pos;
 	CreateCollider();
 }
 
@@ -33,7 +32,7 @@ void Door::OnCollisionExit(ColEvent _col)
 
 void Door::OnInteract(Actor* _interactingActor)
 {	
-
+	ToggleDoor();
 }
 
 void Door::ToggleDoor()
