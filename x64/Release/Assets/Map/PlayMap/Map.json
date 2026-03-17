@@ -273,7 +273,7 @@
                  "visible":true,
                  "width":0,
                  "x":832,
-                 "y":4160
+                 "y":4200
                 }, 
                 {
                  "height":0,
@@ -301,18 +301,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":22,
-                 "name":"DOOR \/05",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":832,
-                 "y":576
-                }, 
-                {
-                 "height":0,
                  "id":23,
                  "name":"DOOR \/12",
                  "point":true,
@@ -320,8 +308,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2368,
-                 "y":4160
+                 "x":2376,
+                 "y":4188
                 }, 
                 {
                  "height":0,
@@ -454,18 +442,6 @@
                  "width":0,
                  "x":1876,
                  "y":868
-                }, 
-                {
-                 "height":0,
-                 "id":89,
-                 "name":"PlayerSpawn 1",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":832,
-                 "y":6208
                 }, 
                 {
                  "height":0,
@@ -1318,8 +1294,7 @@
                  "width":0,
                  "x":384,
                  "y":1984
-                },
-            
+                }, 
                 {
                  "height":0,
                  "id":248,
@@ -1343,7 +1318,8 @@
                  "width":0,
                  "x":512,
                  "y":1984
-                }, 
+                },
+            
                 {
                  "height":0,
                  "id":250,
@@ -2158,7 +2134,7 @@
                  "visible":true,
                  "width":0,
                  "x":2112,
-                 "y":2176
+                 "y":2157
                 }, 
                 {
                  "height":0,
@@ -2170,7 +2146,7 @@
                  "visible":true,
                  "width":0,
                  "x":2176,
-                 "y":2176
+                 "y":2157
                 }, 
                 {
                  "height":0,
@@ -2182,7 +2158,7 @@
                  "visible":true,
                  "width":0,
                  "x":2240,
-                 "y":2176
+                 "y":2157
                 }, 
                 {
                  "height":0,
@@ -2194,7 +2170,7 @@
                  "visible":true,
                  "width":0,
                  "x":2304,
-                 "y":2176
+                 "y":2157
                 }, 
                 {
                  "height":0,
@@ -2206,7 +2182,7 @@
                  "visible":true,
                  "width":0,
                  "x":2304,
-                 "y":2304
+                 "y":2285
                 }, 
                 {
                  "height":0,
@@ -2217,8 +2193,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2176,
-                 "y":2304
+                 "x":2240,
+                 "y":2349
                 }, 
                 {
                  "height":0,
@@ -2229,8 +2205,20 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2112,
-                 "y":2304
+                 "x":2176,
+                 "y":2349
+                }, 
+                {
+                 "height":0,
+                 "id":372,
+                 "name":"FIRETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2119.67,
+                 "y":2352
                 }, 
                 {
                  "height":0,
@@ -2242,7 +2230,7 @@
                  "visible":true,
                  "width":0,
                  "x":2048,
-                 "y":2304
+                 "y":2285
                 }, 
                 {
                  "height":0,
@@ -2254,7 +2242,7 @@
                  "visible":true,
                  "width":0,
                  "x":2048,
-                 "y":2240
+                 "y":2221
                 }, 
                 {
                  "height":0,
@@ -2265,7 +2253,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2449,
+                 "x":2432,
                  "y":2304
                 }, 
                 {
@@ -2289,7 +2277,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2449,
+                 "x":2432,
                  "y":2368
                 }, 
                 {
@@ -2301,7 +2289,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2449,
+                 "x":2432,
                  "y":2432
                 }, 
                 {
@@ -2313,7 +2301,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2449,
+                 "x":2432,
                  "y":2496
                 }, 
                 {
@@ -2325,7 +2313,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2449,
+                 "x":2432,
                  "y":2560
                 }, 
                 {
@@ -2433,7 +2421,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2449,
+                 "x":2432,
                  "y":2752
                 }, 
                 {
@@ -2445,7 +2433,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2449,
+                 "x":2432,
                  "y":2688
                 }, 
                 {
@@ -2457,7 +2445,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2449,
+                 "x":2432,
                  "y":2624
                 }, 
                 {
@@ -2519,8 +2507,7 @@
                  "width":0,
                  "x":2176,
                  "y":2496
-                },
-            
+                }, 
                 {
                  "height":0,
                  "id":398,
@@ -2532,7 +2519,8 @@
                  "width":0,
                  "x":2112,
                  "y":2496
-                }, 
+                },
+            
                 {
                  "height":0,
                  "id":399,
@@ -2835,6 +2823,18 @@
                 }, 
                 {
                  "height":0,
+                 "id":429,
+                 "name":"SPIKETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":3968,
+                 "y":960
+                }, 
+                {
+                 "height":0,
                  "id":430,
                  "name":"SPIKETRAP",
                  "point":true,
@@ -2878,7 +2878,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":4544,
+                 "x":4480,
                  "y":896
                 }, 
                 {
@@ -2890,7 +2890,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":4544,
+                 "x":4480,
                  "y":960
                 }, 
                 {
@@ -2902,8 +2902,20 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":4544,
+                 "x":4480,
                  "y":1024
+                }, 
+                {
+                 "height":0,
+                 "id":436,
+                 "name":"FIRETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":4160,
+                 "y":704
                 }, 
                 {
                  "height":0,
@@ -2967,6 +2979,18 @@
                 }, 
                 {
                  "height":0,
+                 "id":442,
+                 "name":"FIRETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":4352,
+                 "y":960
+                }, 
+                {
+                 "height":0,
                  "id":443,
                  "name":"FIRETRAP",
                  "point":true,
@@ -2998,7 +3022,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":4544,
+                 "x":4480,
                  "y":832
                 }, 
                 {
@@ -3010,8 +3034,20 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":4544,
+                 "x":4480,
                  "y":768
+                }, 
+                {
+                 "height":0,
+                 "id":447,
+                 "name":"FIRETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":4480,
+                 "y":704
                 }, 
                 {
                  "height":0,
@@ -3084,6 +3120,18 @@
                  "width":0,
                  "x":5824,
                  "y":1408
+                }, 
+                {
+                 "height":0,
+                 "id":454,
+                 "name":"FIRETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5824,
+                 "y":1472
                 }, 
                 {
                  "height":0,
@@ -3226,7 +3274,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":4672,
+                 "x":4608,
                  "y":768
                 }, 
                 {
@@ -3599,7 +3647,19 @@
                  "visible":true,
                  "width":0,
                  "x":2048,
-                 "y":2176
+                 "y":2157
+                }, 
+                {
+                 "height":0,
+                 "id":514,
+                 "name":"FIRETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2048,
+                 "y":2349
                 }, 
                 {
                  "height":0,
@@ -3610,8 +3670,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2240,
-                 "y":2304
+                 "x":2304,
+                 "y":2349
                 }, 
                 {
                  "height":0,
@@ -3623,7 +3683,7 @@
                  "visible":true,
                  "width":0,
                  "x":2304,
-                 "y":2240
+                 "y":2221
                 }, 
                 {
                  "height":0,
@@ -3660,7 +3720,8 @@
                  "width":0,
                  "x":960,
                  "y":640
-                }, 
+                },
+            
                 {
                  "height":0,
                  "id":520,
@@ -3720,8 +3781,7 @@
                  "width":0,
                  "x":2944,
                  "y":1408
-                },
-            
+                }, 
                 {
                  "height":0,
                  "id":525,
@@ -3736,63 +3796,15 @@
                 }, 
                 {
                  "height":0,
-                 "id":527,
-                 "name":"SPIKETRAP",
+                 "id":526,
+                 "name":"PlayerSpawn 1",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":5568,
-                 "y":1344
-                }, 
-                {
-                 "height":0,
-                 "id":528,
-                 "name":"SPIKETRAP",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":5568,
-                 "y":1408
-                }, 
-                {
-                 "height":0,
-                 "id":529,
-                 "name":"SPIKETRAP",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":5568,
-                 "y":1472
-                }, 
-                {
-                 "height":0,
-                 "id":530,
-                 "name":"SPIKETRAP",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":5568,
-                 "y":1536
-                }, 
-                {
-                 "height":0,
-                 "id":531,
-                 "name":"SPIKETRAP",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":5568,
-                 "y":1600
+                 "x":827,
+                 "y":670
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -4984,6 +4996,78 @@
                  "y":5184
                 }, 
                 {
+                 "height":0,
+                 "id":461,
+                 "name":"SPIKETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5632,
+                 "y":1280
+                }, 
+                {
+                 "height":0,
+                 "id":462,
+                 "name":"SPIKETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5632,
+                 "y":1344
+                }, 
+                {
+                 "height":0,
+                 "id":463,
+                 "name":"SPIKETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5632,
+                 "y":1408
+                }, 
+                {
+                 "height":0,
+                 "id":464,
+                 "name":"SPIKETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5632,
+                 "y":1472
+                }, 
+                {
+                 "height":0,
+                 "id":465,
+                 "name":"SPIKETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5632,
+                 "y":1536
+                }, 
+                {
+                 "height":0,
+                 "id":466,
+                 "name":"SPIKETRAP",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5632,
+                 "y":1600
+                }, 
+                {
                  "height":64,
                  "id":481,
                  "name":"",
@@ -5012,7 +5096,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":536,
+ "nextobjectid":527,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

@@ -35,9 +35,11 @@ void Text::Create(FontType _fontType, sf::Vector2f _origin, sf::Color _color, un
 {
 	text.setFont(fonts[(int)_fontType]);
 	text.setFillColor(_color);
+	text.setCharacterSize(_size);
 
 	shadow.setFont(fonts[(int)_fontType]);
 	shadow.setFillColor(shadowColor);
+	shadow.setCharacterSize(_size);
 
 	origin = _origin;
 }
@@ -82,7 +84,7 @@ void Text::EnableShadow(bool _enable)
 void Text::SetShadowOffset(sf::Vector2f _offset)
 {
 	SetShadowOffset(_offset.x, _offset.y);
-	
+
 }
 
 void Text::SetShadowOffset(float _x, float _y)
