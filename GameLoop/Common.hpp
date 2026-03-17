@@ -40,7 +40,7 @@
 #define SCREEN_H 1080
 #define SCREEN_SIZE sf::Vector2f(SCREEN_W, SCREEN_H)
 
-#define GAME_NAME "Shadow Tower"
+#define GAME_NAME "SuperStar Temple"
 #define GRAVITY 9.81f
 
 DECLARE_DELEGATE(PropertyDelegate);

@@ -64,13 +64,13 @@ Player::Player(GameData* _data, Vec2 _spawnPosition, const std::string& _inputPr
 	sprite = new Sprite(data->assets->GetTexture("Assets/Sprites/Game/Player.png"));
 	sprite->SetColor(_color);
 	sprite->SetOrigin(Vec2(0.5f));
-#if _DEBUG
+//#if _DEBUG
 	_data->guiManager->RegisterWindow(debugWindowName, true, ImGuiWindowFlags_AlwaysAutoResize);
 	_data->guiManager->AddSliderFloat(debugWindowName, "speed", "value", &speed, 0.f, 35.f);
 	_data->guiManager->AddSliderFloat(debugWindowName, "maxHealth", "Max Value", &maxHealth, 0.f, 200.f);
 	// Add a slider to change the health in percentage
 	_data->guiManager->AddSliderFloat(debugWindowName, "health", "Health in %", &healthInPercent, 0.f, 100.f, [this](float _health, std::string _n) { SetHealthInPercent(_health); });
-#endif
+//#endif
 
 	InitInputs();
 }

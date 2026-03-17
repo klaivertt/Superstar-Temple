@@ -117,8 +117,6 @@ void Game::Load(void)
 	duel = nullptr;
 	duelTrigger = nullptr;
 
-	data->guiManager->AddButton("Game", "Scene", "Reset", [this](std::string _n)
-		{ ResetScene(); });
 	data->inputs->GetPressedDelegate("DEBUG")->Add(this, &Game::OnPressedDebugKey);
 
 	// Les acteurs sont ajout�s automatiquement � la sc�ne donc pas

@@ -56,7 +56,7 @@ int main(void)
 
 		Update(data, data->dt);
 
-		data->render->clear(sf::Color::Blue);
+		data->render->clear(sf::Color(63, 70, 98, 255));
 		Draw(data);
 		data->render->display();
 	}
