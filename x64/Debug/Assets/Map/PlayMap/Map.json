@@ -301,18 +301,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":22,
-                 "name":"DOOR \/05",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":832,
-                 "y":576
-                }, 
-                {
-                 "height":0,
                  "id":23,
                  "name":"DOOR \/12",
                  "point":true,
@@ -454,18 +442,6 @@
                  "width":0,
                  "x":1876,
                  "y":868
-                }, 
-                {
-                 "height":0,
-                 "id":89,
-                 "name":"PlayerSpawn 1",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":832,
-                 "y":6208
                 }, 
                 {
                  "height":0,
@@ -1318,8 +1294,7 @@
                  "width":0,
                  "x":384,
                  "y":1984
-                },
-            
+                }, 
                 {
                  "height":0,
                  "id":248,
@@ -1343,7 +1318,8 @@
                  "width":0,
                  "x":512,
                  "y":1984
-                }, 
+                },
+            
                 {
                  "height":0,
                  "id":250,
@@ -2519,8 +2495,7 @@
                  "width":0,
                  "x":2240,
                  "y":2496
-                },
-            
+                }, 
                 {
                  "height":0,
                  "id":397,
@@ -2544,7 +2519,8 @@
                  "width":0,
                  "x":2112,
                  "y":2496
-                }, 
+                },
+            
                 {
                  "height":0,
                  "id":399,
@@ -3720,8 +3696,7 @@
                  "width":0,
                  "x":704,
                  "y":768
-                },
-            
+                }, 
                 {
                  "height":0,
                  "id":518,
@@ -3745,7 +3720,8 @@
                  "width":0,
                  "x":960,
                  "y":640
-                }, 
+                },
+            
                 {
                  "height":0,
                  "id":520,
@@ -3817,6 +3793,18 @@
                  "width":0,
                  "x":1344,
                  "y":2112
+                }, 
+                {
+                 "height":0,
+                 "id":526,
+                 "name":"PlayerSpawn 1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":827,
+                 "y":670
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5108,7 +5096,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":526,
+ "nextobjectid":527,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
